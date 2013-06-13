@@ -1,0 +1,1397 @@
+('Add', <bound method BOARD.Add of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('AddArea', <bound method BOARD.AddArea of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('AddNative', <bound method BOARD.AddNative of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('AppendNet', <bound method BOARD.AppendNet of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Back', <bound method BOARD.Back of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('BuildListOfNets', <bound method BOARD.BuildListOfNets of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast', <bound method BOARD.Cast of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_BOARD', <bound method BOARD.Cast_to_BOARD of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_DIMENSION', <bound method BOARD.Cast_to_DIMENSION of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_DRAWSEGMENT', <bound method BOARD.Cast_to_DRAWSEGMENT of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_D_PAD', <bound method BOARD.Cast_to_D_PAD of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_EDGE_MODULE', <bound method BOARD.Cast_to_EDGE_MODULE of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_MARKER_PCB', <bound method BOARD.Cast_to_MARKER_PCB of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_MODULE', <bound method BOARD.Cast_to_MODULE of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_SEGVIA', <bound method BOARD.Cast_to_SEGVIA of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_SEGZONE', <bound method BOARD.Cast_to_SEGZONE of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_TEXTE_MODULE', <bound method BOARD.Cast_to_TEXTE_MODULE of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_TEXTE_PCB', <bound method BOARD.Cast_to_TEXTE_PCB of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Cast_to_TRACK', <bound method BOARD.Cast_to_TRACK of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('ClearFlags', <bound method BOARD.ClearFlags of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Clone', <bound method BOARD.Clone of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('CombineAllAreasInNet', <bound method BOARD.CombineAllAreasInNet of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('CombineAreas', <bound method BOARD.CombineAreas of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('ComputeBoundingBox', <bound method BOARD.ComputeBoundingBox of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('CreateLockPoint', <bound method BOARD.CreateLockPoint of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Delete', <bound method BOARD.Delete of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('DeleteMARKERs', <bound method BOARD.DeleteMARKERs of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('DeleteStructure', <bound method BOARD.DeleteStructure of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('DeleteZONEOutlines', <bound method BOARD.DeleteZONEOutlines of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Draw', <bound method BOARD.Draw of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('DrawHighLight', <bound method BOARD.DrawHighLight of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('FindModuleByReference', <bound method BOARD.FindModuleByReference of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('FindNet', <bound method BOARD.FindNet of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Flip', <bound method BOARD.Flip of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('FormatAngle', <function FormatAngle at 0x217f758>)
+('FormatInternalUnits', <function FormatInternalUnits at 0x217f848>)
+('GetArea', <bound method BOARD.GetArea of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetAreaCount', <bound method BOARD.GetAreaCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetAreaIndex', <bound method BOARD.GetAreaIndex of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetBiggestClearanceValue', <bound method BOARD.GetBiggestClearanceValue of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetBoard', <bound method BOARD.GetBoard of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetBoundingBox', <bound method BOARD.GetBoundingBox of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetClass', <bound method BOARD.GetClass of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetColorsSettings', <bound method BOARD.GetColorsSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCopperLayerCount', <bound method BOARD.GetCopperLayerCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCurrentMicroViaDrill', <bound method BOARD.GetCurrentMicroViaDrill of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCurrentMicroViaSize', <bound method BOARD.GetCurrentMicroViaSize of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCurrentNetClassName', <bound method BOARD.GetCurrentNetClassName of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCurrentTrackWidth', <bound method BOARD.GetCurrentTrackWidth of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCurrentViaDrill', <bound method BOARD.GetCurrentViaDrill of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetCurrentViaSize', <bound method BOARD.GetCurrentViaSize of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetDesignSettings', <bound method BOARD.GetDesignSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetDrawings', <bound method BOARD.GetDrawings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetEnabledLayers', <bound method BOARD.GetEnabledLayers of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetFileFormatVersionAtLoad', <bound method BOARD.GetFileFormatVersionAtLoad of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetFileName', <bound method BOARD.GetFileName of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetFlags', <bound method BOARD.GetFlags of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetFootprint', <bound method BOARD.GetFootprint of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetFullRatsnest', <bound method BOARD.GetFullRatsnest of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetHighLightNetCode', <bound method BOARD.GetHighLightNetCode of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetLayer', <bound method BOARD.GetLayer of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetLayerColor', <bound method BOARD.GetLayerColor of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetLayerName', <bound method BOARD.GetLayerName of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetLayerType', <bound method BOARD.GetLayerType of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetList', <bound method BOARD.GetList of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetLocalRatsnest', <bound method BOARD.GetLocalRatsnest of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetLockPoint', <bound method BOARD.GetLockPoint of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetMARKER', <bound method BOARD.GetMARKER of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetMARKERCount', <bound method BOARD.GetMARKERCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetMenuImage', <bound method BOARD.GetMenuImage of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetModules', <bound method BOARD.GetModules of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetMsgPanelInfo', <bound method BOARD.GetMsgPanelInfo of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetNetClasses', <bound method BOARD.GetNetClasses of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetNetCount', <bound method BOARD.GetNetCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetNodesCount', <bound method BOARD.GetNodesCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetNumSegmTrack', <bound method BOARD.GetNumSegmTrack of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetNumSegmZone', <bound method BOARD.GetNumSegmZone of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetOriginAxisPosition', <bound method BOARD.GetOriginAxisPosition of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetPad', <bound method BOARD.GetPad of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetPadCount', <bound method BOARD.GetPadCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetPadFast', <bound method BOARD.GetPadFast of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetPads', <bound method BOARD.GetPads of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetPageSettings', <bound method BOARD.GetPageSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetParent', <bound method BOARD.GetParent of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetPlotOptions', <bound method BOARD.GetPlotOptions of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetRatsnestsCount', <bound method BOARD.GetRatsnestsCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetSegZones', <bound method BOARD.GetSegZones of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetSelectMenuText', <bound method BOARD.GetSelectMenuText of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetSmallestClearanceValue', <bound method BOARD.GetSmallestClearanceValue of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetSon', <bound method BOARD.GetSon of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetSortedPadListByXthenYCoord', <bound method BOARD.GetSortedPadListByXthenYCoord of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetStandardLayerName', <function GetStandardLayerName at 0x21850c8>)
+('GetState', <bound method BOARD.GetState of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetStatus', <bound method BOARD.GetStatus of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetTimeStamp', <bound method BOARD.GetTimeStamp of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetTitleBlock', <bound method BOARD.GetTitleBlock of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetTrace', <bound method BOARD.GetTrace of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetTrackWidthIndex', <bound method BOARD.GetTrackWidthIndex of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetTrackWidthList', <bound method BOARD.GetTrackWidthList of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetTracks', <bound method BOARD.GetTracks of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetUnconnectedNetCount', <bound method BOARD.GetUnconnectedNetCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetViaByPosition', <bound method BOARD.GetViaByPosition of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetViaSizeIndex', <bound method BOARD.GetViaSizeIndex of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetViasDimensionsList', <bound method BOARD.GetViasDimensionsList of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetVisibleElementColor', <bound method BOARD.GetVisibleElementColor of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetVisibleElements', <bound method BOARD.GetVisibleElements of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetVisibleLayers', <bound method BOARD.GetVisibleLayers of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('GetZoneSettings', <bound method BOARD.GetZoneSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('HighLightOFF', <bound method BOARD.HighLightOFF of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('HighLightON', <bound method BOARD.HighLightON of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('HitTest', <bound method BOARD.HitTest of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('HitTestForAnyFilledArea', <bound method BOARD.HitTestForAnyFilledArea of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('InsertArea', <bound method BOARD.InsertArea of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsDragging', <bound method BOARD.IsDragging of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsElementVisible', <bound method BOARD.IsElementVisible of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsHighLightNetON', <bound method BOARD.IsHighLightNetON of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsLayerEnabled', <bound method BOARD.IsLayerEnabled of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsLayerVisible', <bound method BOARD.IsLayerVisible of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsLocked', <bound method BOARD.IsLocked of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsModified', <bound method BOARD.IsModified of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsModuleLayerVisible', <bound method BOARD.IsModuleLayerVisible of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsMoving', <bound method BOARD.IsMoving of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsNew', <bound method BOARD.IsNew of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsOnLayer', <bound method BOARD.IsOnLayer of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsReplaceable', <bound method BOARD.IsReplaceable of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsResized', <bound method BOARD.IsResized of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsSelected', <bound method BOARD.IsSelected of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IsTrack', <bound method BOARD.IsTrack of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('IterateForward', <function IterateForward at 0x21759b0>)
+('MarkTrace', <bound method BOARD.MarkTrace of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Matches', <bound method BOARD.Matches of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Move', <bound method BOARD.Move of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Next', <bound method BOARD.Next of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('NormalizeAreaPolygon', <bound method BOARD.NormalizeAreaPolygon of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('OnAreaPolygonModified', <bound method BOARD.OnAreaPolygonModified of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('PopHighLight', <bound method BOARD.PopHighLight of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('PushHighLight', <bound method BOARD.PushHighLight of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('RedrawAreasOutlines', <bound method BOARD.RedrawAreasOutlines of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('RedrawFilledAreas', <bound method BOARD.RedrawFilledAreas of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Remove', <bound method BOARD.Remove of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('RemoveArea', <bound method BOARD.RemoveArea of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Replace', <bound method BOARD.Replace of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('ResetHighLight', <bound method BOARD.ResetHighLight of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('ReturnSortedNetnamesList', <bound method BOARD.ReturnSortedNetnamesList of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Rotate', <bound method BOARD.Rotate of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Save', <bound method BOARD.Save of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetAreasNetCodesFromNetNames', <bound method BOARD.SetAreasNetCodesFromNetNames of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetBoundingBox', <bound method BOARD.SetBoundingBox of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetColorsSettings', <bound method BOARD.SetColorsSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetCopperLayerCount', <bound method BOARD.SetCopperLayerCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetCurrentNetClass', <bound method BOARD.SetCurrentNetClass of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetCurrentNetClassName', <bound method BOARD.SetCurrentNetClassName of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetDesignSettings', <bound method BOARD.SetDesignSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetElementVisibility', <bound method BOARD.SetElementVisibility of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetEnabledLayers', <bound method BOARD.SetEnabledLayers of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetFileFormatVersionAtLoad', <bound method BOARD.SetFileFormatVersionAtLoad of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetFileName', <bound method BOARD.SetFileName of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetFlags', <bound method BOARD.SetFlags of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetForceVisible', <bound method BOARD.SetForceVisible of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetHighLightNet', <bound method BOARD.SetHighLightNet of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetImage', <bound method BOARD.SetImage of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetLayer', <bound method BOARD.SetLayer of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetLayerColor', <bound method BOARD.SetLayerColor of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetLayerName', <bound method BOARD.SetLayerName of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetLayerType', <bound method BOARD.SetLayerType of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetList', <bound method BOARD.SetList of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetModified', <bound method BOARD.SetModified of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetNodeCount', <bound method BOARD.SetNodeCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetOriginAxisPosition', <bound method BOARD.SetOriginAxisPosition of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetPageSettings', <bound method BOARD.SetPageSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetParent', <bound method BOARD.SetParent of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetPlotOptions', <bound method BOARD.SetPlotOptions of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetPos', <bound method BOARD.SetPos of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetSon', <bound method BOARD.SetSon of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetStartEnd', <bound method BOARD.SetStartEnd of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetState', <bound method BOARD.SetState of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetStatus', <bound method BOARD.SetStatus of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetTimeStamp', <bound method BOARD.SetTimeStamp of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetTitleBlock', <bound method BOARD.SetTitleBlock of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetTrackWidthIndex', <bound method BOARD.SetTrackWidthIndex of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetUnconnectedNetCount', <bound method BOARD.SetUnconnectedNetCount of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetViaSizeIndex', <bound method BOARD.SetViaSizeIndex of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetVisibleAlls', <bound method BOARD.SetVisibleAlls of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetVisibleElementColor', <bound method BOARD.SetVisibleElementColor of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetVisibleElements', <bound method BOARD.SetVisibleElements of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetVisibleLayers', <bound method BOARD.SetVisibleLayers of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('SetZoneSettings', <bound method BOARD.SetZoneSettings of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('ShowShape', <function ShowShape at 0x217f410>)
+('Sort', <function Sort at 0x2175e60>)
+('SynchronizeNetsAndNetClasses', <bound method BOARD.SynchronizeNetsAndNetClasses of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('TestAreaIntersection', <bound method BOARD.TestAreaIntersection of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('TestAreaIntersections', <bound method BOARD.TestAreaIntersections of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Test_Connections_To_Copper_Areas', <bound method BOARD.Test_Connections_To_Copper_Areas of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Test_Drc_Areas_Outlines_To_Areas_Outlines', <bound method BOARD.Test_Drc_Areas_Outlines_To_Areas_Outlines of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Type', <bound method BOARD.Type of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('UnLink', <bound method BOARD.UnLink of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('Visit', <bound method BOARD.Visit of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__class__', <class 'pcbnew.BOARD'>)
+('__del__', <bound method BOARD.<lambda> of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__delattr__', <method-wrapper '__delattr__' of BOARD object at 0x2225e90>)
+('__dict__', {'this': <Swig Object of type 'BOARD *' at 0x2061780>})
+('__doc__', 'Proxy of C++ BOARD class')
+('__format__', <built-in method __format__ of BOARD object at 0x2225e90>)
+('__getattr__', <bound method BOARD.<lambda> of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__getattribute__', <method-wrapper '__getattribute__' of BOARD object at 0x2225e90>)
+('__hash__', <method-wrapper '__hash__' of BOARD object at 0x2225e90>)
+('__init__', <bound method BOARD.__init__ of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__lt__', <bound method BOARD.__lt__ of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__module__', 'pcbnew')
+('__new__', <built-in method __new__ of type object at 0x88cd40>)
+('__reduce__', <built-in method __reduce__ of BOARD object at 0x2225e90>)
+('__reduce_ex__', <built-in method __reduce_ex__ of BOARD object at 0x2225e90>)
+('__repr__', <bound method BOARD._swig_repr of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__setattr__', <bound method BOARD.<lambda> of <pcbnew.BOARD; proxy of <Swig Object of type 'BOARD *' at 0x2061780> >>)
+('__sizeof__', <built-in method __sizeof__ of BOARD object at 0x2225e90>)
+('__str__', <method-wrapper '__str__' of BOARD object at 0x2225e90>)
+('__subclasshook__', <built-in method __subclasshook__ of type object at 0x21fe540>)
+('__swig_destroy__', <built-in function delete_BOARD>)
+('__swig_getmethods__', {'Sort': <function <lambda> at 0x2175ed8>, 'm_Track': <built-in function BOARD_m_Track_get>, 'IterateForward': <function <lambda> at 0x2175a28>, 'FormatInternalUnits': <function <lambda> at 0x217f8c0>, 'm_ViasDimensionsList': <built-in function BOARD_m_ViasDimensionsList_get>, 'm_Modules': <built-in function BOARD_m_Modules_get>, 'm_Zone': <built-in function BOARD_m_Zone_get>, 'm_CurrentZoneContour': <built-in function BOARD_m_CurrentZoneContour_get>, 'm_TrackWidthList': <built-in function BOARD_m_TrackWidthList_get>, 'GetStandardLayerName': <function <lambda> at 0x2185140>, 'm_FullRatsnest': <built-in function BOARD_m_FullRatsnest_get>, 'm_Status_Pcb': <built-in function BOARD_m_Status_Pcb_get>, 'ShowShape': <function <lambda> at 0x217f488>, 'm_LocalRatsnest': <built-in function BOARD_m_LocalRatsnest_get>, 'm_NetClasses': <built-in function BOARD_m_NetClasses_get>, 'FormatAngle': <function <lambda> at 0x217f7d0>, 'm_Drawings': <built-in function BOARD_m_Drawings_get>})
+('__swig_setmethods__', {'m_Track': <built-in function BOARD_m_Track_set>, 'm_ViasDimensionsList': <built-in function BOARD_m_ViasDimensionsList_set>, 'm_Modules': <built-in function BOARD_m_Modules_set>, 'm_Zone': <built-in function BOARD_m_Zone_set>, 'm_TrackWidthList': <built-in function BOARD_m_TrackWidthList_set>, 'm_FullRatsnest': <built-in function BOARD_m_FullRatsnest_set>, 'm_Status_Pcb': <built-in function BOARD_m_Status_Pcb_set>, 'm_LocalRatsnest': <built-in function BOARD_m_LocalRatsnest_set>, 'm_NetClasses': <built-in function BOARD_m_NetClasses_set>, 'm_CurrentZoneContour': <built-in function BOARD_m_CurrentZoneContour_set>, 'm_Drawings': <built-in function BOARD_m_Drawings_set>})
+('__weakref__', None)
+('_s', <class 'pcbnew.BOARD_ITEM'>)
+('m_CurrentZoneContour', None)
+('m_Drawings', <pcbnew.BOARD_ITEM_List; proxy of <Swig Object of type 'DLIST< BOARD_ITEM > *' at 0x22a8180> >)
+('m_FullRatsnest', <pcbnew.RASTNET_Vector; proxy of <Swig Object of type 'std::vector< RATSNEST_ITEM,std::allocator< RATSNEST_ITEM > > *' at 0x22d4d80> >)
+('m_LocalRatsnest', <pcbnew.RASTNET_Vector; proxy of <Swig Object of type 'std::vector< RATSNEST_ITEM,std::allocator< RATSNEST_ITEM > > *' at 0x22d4a80> >)
+('m_Modules', <pcbnew.MODULE_List; proxy of <Swig Object of type 'DLIST< MODULE > *' at 0x22d4ab0> >)
+('m_NetClasses', <pcbnew.NETCLASSES; proxy of <Swig Object of type 'NETCLASSES *' at 0x22daf90> >)
+('m_Status_Pcb', 0)
+('m_Track', <pcbnew.TRACK_List; proxy of <Swig Object of type 'DLIST< TRACK > *' at 0x22fdf90> >)
+('m_TrackWidthList', <pcbnew.intVector; proxy of <Swig Object of type 'std::vector< int > *' at 0x22fdfc0> >)
+('m_ViasDimensionsList', <pcbnew.VIA_DIMENSION_Vector; proxy of <Swig Object of type 'std::vector< VIA_DIMENSION > *' at 0x2316030> >)
+('m_Zone', <pcbnew.SEGZONE_List; proxy of <Swig Object of type 'DLIST< SEGZONE > *' at 0x2316060> >)
+('this', <Swig Object of type 'BOARD *' at 0x2061780>)
+LISTING VIAS:
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >
+('Back', <bound method TRACK.Back of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast', <bound method TRACK.Cast of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_BOARD', <bound method TRACK.Cast_to_BOARD of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_DIMENSION', <bound method TRACK.Cast_to_DIMENSION of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_DRAWSEGMENT', <bound method TRACK.Cast_to_DRAWSEGMENT of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_D_PAD', <bound method TRACK.Cast_to_D_PAD of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_EDGE_MODULE', <bound method TRACK.Cast_to_EDGE_MODULE of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_MARKER_PCB', <bound method TRACK.Cast_to_MARKER_PCB of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_MODULE', <bound method TRACK.Cast_to_MODULE of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_SEGVIA', <bound method TRACK.Cast_to_SEGVIA of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_SEGZONE', <bound method TRACK.Cast_to_SEGZONE of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_TEXTE_MODULE', <bound method TRACK.Cast_to_TEXTE_MODULE of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_TEXTE_PCB', <bound method TRACK.Cast_to_TEXTE_PCB of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Cast_to_TRACK', <bound method TRACK.Cast_to_TRACK of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('ClearFlags', <bound method TRACK.ClearFlags of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Clone', <bound method TRACK.Clone of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('DeleteStructure', <bound method TRACK.DeleteStructure of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Draw', <bound method TRACK.Draw of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Flip', <bound method TRACK.Flip of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('FormatAngle', <function FormatAngle at 0x217f758>)
+('FormatInternalUnits', <function FormatInternalUnits at 0x217f848>)
+('GetBestInsertPoint', <bound method TRACK.GetBestInsertPoint of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetBoard', <bound method TRACK.GetBoard of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetBoundingBox', <bound method TRACK.GetBoundingBox of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetClass', <bound method TRACK.GetClass of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetClearance', <bound method TRACK.GetClearance of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetDrill', <bound method TRACK.GetDrill of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetDrillValue', <bound method TRACK.GetDrillValue of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetEnd', <bound method TRACK.GetEnd of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetEndNetCode', <bound method TRACK.GetEndNetCode of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetEndSegments', <bound method TRACK.GetEndSegments of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetFlags', <bound method TRACK.GetFlags of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetLayer', <bound method TRACK.GetLayer of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetLayerMask', <bound method TRACK.GetLayerMask of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetLayerName', <bound method TRACK.GetLayerName of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetLength', <bound method TRACK.GetLength of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetList', <bound method TRACK.GetList of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetMenuImage', <bound method TRACK.GetMenuImage of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetMsgPanelInfo', <bound method TRACK.GetMsgPanelInfo of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetMsgPanelInfoBase', <bound method TRACK.GetMsgPanelInfoBase of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetNet', <bound method TRACK.GetNet of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetNetClass', <bound method TRACK.GetNetClass of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetNetClassName', <bound method TRACK.GetNetClassName of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetParent', <bound method TRACK.GetParent of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetPosition', <bound method TRACK.GetPosition of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetSelectMenuText', <bound method TRACK.GetSelectMenuText of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetShape', <bound method TRACK.GetShape of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetSon', <bound method TRACK.GetSon of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetStart', <bound method TRACK.GetStart of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetStartNetCode', <bound method TRACK.GetStartNetCode of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetState', <bound method TRACK.GetState of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetStatus', <bound method TRACK.GetStatus of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetSubNet', <bound method TRACK.GetSubNet of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetTimeStamp', <bound method TRACK.GetTimeStamp of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetTrace', <bound method TRACK.GetTrace of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetVia', <bound method TRACK.GetVia of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetWidth', <bound method TRACK.GetWidth of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('GetZoneSubNet', <bound method TRACK.GetZoneSubNet of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('HitTest', <bound method TRACK.HitTest of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsDragging', <bound method TRACK.IsDragging of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsDrillDefault', <bound method TRACK.IsDrillDefault of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsLocked', <bound method TRACK.IsLocked of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsModified', <bound method TRACK.IsModified of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsMoving', <bound method TRACK.IsMoving of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsNew', <bound method TRACK.IsNew of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsNull', <bound method TRACK.IsNull of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsOnLayer', <bound method TRACK.IsOnLayer of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsPointOnEnds', <bound method TRACK.IsPointOnEnds of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsReplaceable', <bound method TRACK.IsReplaceable of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsResized', <bound method TRACK.IsResized of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsSelected', <bound method TRACK.IsSelected of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IsTrack', <bound method TRACK.IsTrack of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('IterateForward', <function IterateForward at 0x21759b0>)
+('Matches', <bound method TRACK.Matches of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Move', <bound method TRACK.Move of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Next', <bound method TRACK.Next of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Replace', <bound method TRACK.Replace of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Rotate', <bound method TRACK.Rotate of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetDrill', <bound method TRACK.SetDrill of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetDrillDefault', <bound method TRACK.SetDrillDefault of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetEnd', <bound method TRACK.SetEnd of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetFlags', <bound method TRACK.SetFlags of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetForceVisible', <bound method TRACK.SetForceVisible of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetImage', <bound method TRACK.SetImage of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetLayer', <bound method TRACK.SetLayer of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetList', <bound method TRACK.SetList of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetModified', <bound method TRACK.SetModified of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetNet', <bound method TRACK.SetNet of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetParent', <bound method TRACK.SetParent of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetPos', <bound method TRACK.SetPos of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetPosition', <bound method TRACK.SetPosition of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetShape', <bound method TRACK.SetShape of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetSon', <bound method TRACK.SetSon of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetStart', <bound method TRACK.SetStart of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetStartEnd', <bound method TRACK.SetStartEnd of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetState', <bound method TRACK.SetState of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetStatus', <bound method TRACK.SetStatus of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetSubNet', <bound method TRACK.SetSubNet of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetTimeStamp', <bound method TRACK.SetTimeStamp of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetWidth', <bound method TRACK.SetWidth of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('SetZoneSubNet', <bound method TRACK.SetZoneSubNet of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('ShowShape', <function ShowShape at 0x217f410>)
+('ShowWidth', <bound method TRACK.ShowWidth of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Sort', <function Sort at 0x2175e60>)
+('TransformShapeWithClearanceToPolygon', <bound method TRACK.TransformShapeWithClearanceToPolygon of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Type', <bound method TRACK.Type of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('UnLink', <bound method TRACK.UnLink of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('Visit', <bound method TRACK.Visit of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__class__', <class 'pcbnew.TRACK'>)
+('__del__', <bound method TRACK.<lambda> of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__delattr__', <method-wrapper '__delattr__' of TRACK object at 0x2302650>)
+('__dict__', {'this': <Swig Object of type 'TRACK *' at 0x22daf90>})
+('__doc__', 'Proxy of C++ TRACK class')
+('__format__', <built-in method __format__ of TRACK object at 0x2302650>)
+('__getattr__', <bound method TRACK.<lambda> of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__getattribute__', <method-wrapper '__getattribute__' of TRACK object at 0x2302650>)
+('__hash__', <method-wrapper '__hash__' of TRACK object at 0x2302650>)
+('__init__', <bound method TRACK.__init__ of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__lt__', <bound method TRACK.__lt__ of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__module__', 'pcbnew')
+('__new__', <built-in method __new__ of type object at 0x88cd40>)
+('__reduce__', <built-in method __reduce__ of TRACK object at 0x2302650>)
+('__reduce_ex__', <built-in method __reduce_ex__ of TRACK object at 0x2302650>)
+('__repr__', <bound method TRACK._swig_repr of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__setattr__', <bound method TRACK.<lambda> of <pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x22daf90> >>)
+('__sizeof__', <built-in method __sizeof__ of TRACK object at 0x2302650>)
+('__str__', <method-wrapper '__str__' of TRACK object at 0x2302650>)
+('__subclasshook__', <built-in method __subclasshook__ of type object at 0x2245180>)
+('__swig_destroy__', <built-in function delete_TRACK>)
+('__swig_getmethods__', {'Sort': <function <lambda> at 0x2175ed8>, 'start': <built-in function TRACK_start_get>, 'IterateForward': <function <lambda> at 0x2175a28>, 'FormatInternalUnits': <function <lambda> at 0x217f8c0>, 'ShowShape': <function <lambda> at 0x217f488>, 'm_TracksConnected': <built-in function BOARD_CONNECTED_ITEM_m_TracksConnected_get>, 'end': <built-in function TRACK_end_get>, 'm_PadsConnected': <built-in function BOARD_CONNECTED_ITEM_m_PadsConnected_get>, 'FormatAngle': <function <lambda> at 0x217f7d0>, 'm_Param': <built-in function TRACK_m_Param_get>})
+('__swig_setmethods__', {'m_TracksConnected': <built-in function BOARD_CONNECTED_ITEM_m_TracksConnected_set>, 'start': <built-in function TRACK_start_set>, 'end': <built-in function TRACK_end_set>, 'm_PadsConnected': <built-in function BOARD_CONNECTED_ITEM_m_PadsConnected_set>, 'm_Param': <built-in function TRACK_m_Param_set>})
+('__weakref__', None)
+('_s', <class 'pcbnew.BOARD_CONNECTED_ITEM'>)
+('end', None)
+('m_PadsConnected', <Swig Object of type 'std::vector< D_PAD *,std::allocator< D_PAD * > > *' at 0x22d4d80>)
+('m_Param', 0.0)
+('m_TracksConnected', <Swig Object of type 'TRACK_PTRS *' at 0x22d4a80>)
+('start', None)
+('this', <Swig Object of type 'TRACK *' at 0x22daf90>)
+ * Track: (4175.0, 4800.0) to (4250.0, 4800.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3725.0, 4900.0) to (3825.0, 5000.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3850.0, 4650.0) to (3775.0, 4650.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3950.0, 4650.0) to (3850.0, 4650.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4575.0, 4800.0) to (4650.0, 4725.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4650.0, 4725.0) to (4650.0, 4700.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4250.0, 4800.0) to (4575.0, 4800.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3775.0, 4650.0) to (3725.0, 4700.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3725.0, 4700.0) to (3725.0, 4900.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3975.0, 5000.0) to (4175.0, 4800.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3825.0, 5000.0) to (3975.0, 5000.0), width 25.000000, net 2
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4525.0, 4575.0) to (4725.0, 4575.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4525.0, 4025.0) to (4450.0, 4100.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4750.0, 4600.0) to (4750.0, 4700.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4525.0, 4025.0) to (5000.0, 4025.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5000.0, 4025.0) to (5475.0, 3550.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4725.0, 4575.0) to (4750.0, 4600.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4450.0, 4100.0) to (4450.0, 4500.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4450.0, 4500.0) to (4525.0, 4575.0), width 25.000000, net 3
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3950.0, 4400.0) to (4105.0, 4400.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3950.0, 4400.0) to (3850.0, 4400.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4400.0, 4325.0) to (4400.0, 4700.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4950.0, 4750.0) to (4950.0, 4700.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4550.0, 4850.0) to (4850.0, 4850.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4375.0, 4300.0) to (4400.0, 4325.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4400.0, 4700.0) to (4550.0, 4850.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4850.0, 4850.0) to (4950.0, 4750.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4250.0, 4300.0) to (4375.0, 4300.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4250.0, 4300.0) to (4205.0, 4300.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4205.0, 4300.0) to (4105.0, 4400.0), width 25.000000, net 4
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5050.0, 4700.0) to (5050.0, 4750.0), width 25.000000, net 5
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5100.0, 4800.0) to (5325.0, 4800.0), width 25.000000, net 5
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5050.0, 4750.0) to (5100.0, 4800.0), width 25.000000, net 5
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5150.0, 4316.0) to (5224.0, 4242.0), width 25.000000, net 6
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5150.0, 4400.0) to (5150.0, 4316.0), width 25.000000, net 6
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5525.0, 4318.0) to (5525.0, 4400.0), width 25.000000, net 6
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5449.0, 4242.0) to (5525.0, 4318.0), width 25.000000, net 6
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5224.0, 4242.0) to (5449.0, 4242.0), width 25.000000, net 6
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5050.0, 4450.0) to (4950.0, 4550.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4000.0, 4725.0) to (4175.0, 4550.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3950.0, 4900.0) to (3850.0, 4900.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4175.0, 4550.0) to (4250.0, 4550.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3775.0, 4825.0) to (3850.0, 4900.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5050.0, 4400.0) to (5050.0, 4450.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4250.0, 4550.0) to (4950.0, 4550.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3800.0, 4725.0) to (4000.0, 4725.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3775.0, 4750.0) to (3775.0, 4825.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3800.0, 4725.0) to (3775.0, 4750.0), width 25.000000, net 7
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4425.0, 4475.0) to (4450.0, 4500.0), width 25.000000, net 8
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3150.0, 4495.0) to (3305.0, 4495.0), width 25.000000, net 8
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4850.0, 4450.0) to (4850.0, 4400.0), width 25.000000, net 8
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4800.0, 4500.0) to (4850.0, 4450.0), width 25.000000, net 8
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4450.0, 4500.0) to (4800.0, 4500.0), width 25.000000, net 8
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3305.0, 4495.0) to (3325.0, 4475.0), width 25.000000, net 8
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3325.0, 4475.0) to (4425.0, 4475.0), width 25.000000, net 8
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316090> >
+ * Via:   (7575.0, 4850.0) - 25.000000/65.000000 
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5225.0, 4300.0) to (5325.0, 4400.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7575.0, 4500.0) to (7575.0, 4850.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7875.0, 2050.0) to (8100.0, 2050.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8000.0, 4800.0) to (8425.0, 4800.0), width 17.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (6850.0, 4925.0) to (6875.0, 4900.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8250.0, 2050.0) to (8300.0, 2000.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7950.0, 4850.0) to (8000.0, 4800.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8425.0, 4800.0) to (8475.0, 4750.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7350.0, 4850.0) to (7575.0, 4850.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (6875.0, 4900.0) to (7150.0, 4900.0), width 17.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5900.0, 4925.0) to (6850.0, 4925.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7150.0, 4900.0) to (7200.0, 4850.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4750.0, 4325.0) to (4775.0, 4300.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4750.0, 4400.0) to (4750.0, 4325.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7575.0, 4850.0) to (7950.0, 4850.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4775.0, 4300.0) to (5225.0, 4300.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8100.0, 2050.0) to (8250.0, 2050.0), width 17.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7200.0, 4850.0) to (7350.0, 4850.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7675.0, 3600.0) to (7675.0, 4475.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7675.0, 4475.0) to (7650.0, 4500.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7875.0, 2250.0) to (7875.0, 2050.0), width 25.000000, net 9
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316030> >
+ * Via:   (7875.0, 2050.0) - 25.000000/65.000000 
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7650.0, 4500.0) to (7575.0, 4500.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7500.0, 2000.0) to (7825.0, 2000.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7825.0, 2000.0) to (7875.0, 2050.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5325.0, 4400.0) to (5425.0, 4500.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8475.0, 2000.0) to (8300.0, 2000.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7875.0, 2250.0) to (7925.0, 2300.0), width 25.000000, net 9
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316270> >
+ * Via:   (7575.0, 4500.0) - 25.000000/65.000000 
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7925.0, 2300.0) to (7925.0, 3350.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7925.0, 3350.0) to (7675.0, 3600.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5425.0, 4500.0) to (5475.0, 4500.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5475.0, 4500.0) to (5900.0, 4925.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7575.0, 4500.0) to (7550.0, 4500.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7450.0, 4600.0) to (7350.0, 4600.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7550.0, 4500.0) to (7450.0, 4600.0), width 25.000000, net 9
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5275.0, 3450.0) to (4975.0, 3150.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4500.0, 3675.0) to (5150.0, 3675.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5300.0, 3525.0) to (5300.0, 3450.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4650.0, 2550.0) to (4750.0, 2550.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4850.0, 2650.0) to (4750.0, 2550.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4875.0, 2650.0) to (4850.0, 2650.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4250.0, 4400.0) to (4550.0, 4400.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5300.0, 3450.0) to (5275.0, 3450.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5650.0, 3800.0) to (5700.0, 3800.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5700.0, 3800.0) to (5800.0, 3800.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5700.0, 4025.0) to (5700.0, 3800.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4350.0, 4875.0) to (4325.0, 4900.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4975.0, 3150.0) to (4900.0, 3150.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4900.0, 3150.0) to (4875.0, 3125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5475.0, 3450.0) to (5300.0, 3450.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4000.0, 2800.0) to (4250.0, 2800.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4550.0, 3875.0) to (4550.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4500.0, 3675.0) to (4500.0, 3825.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4500.0, 3825.0) to (4550.0, 3875.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4550.0, 4400.0) to (4550.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4875.0, 3125.0) to (4875.0, 2650.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5150.0, 3675.0) to (5300.0, 3525.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7350.0, 4175.0) to (7400.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7750.0, 4200.0) to (7675.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7750.0, 4425.0) to (7750.0, 4200.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7350.0, 4300.0) to (7350.0, 4175.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7400.0, 4125.0) to (7675.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4350.0, 4700.0) to (4350.0, 4875.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4350.0, 3325.0) to (4500.0, 3475.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4500.0, 3475.0) to (4500.0, 3675.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4350.0, 3100.0) to (4350.0, 3325.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4350.0, 2900.0) to (4250.0, 2800.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4350.0, 3100.0) to (4350.0, 2900.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4950.0, 2650.0) to (4875.0, 2650.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4250.0, 4400.0) to (4325.0, 4400.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4300.0, 4650.0) to (4250.0, 4650.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4350.0, 4600.0) to (4300.0, 4650.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4350.0, 4425.0) to (4350.0, 4600.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4325.0, 4400.0) to (4350.0, 4425.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4300.0, 4650.0) to (4350.0, 4700.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4325.0, 4900.0) to (4250.0, 4900.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5650.0, 3800.0) to (5600.0, 3850.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5400.0, 3900.0) to (5400.0, 4075.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5450.0, 3850.0) to (5400.0, 3900.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5600.0, 3850.0) to (5450.0, 3850.0), width 19.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5800.0, 3800.0) to (5850.0, 3800.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7350.0, 4175.0) to (7350.0, 4300.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7300.0, 4125.0) to (7350.0, 4175.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (6700.0, 4125.0) to (7300.0, 4125.0), width 40.000000, net 10
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316090> >
+ * Via:   (6700.0, 4125.0) - 25.000000/65.000000 
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (6600.0, 4125.0) to (6700.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (6525.0, 4200.0) to (6600.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (6250.0, 4200.0) to (6525.0, 4200.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5850.0, 3800.0) to (6250.0, 4200.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5350.0, 4125.0) to (4550.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5400.0, 4075.0) to (5350.0, 4125.0), width 40.000000, net 10
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8175.0, 2000.0) to (8175.0, 1825.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7050.0, 5150.0) to (7125.0, 5225.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8175.0, 4550.0) to (8075.0, 4550.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8725.0, 4100.0) to (8700.0, 4100.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8725.0, 4100.0) to (8750.0, 4075.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8700.0, 5150.0) to (8700.0, 4100.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8600.0, 5250.0) to (8700.0, 5150.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8750.0, 1925.0) to (8750.0, 4075.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8075.0, 4550.0) to (8050.0, 4525.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (8050.0, 4525.0) to (8050.0, 4200.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8050.0, 4200.0) to (8150.0, 4100.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8150.0, 4100.0) to (8700.0, 4100.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8650.0, 1825.0) to (8175.0, 1825.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (6175.0, 2000.0) to (6900.0, 2000.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7700.0, 5225.0) to (7725.0, 5250.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (6900.0, 2000.0) to (6900.0, 1875.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7050.0, 5150.0) to (7050.0, 5050.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8175.0, 1825.0) to (6950.0, 1825.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (6900.0, 1875.0) to (6950.0, 1825.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8750.0, 1925.0) to (8650.0, 1825.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7725.0, 5250.0) to (8600.0, 5250.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7700.0, 5225.0) to (7125.0, 5225.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (6000.0, 2175.0) to (6000.0, 2300.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (6175.0, 2000.0) to (6000.0, 2175.0), width 25.000000, net 11
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7475.0, 4350.0) to (7475.0, 4475.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5525.0, 4825.0) to (5700.0, 5000.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8575.0, 4875.0) to (8550.0, 4850.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8575.0, 5125.0) to (8575.0, 4875.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8100.0, 2150.0) to (8225.0, 2150.0), width 17.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7750.0, 2150.0) to (8100.0, 2150.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8325.0, 2100.0) to (8275.0, 2150.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8275.0, 2150.0) to (8225.0, 2150.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8325.0, 2100.0) to (8475.0, 2100.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7575.0, 4950.0) to (7800.0, 5175.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5700.0, 5000.0) to (6975.0, 5000.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7600.0, 4225.0) to (7600.0, 2975.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7750.0, 2650.0) to (7750.0, 2150.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7475.0, 4850.0) to (7575.0, 4950.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7450.0, 4500.0) to (7350.0, 4500.0), width 25.000000, net 12
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316060> >
+ * Via:   (7575.0, 4950.0) - 25.000000/65.000000 
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316030> >
+ * Via:   (7750.0, 2150.0) - 25.000000/65.000000 
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7600.0, 2975.0) to (7725.0, 2850.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7600.0, 4225.0) to (7475.0, 4350.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7350.0, 4950.0) to (7575.0, 4950.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7800.0, 5175.0) to (8525.0, 5175.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5525.0, 4800.0) to (5525.0, 4825.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8550.0, 4850.0) to (8475.0, 4850.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7700.0, 2100.0) to (7750.0, 2150.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7500.0, 2100.0) to (7700.0, 2100.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7725.0, 2675.0) to (7750.0, 2650.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7475.0, 4350.0) to (7475.0, 4850.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7725.0, 2850.0) to (7725.0, 2675.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7175.0, 4950.0) to (7350.0, 4950.0), width 25.000000, net 12
+<pcbnew.SEGVIA; proxy of <Swig Object of type 'SEGVIA *' at 0x2316060> >
+ * Via:   (7475.0, 4350.0) - 25.000000/65.000000 
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7175.0, 4950.0) to (7125.0, 5000.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (6975.0, 5000.0) to (7125.0, 5000.0), width 17.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8525.0, 5175.0) to (8575.0, 5125.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7475.0, 4475.0) to (7450.0, 4500.0), width 25.000000, net 12
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7950.0, 2550.0) to (8100.0, 2550.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7825.0, 2675.0) to (7950.0, 2550.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8100.0, 2550.0) to (8275.0, 2550.0), width 17.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7825.0, 2800.0) to (7825.0, 2675.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8275.0, 2550.0) to (8300.0, 2550.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7500.0, 2800.0) to (7825.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8400.0, 2800.0) to (8475.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8375.0, 2775.0) to (8400.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (6550.0, 4750.0) to (5825.0, 4025.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8300.0, 2550.0) to (8375.0, 2625.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8125.0, 4025.0) to (8625.0, 4025.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (8000.0, 4150.0) to (8125.0, 4025.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8375.0, 2625.0) to (8375.0, 2775.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8050.0, 4600.0) to (8275.0, 4600.0), width 17.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8650.0, 2800.0) to (8475.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (8675.0, 2825.0) to (8650.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8675.0, 3975.0) to (8675.0, 2825.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (8625.0, 4025.0) to (8675.0, 3975.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7800.0, 4700.0) to (8275.0, 4700.0), width 17.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8275.0, 4700.0) to (8275.0, 4650.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7600.0, 4700.0) to (7800.0, 4700.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7175.0, 4800.0) to (7450.0, 4800.0), width 17.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (7450.0, 4800.0) to (7500.0, 4800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7300.0, 2800.0) to (7500.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (7500.0, 4800.0) to (7600.0, 4700.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (7125.0, 4750.0) to (7175.0, 4800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (7050.0, 4750.0) to (7125.0, 4750.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (6900.0, 3000.0) to (7100.0, 3000.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8275.0, 4650.0) to (8475.0, 4650.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7100.0, 3000.0) to (7300.0, 2800.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (8000.0, 4150.0) to (8000.0, 4425.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (8000.0, 4425.0) to (8000.0, 4550.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (8000.0, 4550.0) to (8050.0, 4600.0), width 25.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5800.0, 3900.0) to (5800.0, 4000.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5800.0, 4000.0) to (5825.0, 4025.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5550.0, 3900.0) to (5550.0, 4100.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5550.0, 4100.0) to (5600.0, 4150.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5600.0, 4150.0) to (5700.0, 4150.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5700.0, 4150.0) to (5825.0, 4025.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (7050.0, 4750.0) to (6550.0, 4750.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (8275.0, 4650.0) to (8275.0, 4600.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (7900.0, 4425.0) to (8000.0, 4425.0), width 40.000000, net 13
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4500.0, 1900.0) to (4500.0, 2050.0), width 25.000000, net 14
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4350.0, 2250.0) to (4350.0, 2100.0), width 17.000000, net 14
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4350.0, 2100.0) to (4400.0, 2050.0), width 17.000000, net 14
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4400.0, 2050.0) to (4500.0, 2050.0), width 17.000000, net 14
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4625.0, 3325.0) to (4625.0, 3475.0), width 25.000000, net 15
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4475.0, 2400.0) to (4475.0, 3175.0), width 25.000000, net 15
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4425.0, 2350.0) to (4475.0, 2400.0), width 25.000000, net 15
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4350.0, 2350.0) to (4425.0, 2350.0), width 25.000000, net 15
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4475.0, 3175.0) to (4625.0, 3325.0), width 25.000000, net 15
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4650.0, 2250.0) to (4900.0, 2250.0), width 25.000000, net 16
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4900.0, 2250.0) to (4900.0, 2400.0), width 25.000000, net 16
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4900.0, 2400.0) to (4950.0, 2450.0), width 25.000000, net 16
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (3100.0, 2450.0) to (3300.0, 2450.0), width 40.000000, net 17
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3300.0, 2450.0) to (3450.0, 2300.0), width 40.000000, net 17
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5050.0, 1900.0) to (5100.0, 1950.0), width 25.000000, net 18
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (4900.0, 1900.0) to (5050.0, 1900.0), width 25.000000, net 18
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5375.0, 2250.0) to (5275.0, 2350.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5275.0, 2700.0) to (5050.0, 2925.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5275.0, 2450.0) to (5275.0, 2700.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5400.0, 2225.0) to (5475.0, 2150.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5400.0, 2250.0) to (5400.0, 2225.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5375.0, 2250.0) to (5400.0, 2250.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5650.0, 2250.0) to (5800.0, 2400.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5400.0, 2250.0) to (5650.0, 2250.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5275.0, 2450.0) to (5275.0, 2350.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5050.0, 2925.0) to (5050.0, 2975.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5475.0, 2150.0) to (5475.0, 2015.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5530.0, 1960.0) to (5630.0, 1960.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5475.0, 2015.0) to (5530.0, 1960.0), width 25.000000, net 19
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3450.0, 2800.0) to (3800.0, 2800.0), width 40.000000, net 20
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3325.0, 3550.0) to (3325.0, 3525.0), width 40.000000, net 20
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3250.0, 3000.0) to (3450.0, 2800.0), width 40.000000, net 20
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (3250.0, 3450.0) to (3250.0, 3000.0), width 40.000000, net 20
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3325.0, 3525.0) to (3250.0, 3450.0), width 40.000000, net 20
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3450.0, 4650.0) to (3450.0, 4550.0), width 25.000000, net 21
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (3450.0, 4550.0) to (3250.0, 4550.0), width 25.000000, net 21
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (3275.0, 4400.0) to (3450.0, 4400.0), width 25.000000, net 22
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3250.0, 4425.0) to (3275.0, 4400.0), width 25.000000, net 22
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3250.0, 4440.0) to (3250.0, 4425.0), width 25.000000, net 22
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (3450.0, 4400.0) to (3450.0, 4300.0), width 25.000000, net 22
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3050.0, 4625.0) to (3050.0, 4750.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3150.0, 4600.0) to (3075.0, 4600.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (3400.0, 4900.0) to (3450.0, 4900.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (3150.0, 4850.0) to (3350.0, 4850.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (3075.0, 4600.0) to (3050.0, 4625.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (3350.0, 4850.0) to (3400.0, 4900.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (3450.0, 4900.0) to (3450.0, 4800.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (3050.0, 4750.0) to (3150.0, 4850.0), width 25.000000, net 23
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (6050.0, 3450.0) to (5875.0, 3450.0), width 25.000000, net 24
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (6050.0, 3050.0) to (5875.0, 3050.0), width 25.000000, net 25
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5575.0, 2900.0) to (5575.0, 3075.0), width 25.000000, net 26
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5575.0, 3075.0) to (5475.0, 3175.0), width 25.000000, net 26
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5475.0, 2800.0) to (5575.0, 2900.0), width 25.000000, net 26
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5700.0, 2800.0) to (5475.0, 2800.0), width 25.000000, net 26
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5700.0, 2400.0) to (5475.0, 2400.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5875.0, 2150.0) to (5875.0, 2325.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5850.0, 2500.0) to (5800.0, 2500.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5875.0, 2325.0) to (5900.0, 2350.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5900.0, 2450.0) to (5850.0, 2500.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5900.0, 2350.0) to (5900.0, 2450.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5700.0, 2400.0) to (5800.0, 2500.0), width 17.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5730.0, 1960.0) to (5830.0, 1960.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5830.0, 1960.0) to (5860.0, 1960.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5875.0, 1975.0) to (5875.0, 2150.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5860.0, 1960.0) to (5875.0, 1975.0), width 25.000000, net 27
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4950.0, 3575.0) to (5025.0, 3575.0), width 25.000000, net 28
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4900.0, 3400.0) to (4900.0, 3525.0), width 25.000000, net 28
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (4650.0, 3100.0) to (4650.0, 3150.0), width 25.000000, net 28
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4650.0, 3150.0) to (4900.0, 3400.0), width 25.000000, net 28
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4900.0, 3525.0) to (4950.0, 3575.0), width 25.000000, net 28
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5775.0, 3550.0) to (5700.0, 3475.0), width 25.000000, net 29
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5800.0, 2875.0) to (5700.0, 2975.0), width 25.000000, net 29
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5700.0, 2975.0) to (5700.0, 3475.0), width 25.000000, net 29
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5800.0, 2800.0) to (5800.0, 2875.0), width 25.000000, net 29
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5700.0, 2700.0) to (5800.0, 2800.0), width 25.000000, net 29
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5875.0, 3550.0) to (5775.0, 3550.0), width 25.000000, net 29
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (4750.0, 3000.0) to (4750.0, 3125.0), width 25.000000, net 30
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (4650.0, 2975.0) to (4725.0, 2975.0), width 25.000000, net 30
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (4725.0, 2975.0) to (4750.0, 3000.0), width 25.000000, net 30
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5000.0, 3375.0) to (5025.0, 3375.0), width 25.000000, net 30
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (4750.0, 3125.0) to (5000.0, 3375.0), width 25.000000, net 30
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5700.0, 2500.0) to (5725.0, 2500.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (6000.0, 2700.0) to (6000.0, 2750.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5750.0, 2900.0) to (5825.0, 2825.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5425.0, 2950.0) to (5425.0, 3000.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5425.0, 2950.0) to (5475.0, 2900.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5725.0, 2500.0) to (5800.0, 2575.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5825.0, 2825.0) to (5925.0, 2825.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (6150.0, 2300.0) to (6150.0, 2425.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (6000.0, 2575.0) to (6000.0, 2700.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (6150.0, 2425.0) to (6000.0, 2575.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5875.0, 2575.0) to (6000.0, 2700.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5800.0, 2575.0) to (5875.0, 2575.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5475.0, 2900.0) to (5750.0, 2900.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5425.0, 3000.0) to (5475.0, 3050.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5925.0, 2825.0) to (6000.0, 2750.0), width 25.000000, net 31
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5850.0, 3175.0) to (5875.0, 3200.0), width 25.000000, net 32
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5775.0, 3175.0) to (5850.0, 3175.0), width 25.000000, net 32
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5875.0, 3200.0) to (5875.0, 3300.0), width 25.000000, net 32
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316270> >
+ * Track: (5550.0, 3350.0) to (5500.0, 3300.0), width 25.000000, net 33
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316090> >
+ * Track: (5500.0, 3300.0) to (5475.0, 3300.0), width 25.000000, net 33
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (5550.0, 3800.0) to (5325.0, 3800.0), width 25.000000, net 33
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (5300.0, 3825.0) to (5300.0, 4025.0), width 25.000000, net 33
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316060> >
+ * Track: (5325.0, 3800.0) to (5300.0, 3825.0), width 25.000000, net 33
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23162a0> >
+ * Track: (5550.0, 3350.0) to (5550.0, 3800.0), width 25.000000, net 33
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x23161b0> >
+ * Track: (6050.0, 3825.0) to (6050.0, 3850.0), width 25.000000, net 34
+<pcbnew.TRACK; proxy of <Swig Object of type 'TRACK *' at 0x2316030> >
+ * Track: (6050.0, 3850.0) to (6225.0, 4025.0), width 25.000000, net 34
+
+LIST MODULES:
+('Add', <bound method MODULE.Add of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Add3DModel', <bound method MODULE.Add3DModel of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('AddPad', <bound method MODULE.AddPad of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Back', <bound method MODULE.Back of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('CalculateBoundingBox', <bound method MODULE.CalculateBoundingBox of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast', <bound method MODULE.Cast of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_BOARD', <bound method MODULE.Cast_to_BOARD of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_DIMENSION', <bound method MODULE.Cast_to_DIMENSION of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_DRAWSEGMENT', <bound method MODULE.Cast_to_DRAWSEGMENT of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_D_PAD', <bound method MODULE.Cast_to_D_PAD of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_EDGE_MODULE', <bound method MODULE.Cast_to_EDGE_MODULE of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_MARKER_PCB', <bound method MODULE.Cast_to_MARKER_PCB of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_MODULE', <bound method MODULE.Cast_to_MODULE of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_SEGVIA', <bound method MODULE.Cast_to_SEGVIA of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_SEGZONE', <bound method MODULE.Cast_to_SEGZONE of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_TEXTE_MODULE', <bound method MODULE.Cast_to_TEXTE_MODULE of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_TEXTE_PCB', <bound method MODULE.Cast_to_TEXTE_PCB of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Cast_to_TRACK', <bound method MODULE.Cast_to_TRACK of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('ClearFlags', <bound method MODULE.ClearFlags of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Clone', <bound method MODULE.Clone of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Copy', <bound method MODULE.Copy of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('DeleteStructure', <bound method MODULE.DeleteStructure of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Draw', <bound method MODULE.Draw of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Draw3D', <bound method MODULE.Draw3D of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('DrawAncre', <bound method MODULE.DrawAncre of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('DrawEdgesOnly', <bound method MODULE.DrawEdgesOnly of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('FindPadByName', <bound method MODULE.FindPadByName of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Flip', <bound method MODULE.Flip of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('FormatAngle', <function FormatAngle at 0x217f758>)
+('FormatInternalUnits', <function FormatInternalUnits at 0x217f848>)
+('GetArea', <bound method MODULE.GetArea of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetAttributes', <bound method MODULE.GetAttributes of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetBoard', <bound method MODULE.GetBoard of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetBoundingBox', <bound method MODULE.GetBoundingBox of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetClass', <bound method MODULE.GetClass of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetDescription', <bound method MODULE.GetDescription of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetDrawings', <bound method MODULE.GetDrawings of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetFlag', <bound method MODULE.GetFlag of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetFlags', <bound method MODULE.GetFlags of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetFootPrintRect', <bound method MODULE.GetFootPrintRect of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetKeywords', <bound method MODULE.GetKeywords of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLastEditTime', <bound method MODULE.GetLastEditTime of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLayer', <bound method MODULE.GetLayer of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLayerName', <bound method MODULE.GetLayerName of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLibRef', <bound method MODULE.GetLibRef of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLink', <bound method MODULE.GetLink of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetList', <bound method MODULE.GetList of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLocalClearance', <bound method MODULE.GetLocalClearance of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLocalSolderMaskMargin', <bound method MODULE.GetLocalSolderMaskMargin of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLocalSolderPasteMargin', <bound method MODULE.GetLocalSolderPasteMargin of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetLocalSolderPasteMarginRatio', <bound method MODULE.GetLocalSolderPasteMarginRatio of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetMenuImage', <bound method MODULE.GetMenuImage of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetMsgPanelInfo', <bound method MODULE.GetMsgPanelInfo of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetOrientation', <bound method MODULE.GetOrientation of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPad', <bound method MODULE.GetPad of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPadCount', <bound method MODULE.GetPadCount of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPads', <bound method MODULE.GetPads of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetParent', <bound method MODULE.GetParent of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPath', <bound method MODULE.GetPath of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPlacementCost180', <bound method MODULE.GetPlacementCost180 of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPlacementCost90', <bound method MODULE.GetPlacementCost90 of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetPosition', <bound method MODULE.GetPosition of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetReference', <bound method MODULE.GetReference of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetReferenceObj', <bound method MODULE.GetReferenceObj of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetSelectMenuText', <bound method MODULE.GetSelectMenuText of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetSon', <bound method MODULE.GetSon of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetState', <bound method MODULE.GetState of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetStatus', <bound method MODULE.GetStatus of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetThermalGap', <bound method MODULE.GetThermalGap of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetThermalWidth', <bound method MODULE.GetThermalWidth of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetTimeStamp', <bound method MODULE.GetTimeStamp of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetValue', <bound method MODULE.GetValue of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetValueObj', <bound method MODULE.GetValueObj of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GetZoneConnection', <bound method MODULE.GetZoneConnection of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('GraphicalItems', <bound method MODULE.GraphicalItems of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('HitTest', <bound method MODULE.HitTest of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IncrementFlag', <bound method MODULE.IncrementFlag of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsDragging', <bound method MODULE.IsDragging of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsFlipped', <bound method MODULE.IsFlipped of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsLibNameValid', <function IsLibNameValid at 0x2207320>)
+('IsLocked', <bound method MODULE.IsLocked of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsModified', <bound method MODULE.IsModified of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsMoving', <bound method MODULE.IsMoving of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsNew', <bound method MODULE.IsNew of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsOnLayer', <bound method MODULE.IsOnLayer of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsPlaced', <bound method MODULE.IsPlaced of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsReplaceable', <bound method MODULE.IsReplaceable of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsResized', <bound method MODULE.IsResized of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsSelected', <bound method MODULE.IsSelected of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IsTrack', <bound method MODULE.IsTrack of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('IterateForward', <function IterateForward at 0x21759b0>)
+('Matches', <bound method MODULE.Matches of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Models', <bound method MODULE.Models of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Move', <bound method MODULE.Move of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('MoveAnchorPosition', <bound method MODULE.MoveAnchorPosition of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('NeedsPlaced', <bound method MODULE.NeedsPlaced of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Next', <bound method MODULE.Next of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Pads', <bound method MODULE.Pads of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Reference', <bound method MODULE.Reference of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Replace', <bound method MODULE.Replace of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('ReturnStringLibNameInvalidChars', <function ReturnStringLibNameInvalidChars at 0x2207410>)
+('Rotate', <bound method MODULE.Rotate of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetAttributes', <bound method MODULE.SetAttributes of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetDescription', <bound method MODULE.SetDescription of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetFlag', <bound method MODULE.SetFlag of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetFlags', <bound method MODULE.SetFlags of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetForceVisible', <bound method MODULE.SetForceVisible of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetImage', <bound method MODULE.SetImage of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetIsPlaced', <bound method MODULE.SetIsPlaced of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetKeywords', <bound method MODULE.SetKeywords of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLastEditTime', <bound method MODULE.SetLastEditTime of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLayer', <bound method MODULE.SetLayer of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLibRef', <bound method MODULE.SetLibRef of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLink', <bound method MODULE.SetLink of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetList', <bound method MODULE.SetList of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLocalClearance', <bound method MODULE.SetLocalClearance of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLocalSolderMaskMargin', <bound method MODULE.SetLocalSolderMaskMargin of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLocalSolderPasteMargin', <bound method MODULE.SetLocalSolderPasteMargin of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLocalSolderPasteMarginRatio', <bound method MODULE.SetLocalSolderPasteMarginRatio of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetLocked', <bound method MODULE.SetLocked of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetModified', <bound method MODULE.SetModified of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetNeedsPlaced', <bound method MODULE.SetNeedsPlaced of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetOrientation', <bound method MODULE.SetOrientation of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetParent', <bound method MODULE.SetParent of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetPath', <bound method MODULE.SetPath of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetPlacementCost180', <bound method MODULE.SetPlacementCost180 of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetPlacementCost90', <bound method MODULE.SetPlacementCost90 of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetPos', <bound method MODULE.SetPos of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetPosition', <bound method MODULE.SetPosition of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetReference', <bound method MODULE.SetReference of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetSon', <bound method MODULE.SetSon of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetStartEnd', <bound method MODULE.SetStartEnd of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetState', <bound method MODULE.SetState of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetStatus', <bound method MODULE.SetStatus of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetThermalGap', <bound method MODULE.SetThermalGap of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetThermalWidth', <bound method MODULE.SetThermalWidth of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetTimeStamp', <bound method MODULE.SetTimeStamp of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetValue', <bound method MODULE.SetValue of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('SetZoneConnection', <bound method MODULE.SetZoneConnection of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('ShowShape', <function ShowShape at 0x217f410>)
+('Sort', <function Sort at 0x2175e60>)
+('Type', <bound method MODULE.Type of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('UnLink', <bound method MODULE.UnLink of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Value', <bound method MODULE.Value of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('Visit', <bound method MODULE.Visit of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__class__', <class 'pcbnew.MODULE'>)
+('__del__', <bound method MODULE.<lambda> of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__delattr__', <method-wrapper '__delattr__' of MODULE object at 0x23028d0>)
+('__dict__', {'this': <Swig Object of type 'MODULE *' at 0x22fdf90>})
+('__doc__', 'Proxy of C++ MODULE class')
+('__format__', <built-in method __format__ of MODULE object at 0x23028d0>)
+('__getattr__', <bound method MODULE.<lambda> of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__getattribute__', <method-wrapper '__getattribute__' of MODULE object at 0x23028d0>)
+('__hash__', <method-wrapper '__hash__' of MODULE object at 0x23028d0>)
+('__init__', <bound method MODULE.__init__ of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__lt__', <bound method MODULE.__lt__ of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__module__', 'pcbnew')
+('__new__', <built-in method __new__ of type object at 0x88cd40>)
+('__reduce__', <built-in method __reduce__ of MODULE object at 0x23028d0>)
+('__reduce_ex__', <built-in method __reduce_ex__ of MODULE object at 0x23028d0>)
+('__repr__', <bound method MODULE._swig_repr of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__setattr__', <bound method MODULE.<lambda> of <pcbnew.MODULE; proxy of <Swig Object of type 'MODULE *' at 0x22fdf90> >>)
+('__sizeof__', <built-in method __sizeof__ of MODULE object at 0x23028d0>)
+('__str__', <method-wrapper '__str__' of MODULE object at 0x23028d0>)
+('__subclasshook__', <built-in method __subclasshook__ of type object at 0x21fee50>)
+('__swig_destroy__', <built-in function delete_MODULE>)
+('__swig_getmethods__', {'Sort': <function <lambda> at 0x2175ed8>, 'IterateForward': <function <lambda> at 0x2175a28>, 'FormatInternalUnits': <function <lambda> at 0x217f8c0>, 'ReturnStringLibNameInvalidChars': <function <lambda> at 0x2207488>, 'IsLibNameValid': <function <lambda> at 0x2207398>, 'ShowShape': <function <lambda> at 0x217f488>, 'FormatAngle': <function <lambda> at 0x217f7d0>})
+('__swig_setmethods__', {})
+('__weakref__', None)
+('_s', <class 'pcbnew.BOARD_ITEM'>)
+('this', <Swig Object of type 'MODULE *' at 0x22fdf90>)
+* Module: 14DIP-ELL300,U2 at (4850.0, 4550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: 18DIP-ELL300,U5 at (8325.0, 4650.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: 8DIP-ELL300,U1 at (7200.0, 4450.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: 8DIP-ELL300,U4 at (4500.0, 2400.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: 8DIP-ELL300,U6 at (7200.0, 4900.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: bornier2,P1 at (3100.0, 2550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: C1-1,C4 at (4600.0, 2050.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: C1-1,C5 at (5200.0, 1950.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: D3,D7 at (4100.0, 4550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: D3,D2 at (4100.0, 4650.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: D3,D3 at (4100.0, 4800.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: D3,D4 at (4100.0, 4400.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: D3,D5 at (4100.0, 4300.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: D3,D6 at (4100.0, 4900.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: D5,D10 at (5150.0, 2250.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: D5,D1 at (3450.0, 2550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: DB9FC,J1 at (3200.0, 4550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: LEDV,D9 at (6100.0, 3450.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: LEDV,D8 at (6100.0, 3050.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: LM78XX,U3 at (3900.0, 2800.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R11 at (5475.0, 2600.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R10 at (4700.0, 1900.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R13 at (5525.0, 4600.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R14 at (5675.0, 3450.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R15 at (4850.0, 3100.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R2 at (3650.0, 4550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R3 at (3650.0, 4400.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R4 at (3650.0, 4300.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R5 at (3650.0, 4900.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R6 at (3650.0, 4800.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R7 at (5675.0, 2150.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R8 at (5675.0, 3550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R16 at (4850.0, 2975.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R17 at (6150.0, 2500.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R12 at (5325.0, 4600.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R9 at (5675.0, 3050.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R1 at (3650.0, 4650.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: 1pin,1PIN at (9050.0, 1750.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: 1pin,1PIN at (9050.0, 5350.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: 1pin,1PIN at (3050.0, 1750.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: 1pin,1PIN at (3050.0, 5350.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: 1pin,1PIN at (6250.0, 5350.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: 1pin,1PIN at (6250.0, 1750.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: C1-1,C6 at (7750.0, 4525.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: C1-1,C7 at (7825.0, 2900.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: MIRE,MIRE at (9200.0, 1600.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: MIRE,MIRE at (2900.0, 1600.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: MIRE,MIRE at (2900.0, 5500.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: MIRE,MIRE at (9200.0, 5500.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: CP8,C3 at (5275.0, 2850.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: CP10,C1 at (3850.0, 3100.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: CP10,C2 at (3825.0, 3550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: 28DIP-ELL300,P2 at (8325.0, 2650.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R18 at (6000.0, 2500.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: INDUCTOR_V,L1 at (4950.0, 2550.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: RV2X4,RV1 at (4825.0, 3475.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: 40DIP-ELL600,P3 at (7200.0, 2950.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: D3,D11 at (5625.0, 3175.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: PIN_ARRAY_2X1,JP1 at (5800.0, 3850.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R19 at (5675.0, 3300.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: R4,R20 at (5500.0, 4025.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: R4,R21 at (6025.0, 4025.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: TO92,Q3 at (5600.0, 3850.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: LEDV,D12 at (6100.0, 3825.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: C1-1,C8 at (7900.0, 4525.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: TO92,Q1 at (5750.0, 2750.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22daf90> > 
+* Module: TO92,Q2 at (5750.0, 2450.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+* Module: C1-1,C9 at (5730.0, 1960.0)
+Extra: <pcbnew.EDA_RECT; proxy of <Swig Object of type 'EDA_RECT *' at 0x22d4a80> > 
+
+LIST ZONES:
+
+LISTING DRAWINGS:
