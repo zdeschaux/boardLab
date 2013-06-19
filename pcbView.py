@@ -3,16 +3,17 @@ import sys
 from pcbnew import *
 import inspect
 import pygame
+from pygame.locals import *
 
 pygame.init()
 
-red = (255,0,0)
-green = (0,255,0)
-blue = (0,0,255)
-darkBlue = (0,0,128)
-white = (255,255,255)
-black = (0,0,0)
-pink = (255,200,200)
+red = Color(255,0,0)
+green = Color(0,255,0)
+blue = Color(0,0,255)
+darkBlue = Color(0,0,128)
+white = Color(255,255,255)
+black = Color(0,0,0)
+pink = Color(255,200,200)
 
 filename=sys.argv[1]
 
@@ -23,9 +24,9 @@ class ScalerShifter(object):
         self.postOffset = postOffset
 
     def rectCalc(self,rect):
-        origin = rect.GetOrigin()
-        width = rect.GetWidth()
-        height = rect.GetHeight()
+        origin = (rect[0],rect[1])
+        width = rect[2]
+        height = rect[3]
         
         sWidth = self.scale*width
         sHeight = self.scale*height
@@ -33,6 +34,46 @@ class ScalerShifter(object):
         ss_origin = (self.scale*s_origin[0],self.scale*s_origin[1])
         final_origin = (ss_origin[0]+self.postOffset[0],ss_origin[1]+self.postOffset[1])
         return (final_origin[0],final_origin[1],sWidth,sHeight)
+
+
+class BasicElement(object):
+    def __init__(self,EDA_elem):
+        self.edaElem = EDA_elem
+        self.sserRect = None
+        self.underMouse = False
+
+    def rect(self,sser=None):
+        a = self.edaElem.GetFootPrintRect()
+        originalRect = (a.GetOrigin()[0],a.GetOrigin()[1],a.GetWidth(),a.GetHeight())
+        if sser == None:
+            return originalRect
+        else:
+            if self.sserRect == None:
+                self.sserRect = sser.rectCalc(originalRect)
+            return self.sserRect
+
+    def checkUnderMouse(self,x,y):
+        left = self.sserRect[0]
+        top = self.sserRect[1]
+        right = left + self.sserRect[2]
+        bottom = top + self.sserRect[3]
+        if left <= x and right >= x and top <= y and bottom >= y:
+            self.underMouse = True
+            return True
+        else:
+            self.underMouse = False
+            return False
+
+    def color(self):
+        if self.underMouse:
+            return red
+        else:
+            return green
+
+
+def findModuleUnderMouse(elements,x,y):
+    for element in elements:
+        a = element.checkUnderMouse(x,y)
 
 
 print "Loading PCB %s"%(filename)
@@ -46,6 +87,7 @@ FromUnits=FromMils
 borderWidth = 100
 width = 1200
 
+elements = []
 a = pcb.GetBoundingBox()
 print "Origin: %s, End:%s"%(a.GetOrigin(),a.GetEnd(),)
 print "Width: %s, Height:%s"%(a.GetWidth(),a.GetHeight())
@@ -68,9 +110,7 @@ pcb_window = pygame.display.set_mode((int(width),int(height)))
 pygame.display.set_caption('BoardLab')
 screen = pygame.display.get_surface()
 
-pygame.draw.rect(screen,blue,sser.rectCalc(a),1)
 pygame.display.update()
-
 print "Listing Modules found in the file:"
  
 for module in pcb.GetModules():
@@ -88,19 +128,27 @@ for module in pcb.GetModules():
             print i
     done = True
     print "* Module: %s,%s at %s"%(module.GetLibRef(),module.GetReference(),ToUnits(module.GetPosition()))
-    print "BoundingBox: %s "%(module.GetBoundingBox(),)
-    print "Drawings: %s "%(module.GetFootPrintRect(),)
-    a = module.GetFootPrintRect()
-    print "Origin: %s, End:%s"%(a.GetOrigin(),a.GetEnd(),)
-    pygame.draw.rect(screen,green,sser.rectCalc(a),0)
-    pygame.display.update()
+    newElement = BasicElement(module)
+    elements.append(newElement)
+    
+print ""
 
-print "" 
+def drawElements(pcb,elements,sser):
+    a = pcb.GetBoundingBox()
+    pygame.draw.rect(screen,blue,sser.rectCalc((a.GetOrigin()[0],a.GetOrigin()[1],a.GetWidth(),a.GetHeight())),1)
+    for element in elements:
+        pygame.draw.rect(screen,element.color(),element.rect(sser=sser),0)
 
 while True:
-    input(pygame.event.get())
-    for event in pygame.event.get():
-        print event
-        print even.type
-        if event.type == pygame.QUIT:
-            pygame.quit(); sys.exit();
+    event = pygame.event.poll()
+    if event.type == pygame.QUIT:
+        print "Alright, alright, I'm going. Bye!"
+        sys.exit(0)
+    elif event.type == pygame.MOUSEMOTION:
+        x, y = event.pos
+        findModuleUnderMouse(elements,x,y)
+    screen.fill([0,0,0])
+    drawElements(pcb,elements,sser)
+    pygame.display.update()
+    #pygame.time.wait(100)
+
