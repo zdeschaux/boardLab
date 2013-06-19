@@ -15,6 +15,9 @@ white = Color(255,255,255)
 black = Color(0,0,0)
 pink = Color(255,200,200)
 
+font = pygame.font.SysFont("Helvetica", 12)
+fontColor = white
+
 class ScalerShifter(object):
     def __init__(self,scale,preOffset,postOffset):
         self.scale = scale
@@ -46,9 +49,16 @@ class BasicElement(object):
         if sser == None:
             return originalRect
         else:
+            self.sser =  sser
             if self.sserRect == None:
                 self.sserRect = sser.rectCalc(originalRect)
             return self.sserRect
+
+    def fontPosition(self):
+        rect = self.rect(sser=self.sser)
+        right = rect[0]+rect[2]
+        bottom = rect[1]+rect[3]
+        return (right,bottom)
 
     def checkUnderMouse(self,x,y):
         left = self.sserRect[0]
@@ -68,6 +78,11 @@ class BasicElement(object):
         else:
             return green
 
+    def draw(self,screen):
+        pygame.draw.rect(screen,self.color(),self.rect(sser=self.sser),0)
+        label = font.render(self.edaElem.GetReference(), 1, fontColor)
+        screen.blit(label,self.fontPosition())
+
 
 def findModuleUnderMouse(elements,x,y):
     for element in elements:
@@ -77,8 +92,7 @@ def drawElements(pcb,elements,screen,sser):
     a = pcb.GetBoundingBox()
     pygame.draw.rect(screen,blue,sser.rectCalc((a.GetOrigin()[0],a.GetOrigin()[1],a.GetWidth(),a.GetHeight())),1)
     for element in elements:
-        pygame.draw.rect(screen,element.color(),element.rect(sser=sser),0)
-
+        element.draw(screen)
 
 def printMembers(a):
     b = inspect.getmembers(a)
@@ -156,3 +170,4 @@ def pcbView():
 
 if __name__=="__main__":
     pcbView()
+    
