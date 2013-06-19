@@ -16,7 +16,7 @@ black = Color(0,0,0)
 pink = Color(255,200,200)
 
 font = pygame.font.SysFont("Helvetica", 12)
-fontColor = white
+fontColor = darkBlue
 
 class ScalerShifter(object):
     def __init__(self,scale,preOffset,postOffset):
@@ -58,7 +58,9 @@ class BasicElement(object):
         rect = self.rect(sser=self.sser)
         right = rect[0]+rect[2]
         bottom = rect[1]+rect[3]
-        return (right,bottom)
+        top = rect[1]
+        left = rect[0]
+        return (left,top)
 
     def checkUnderMouse(self,x,y):
         left = self.sserRect[0]
@@ -101,12 +103,12 @@ def printMembers(a):
 
 
 def pcbView():
-    filename=sys.argv[1]
+    filename = sys.argv[1]
     print "Loading PCB %s"%(filename)
     pcb = LoadBoard(filename)
     
-    ToUnits=ToMils
-    FromUnits=FromMils
+    ToUnits = ToMils
+    FromUnits = FromMils
     done = False 
     borderWidth = 100
     width = 1200
@@ -141,7 +143,7 @@ def pcbView():
         if not done:
             print ""
             print "Members for module"
-            printMembers(module)               
+            printMembers(module)
             
             print ""
             print "Members for footprint rectangle"
