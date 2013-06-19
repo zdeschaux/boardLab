@@ -15,8 +15,6 @@ white = Color(255,255,255)
 black = Color(0,0,0)
 pink = Color(255,200,200)
 
-filename=sys.argv[1]
-
 class ScalerShifter(object):
     def __init__(self,scale,preOffset,postOffset):
         self.scale = scale
@@ -75,80 +73,86 @@ def findModuleUnderMouse(elements,x,y):
     for element in elements:
         a = element.checkUnderMouse(x,y)
 
-
-print "Loading PCB %s"%(filename)
-pcb = LoadBoard(filename)
-
-done = False 
-#ToUnits = ToMM 
-#FromUnits = FromMM 
-ToUnits=ToMils
-FromUnits=FromMils
-borderWidth = 100
-width = 1200
-
-elements = []
-a = pcb.GetBoundingBox()
-print "Origin: %s, End:%s"%(a.GetOrigin(),a.GetEnd(),)
-print "Width: %s, Height:%s"%(a.GetWidth(),a.GetHeight())
-
-aspect_ratio = float(a.GetWidth())/a.GetHeight()
-
-#Height is calculated by the width subtracted the border
-height = (1/aspect_ratio)*(width-(2*borderWidth))
-#Border is added to the height
-height += (2*borderWidth)
-
-scale = float(width-(2*borderWidth))/a.GetWidth()
-pre_offset = (a.GetEnd())
-post_offset = (width-borderWidth,height-borderWidth)
-
-#Stands for scaler shift-er
-sser = ScalerShifter(scale,pre_offset,post_offset)
-
-pcb_window = pygame.display.set_mode((int(width),int(height)))
-pygame.display.set_caption('BoardLab')
-screen = pygame.display.get_surface()
-
-pygame.display.update()
-print "Listing Modules found in the file:"
- 
-for module in pcb.GetModules():
-    if not done:
-        print ""
-        print "Members for module"
-        a = inspect.getmembers(module)
-        for i in a:
-            print i
-
-        print ""
-        print "Members for footprint rectangle"
-        a = inspect.getmembers(module.GetFootPrintRect())
-        for i in a:
-            print i
-    done = True
-    print "* Module: %s,%s at %s"%(module.GetLibRef(),module.GetReference(),ToUnits(module.GetPosition()))
-    newElement = BasicElement(module)
-    elements.append(newElement)
-    
-print ""
-
-def drawElements(pcb,elements,sser):
+def drawElements(pcb,elements,screen,sser):
     a = pcb.GetBoundingBox()
     pygame.draw.rect(screen,blue,sser.rectCalc((a.GetOrigin()[0],a.GetOrigin()[1],a.GetWidth(),a.GetHeight())),1)
     for element in elements:
         pygame.draw.rect(screen,element.color(),element.rect(sser=sser),0)
 
-while True:
-    event = pygame.event.poll()
-    if event.type == pygame.QUIT:
-        print "Alright, alright, I'm going. Bye!"
-        sys.exit(0)
-    elif event.type == pygame.MOUSEMOTION:
-        x, y = event.pos
-        findModuleUnderMouse(elements,x,y)
-    screen.fill([0,0,0])
-    drawElements(pcb,elements,sser)
-    pygame.display.update()
-    #pygame.time.wait(100)
 
+def printMembers(a):
+    b = inspect.getmembers(a)
+    for i in b:
+        print i
+
+
+def pcbView():
+    filename=sys.argv[1]
+    print "Loading PCB %s"%(filename)
+    pcb = LoadBoard(filename)
+    
+    ToUnits=ToMils
+    FromUnits=FromMils
+    done = False 
+    borderWidth = 100
+    width = 1200
+    
+    elements = []
+    a = pcb.GetBoundingBox()
+    print "Origin: %s, End:%s"%(a.GetOrigin(),a.GetEnd(),)
+    print "Width: %s, Height:%s"%(a.GetWidth(),a.GetHeight())
+    
+    aspect_ratio = float(a.GetWidth())/a.GetHeight()
+    
+    #Height is calculated by the width subtracted the border
+    height = (1/aspect_ratio)*(width-(2*borderWidth))
+    #Border is added to the height
+    height += (2*borderWidth)
+    
+    scale = float(width-(2*borderWidth))/a.GetWidth()
+    pre_offset = (a.GetEnd())
+    post_offset = (width-borderWidth,height-borderWidth)
+    
+    #Stands for scaler shift-er
+    sser = ScalerShifter(scale,pre_offset,post_offset)
+    
+    pcb_window = pygame.display.set_mode((int(width),int(height)))
+    pygame.display.set_caption('BoardLab')
+    screen = pygame.display.get_surface()
+    
+    print "Listing Modules found in the file:"
+    
+    for module in pcb.GetModules():
+        #This is done only once
+        if not done:
+            print ""
+            print "Members for module"
+            printMembers(module)               
+            
+            print ""
+            print "Members for footprint rectangle"
+            printMembers(module.GetFootPrintRect())
+            done = True
+
+        print "* Module: %s,%s at %s"%(module.GetLibRef(),module.GetReference(),ToUnits(module.GetPosition()))
+        newElement = BasicElement(module)
+        newElement.rect(sser=sser)
+        elements.append(newElement)
+        print ""
+                    
+    while True:
+        event = pygame.event.poll()
+        if event.type == pygame.QUIT:
+            print "Alright, alright, I'm going. Bye!"
+            sys.exit(0)
+        elif event.type == pygame.MOUSEMOTION:
+            x, y = event.pos
+            findModuleUnderMouse(elements,x,y)
+            screen.fill([0,0,0])
+            drawElements(pcb,elements,screen,sser)
+            pygame.display.update()
+            #pygame.time.wait(100)
+            
+
+if __name__=="__main__":
+    pcbView()
