@@ -1,0 +1,8 @@
+#How to run this?
+python pcbView.py sampleBoards/pic_programmer.brd
+
+
+#Instructions for commiting changes
+git add .
+git commit -a -m "Message here"
+git push origin
