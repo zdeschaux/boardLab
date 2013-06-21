@@ -9,13 +9,13 @@ host = '192.168.56.1'
 port = 1234
 
 
-def connectTracker():
+def connect():
     s = socket.socket()
     s.connect((host,port))
     return s
 
-def getTrackingFrame(connection):
-    frame_state = connection.recv(200)
+def getFrame(connection):
+    frame_state = connection.recv(1000)
     frame_state = frame_state.strip()
     frame_dict = {}
     if frame_state != '':
@@ -23,7 +23,7 @@ def getTrackingFrame(connection):
         frame_state = b[1]
         for i in range(b[0]):
             oneFiducial = parse('{id:d} {x:d} {y:d} {angle:f}{rest}',frame_state)
-            #print 'oneFiducial',oneFiducial,i
+            #print 'oneFiducial',oneFiducnial,i
             frame_dict[oneFiducial['id']] = {'x':oneFiducial['x'],'y':oneFiducial['y'],'angle':oneFiducial['angle']}
             frame_state =  oneFiducial['rest']
             #print frame_state
@@ -32,10 +32,7 @@ def getTrackingFrame(connection):
 
 
 if __name__=="__main__":
-    connection = connectTracker()
+    connection = connect()
     while(1):
-        a = getTrackingFrame(connection)
+        a = getFrame(connection)
         print a
-
-
-        

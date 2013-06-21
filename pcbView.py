@@ -2,7 +2,7 @@
 import sys
 from pcbnew import *
 import inspect
-import pygame
+import pygame, tracking
 from pygame.locals import *
 
 pygame.init()
@@ -23,6 +23,7 @@ height = 800
 borderWidth = 100
 ToUnits = ToMils
 FromUnits = FromMils
+trackingConnection = None
 
 def getOWH(a):
     origin = a.GetOrigin()
@@ -147,14 +148,14 @@ def drawPointer(screen,x,y):
     pygame.draw.rect(screen,blue,(x,y,10,10),0)
 
 
-def pcbView():
-    filename = sys.argv[1]
+def pcbView(filename,useMouse=False):
     print "Loading PCB %s"%(filename)
     eda_pcb = LoadBoard(filename)
     pcb = PCB(eda_pcb)
     x = 0
     y = 0
-    
+    angle = 0
+
     done = False 
            
     pcb_window = pygame.display.set_mode((int(width),int(height)))
@@ -168,12 +169,16 @@ def pcbView():
         if event.type == pygame.QUIT:
             print "Alright, alright, I'm going. Bye!"
             sys.exit(0)
-        elif event.type == pygame.MOUSEMOTION:
-            x, y = event.pos
-        else:
-            pass
 
-        #print x,y
+        if useMouse:
+            if event.type == pygame.MOUSEMOTION:
+                x, y = event.pos
+        else:
+            a = tracking.getFrame(trackingConnection)
+            if a != {}:
+                x = a[2]['x']
+                y = a[2]['y']
+        
         screen.fill([0,0,0])
         pcb.findModuleUnderMouse(x,y)
         pcb.draw(screen)
@@ -183,5 +188,12 @@ def pcbView():
             
 
 if __name__=="__main__":
-    pcbView()
+    useMouse = False
+    filename = sys.argv[1]
+    if len(sys.argv) == 3:
+        if sys.argv[2] == 'mouse':
+            useMouse = True
+    if not useMouse:
+        trackingConnection = tracking.connect()
+    pcbView(filename,useMouse=useMouse)
     
