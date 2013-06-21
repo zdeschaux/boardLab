@@ -15,7 +15,7 @@ def connectTracker():
     return s
 
 def getTrackingFrame(connection):
-    frame_state = connect.recv(200)
+    frame_state = connection.recv(200)
     frame_state = frame_state.strip()
     frame_dict = {}
     if frame_state != '':
