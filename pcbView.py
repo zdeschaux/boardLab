@@ -143,6 +143,10 @@ def printMembers(a):
         print i
 
 
+def drawPointer(screen,x,y):
+    pygame.draw.rect(screen,blue,(x,y,10,10),0)
+
+
 def pcbView():
     filename = sys.argv[1]
     print "Loading PCB %s"%(filename)
@@ -168,6 +172,7 @@ def pcbView():
             screen.fill([0,0,0])
             pcb.findModuleUnderMouse(x,y)
             pcb.draw(screen)
+            drawPointer(screen,x,y)
             pygame.display.update()
             #pygame.time.wait(100)
             
