@@ -152,6 +152,8 @@ def pcbView():
     print "Loading PCB %s"%(filename)
     eda_pcb = LoadBoard(filename)
     pcb = PCB(eda_pcb)
+    x = 0
+    y = 0
     
     done = False 
            
@@ -168,13 +170,16 @@ def pcbView():
             sys.exit(0)
         elif event.type == pygame.MOUSEMOTION:
             x, y = event.pos
-            print x,y
-            screen.fill([0,0,0])
-            pcb.findModuleUnderMouse(x,y)
-            pcb.draw(screen)
-            drawPointer(screen,x,y)
-            pygame.display.update()
-            #pygame.time.wait(100)
+        else:
+            pass
+
+        #print x,y
+        screen.fill([0,0,0])
+        pcb.findModuleUnderMouse(x,y)
+        pcb.draw(screen)
+        drawPointer(screen,x,y)
+        pygame.display.update()
+        #pygame.time.wait(100)
             
 
 if __name__=="__main__":
