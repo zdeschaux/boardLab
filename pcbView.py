@@ -5,6 +5,7 @@ import inspect
 import pygame, tracking
 from pygame.locals import *
 
+
 pygame.init()
 
 red = Color(255,0,0)
@@ -23,7 +24,7 @@ height = 800
 borderWidth = 100
 ToUnits = ToMils
 FromUnits = FromMils
-trackingConnection = None
+trackingObject= None
 
 def getOWH(a):
     origin = a.GetOrigin()
@@ -174,10 +175,12 @@ def pcbView(filename,useMouse=False):
             if event.type == pygame.MOUSEMOTION:
                 x, y = event.pos
         else:
-            a = tracking.getFrame(trackingConnection)
+            a = trackingObject.getFrame()
             if a != {}:
-                x = a[2]['x']
-                y = a[2]['y']
+                if tracking.pointer_id in a:
+                    x = a[tracking.pointer_id]['x']
+                    y = a[tracking.pointer_id]['y']
+                    print x,y
         
         screen.fill([0,0,0])
         pcb.findModuleUnderMouse(x,y)
@@ -194,6 +197,7 @@ if __name__=="__main__":
         if sys.argv[2] == 'mouse':
             useMouse = True
     if not useMouse:
-        trackingConnection = tracking.connect()
+        trackingObject = tracking.tracking()
+        trackingObject.connect()
     pcbView(filename,useMouse=useMouse)
     
