@@ -11,6 +11,8 @@ port = 1234
 pointer_id = 0
 pcb_id = 108
 
+angle_bias = 180
+
 class tracking(object):
     def __init__(self):
         self.socket = None
@@ -37,22 +39,18 @@ class tracking(object):
             print frame_dict
 
             if pcb_id in frame_dict:
-                self.angle = (frame_dict[pcb_id]['angle'])*(math.pi/180)
-            
-            if pointer_id in frame_dict:
-                pointer_x = frame_dict[pointer_id]['x']
-                pointer_y = frame_dict[pointer_id]['y']
+                frame_dict[pcb_id]['angle'] *= (-1.0)
+                frame_dict[pcb_id]['angle'] += angle_bias
                 
-                pt_x = pointer_x*math.cos(self.angle) - pointer_y*math.sin(self.angle)
-                pt_y = pointer_x*math.sin(self.angle) + pointer_y*math.cos(self.angle)
-                frame_dict[pointer_id]['x'] = pt_x
-                frame_dict[pointer_id]['y'] = pt_y
-            
+            if pointer_id in frame_dict:
+                pass
+
             return frame_dict
 
 
 if __name__=="__main__":
-    connection = connect()
+    trackingObj = tracking()
+    trackingObj.connect()
     while(1):
-        a = getFrame(connection)
+        a = trackingObj.getFrame()
         print a
