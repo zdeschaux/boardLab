@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import sys, inspect
-from pcbnew import *
 from cairoStuff import *
 from pcb import *
 from config import *
@@ -11,8 +10,7 @@ def pcbView(filename,useMouse=False):
     window.set_size_request ( width, height )
     
     print "Loading PCB %s"%(filename)
-    eda_pcb = LoadBoard(filename)
-    pcb = PCB(eda_pcb)
+    pcb = PCB(filename)
     x = 0
     y = 0
     angle = 0
@@ -53,14 +51,7 @@ def pcbView(filename,useMouse=False):
         screen.fill([0,0,0])
         pcb.findModuleUnderMouse(x-100,y-100)
         pcb.draw(screen)
-        drawPointer(screen,x,y)
-        pygame.display.update()
-        #pygame.time.wait(100)
 
-
-def drawPointer(screen,x,y):
-    pygame.draw.rect(screen,blue,(x,y,10,10),0)
-               
 
 if __name__=="__main__":
     useMouse = True

@@ -1,6 +1,7 @@
 import inspect
 from cairoStuff import *
 from config import *
+import  xml.etree.ElementTree as ET
 
 def getOWH(a):
     origin = a.GetOrigin()
@@ -17,49 +18,24 @@ def printMembers(a):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,eda_pcb):
+    def __init__(self,fileName):
         Screen.__init__( self )
+        #PCB file loading stuff
+        self.tree = ET.parse(fileName)
+        self.root = self.tree.getroot()
+        self.elements = []
+        #self.loadPackages()
+        self.loadElements()
+
         ## x,y is where I'm at
-        self.x, self.y = 25, -25
+        self.x, self.y = 100, 100
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
         self.rot = 0
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
-
-        done = False
-        self.eda_pcb = eda_pcb
-        self.x = -100
-        self.y = -100
-        self.angle = 0
         
-        a = eda_pcb.GetBoundingBox()
-        (self.preOffset_x,self.preOffset_y) = a.GetOrigin()
-        self.elements = []
-        #self.scale = float(width-(2*borderWidth))/a.GetWidth()
-        self.scale = pcb_to_display_pixel_scale
-        print width,borderWidth,a.GetWidth()
-        print 'scale',self.scale
-        
-        for module in eda_pcb.GetModules():
-            #This is done only once
-            #OnlyOnce
-            if not done:
-                print ""
-                print "Members for module"
-                printMembers(module)
-                
-                print ""
-                print "Members for footprint rectangle"
-                printMembers(module.GetFootPrintRect())
-                done = True
-            #/OnlyOnce
-                
-            print "* Module: %s,%s at %s"%(module.GetLibRef(),module.GetReference(),module.GetPosition())
-            newElement = BasicElement(module,self)
-            self.elements.append(newElement)
-        print ""
         self.setPositionScale(-700,-120,0)
         print self.findFiducial()
 
@@ -69,65 +45,95 @@ class PCB(Screen):
         cr = self.cr
         cr.save()
         
-        #Draw the PCB bounding box
-        a = self.eda_pcb.GetBoundingBox()
-        (origin,width,height) = getOWH(a)
-        relativeCoordinates = self.calculateRelativePosition(origin,width,height)
-        scaledWidth = relativeCoordinates[2]
-        scaledHeight = relativeCoordinates[3]
-
         applyTranslation(cr,100,100)
         applyRotationAboutPoint(cr,0,0,self.rot)
-
-        cr.set_line_join(cairo.LINE_JOIN_BEVEL)
-        cr.rectangle(0,0, scaledWidth, scaledHeight)
-        cr.set_source_rgb(1,0,0)
-        cr.stroke()
        
         for element in self.elements:
             element.draw(cr)
 
         cr.restore()
         #self.rot += 0.1
-
+        #print 'here I redrawed myself.'
      
-    def setPositionScale(self,x,y,angle):
+    def setPositionScale(self,x,y,rot):
         self.x = x
         self.y = y
-        self.angle = angle
+        self.rot = rot
         #self.scale = scale
-        
-    def calculateRelativePosition(self,origin,width,height):
-        sWidth = self.scale*width
-        sHeight = self.scale*height
-        s_origin = (origin[0]-self.preOffset_x,origin[1]-self.preOffset_y)
-        ss_origin = (self.scale*s_origin[0],self.scale*s_origin[1])
-        #final_origin = (ss_origin[0]+self.x,ss_origin[1]+self.y)
-        final_origin = (ss_origin[0],ss_origin[1])
-        return (final_origin[0],final_origin[1],sWidth,sHeight)
     
     def findModuleUnderMouse(self,x,y):
         for element in self.elements:
             a = element.checkUnderMouse(x,y)
  
     def findFiducial(self):
-        for element in self.elements:
-            if element.edaElem.GetReference() == 'VAL':
-                self.fiducialPosition = element.edaElem.GetPosition() 
-                return self.fiducialPosition
+        pass
+
+    def getElementsWithTagName(self,tagName):
+        returnArray = []
+        for child in self.root.iter(tagName):
+            returnArray.append(child)
+        return returnArray
+ 
+    def loadElements(self):
+        a = self.getElementsWithTagName('element')
+        for i in a:
+            self.elements.append(BasicElement(i,self))
+        
+    def loadPackages(self):
+        a = self.getElementsWithTagName('package')
+        self.packages = [BasicElement(b,self) for b in a]
+
 
             
-
 class BasicElement(object):
-    def __init__(self,EDA_elem,pcb):
-        self.edaElem = EDA_elem
+    def __init__(self,element,pcb):
+        self.element = element
         self.underMouse = False
         self.pcb = pcb
 
+        self.libraryName = element.attrib['library']
+        self.partName = element.attrib['name']
+        self.packageName = element.attrib['package']
+        print element,element.tag,element.attrib
+        self.x = float(element.attrib['x'])
+        self.y = float(element.attrib['y'])
+
+        self.drawingElements = []
+
+        self.findFromLibrary()
+        self.loadFromLibrary()
+
+        
+    def findFromLibrary(self):
+        #First find the library
+        library = None
+        footPrint = None
+        for i in self.pcb.root.iter('library'):
+            if i.attrib['name'] == self.libraryName:
+                library = i
+                break
+        #Second find the part 
+        for i in library.iter('package'):
+            if i.attrib['name'] == self.packageName:
+                footPrint = i
+                break
+        self.library = library
+        self.footPrint = footPrint
+
+
+    def loadFromLibrary(self):
+        for i in self.footPrint:
+            if i.tag == 'wire' and i.attrib['layer'] == '21':
+                self.drawingElements.append(Wire(i,self))
+
+                
+    #rewrite
     def fontPosition(self):
         a = self.relativePosition()
         return (a[0],a[1])
 
+
+    #rewrite
     def checkUnderMouse(self,x,y):
         sserRect = self.relativePosition()
         left = sserRect[0]
@@ -141,21 +147,52 @@ class BasicElement(object):
             self.underMouse = False
             return False
 
+    
+    #rewrite
     def color(self):
         if self.underMouse:
             return red
         else:
             return green
 
+
+    #rewrite
     def draw(self,cr):
-        relativeCoordinates = self.relativePosition()
-        (startX,startY,width,height) = relativeCoordinates
-        cr.set_line_join(cairo.LINE_JOIN_BEVEL)
-        cr.rectangle(startX,startY, width, height)
-        cr.set_source_rgb(0,0,0)
+        for item in self.drawingElements:
+            item.draw(cr)
+        if False:
+            relativeCoordinates = self.relativePosition()
+            (startX,startY,width,height) = relativeCoordinates
+            cr.set_line_join(cairo.LINE_JOIN_BEVEL)
+            cr.rectangle(startX,startY, width, height)
+            cr.set_source_rgb(0,0,0)
+            cr.stroke()
+            
+
+                
+class Wire(object):
+    def __init__(self,item,parent):
+        self.item = item
+        self.parent = parent
+        self.x1 = float(item.attrib['x1'])
+        self.y1 = float(item.attrib['y1'])
+        self.x2 = float(item.attrib['x2'])
+        self.y2 = float(item.attrib['y2'])
+
+    def draw(self,cr):
+        x1 = self.x1 + self.parent.x
+        x2 = self.x2 + self.parent.x
+        y1 = self.y1 + self.parent.y
+        y2 = self.y2 + self.parent.y
+
+        x1 = x1*10
+        y1 = y1*10
+        x2 = x2*10
+        y2 = y2*10
+
+        cr.set_source_rgb(0, 0, 0)
+        cr.move_to(x1, y1)
+        cr.line_to(x2, y2)
         cr.stroke()
         
-    def relativePosition(self):
-        a = self.edaElem.GetFootPrintRect()
-        return self.pcb.calculateRelativePosition(*getOWH(a))
-
+        

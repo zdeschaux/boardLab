@@ -23,15 +23,24 @@ def applyTranslation(context,x,y):
     cairo.Matrix.translate(ThingMatrix,x,y)
     context.transform(ThingMatrix)
 
+
 class Screen( gtk.DrawingArea ):
     """ This class is a Drawing Area"""
     def __init__(self):
         super(Screen,self).__init__()
         ## Old fashioned way to connect expose. I don't savvy the gobject stuff.
+        self.set_events(gdk.BUTTON_PRESS_MASK)
         self.connect ( "expose_event", self.do_expose_event )
+        self.connect ( "button-press-event", self.buttonPress)
         ## This is what gives the animation life!
         gobject.timeout_add( 50, self.tick ) # Go call tick every 50 whatsits.
 
+    def buttonPress(self,a,b):
+        print a
+        print b
+        print 'Button pressed!'
+
+        
     def tick ( self ):
         ## This invalidates the screen, causing the expose event to fire.
         self.alloc = self.get_allocation ( )
@@ -44,4 +53,3 @@ class Screen( gtk.DrawingArea ):
         self.cr = self.window.cairo_create( )
         ## Call our draw function to do stuff.
         self.draw( *self.window.get_size( ) )
-
