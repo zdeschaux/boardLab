@@ -1,7 +1,10 @@
 import inspect
 from cairoStuff import *
 from config import *
+from config import pcb_to_display_pixel_scale as scale
 import  xml.etree.ElementTree as ET
+import parse
+import math
 
 def getOWH(a):
     origin = a.GetOrigin()
@@ -24,7 +27,6 @@ class PCB(Screen):
         self.tree = ET.parse(fileName)
         self.root = self.tree.getroot()
         self.elements = []
-        #self.loadPackages()
         self.loadElements()
 
         ## x,y is where I'm at
@@ -32,11 +34,11 @@ class PCB(Screen):
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
-        self.rot = 0
+        self.rot = 0.1
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
         
-        self.setPositionScale(-700,-120,0)
+        self.setPositionScale(100,100,0.1)
         print self.findFiducial()
 
 
@@ -45,7 +47,7 @@ class PCB(Screen):
         cr = self.cr
         cr.save()
         
-        applyTranslation(cr,100,100)
+        applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
        
         for element in self.elements:
@@ -83,7 +85,6 @@ class PCB(Screen):
         a = self.getElementsWithTagName('package')
         self.packages = [BasicElement(b,self) for b in a]
 
-
             
 class BasicElement(object):
     def __init__(self,element,pcb):
@@ -97,11 +98,22 @@ class BasicElement(object):
         print element,element.tag,element.attrib
         self.x = float(element.attrib['x'])
         self.y = float(element.attrib['y'])
+        self.rot = 0
+
+        if 'rot' in element.attrib:
+            rot = element.attrib['rot']
+            print rot
+            rotParse = parse.parse('R{:d}',rot)
+            if rotParse is None:
+                rotParse = parse.parse('MR{:d}',rot)
+            self.rot = float(rotParse[0])*(math.pi/180)
+            print self.rot
 
         self.drawingElements = []
 
         self.findFromLibrary()
         self.loadFromLibrary()
+        self.findMinRectangle()
 
         
     def findFromLibrary(self):
@@ -146,7 +158,6 @@ class BasicElement(object):
         else:
             self.underMouse = False
             return False
-
     
     #rewrite
     def color(self):
@@ -155,19 +166,39 @@ class BasicElement(object):
         else:
             return green
 
-
     #rewrite
     def draw(self,cr):
+        cr.save()
+        applyRotationAboutPoint(cr,self.x*scale,self.y*scale,self.rot)
         for item in self.drawingElements:
             item.draw(cr)
-        if False:
-            relativeCoordinates = self.relativePosition()
-            (startX,startY,width,height) = relativeCoordinates
-            cr.set_line_join(cairo.LINE_JOIN_BEVEL)
-            cr.rectangle(startX,startY, width, height)
-            cr.set_source_rgb(0,0,0)
-            cr.stroke()
-            
+        self.drawMinRectangle(cr)
+        cr.restore()
+
+    def findMinRectangle(self):
+        maxX = float('-inf')
+        minX = float('inf')
+        minY = float('inf')
+        maxY = float('-inf')
+
+        for i in self.drawingElements:
+            if type(i) == Wire:
+                (x1,y1,x2,y2) = i.absoluteCoordinates()
+                maxX = max(maxX,x1,x2)
+                minX = min(minX,x1,x2)
+                minY = min(minY,y1,y2)
+                maxY = max(maxY,y1,y2)
+        self.maxX = maxX
+        self.minX = minX
+        self.minY = minY
+        self.maxY = maxY
+        self.rectLengthX = abs(self.maxX-self.minX)
+        self.rectLengthY = abs(self.maxY-self.minY)
+
+    def drawMinRectangle(self,cr):
+        cr.set_source_rgb(1,0,0)
+        cr.rectangle(self.minX*scale, self.minY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
+        cr.stroke()
 
                 
 class Wire(object):
@@ -179,16 +210,19 @@ class Wire(object):
         self.x2 = float(item.attrib['x2'])
         self.y2 = float(item.attrib['y2'])
 
-    def draw(self,cr):
+    def absoluteCoordinates(self):
         x1 = self.x1 + self.parent.x
         x2 = self.x2 + self.parent.x
         y1 = self.y1 + self.parent.y
         y2 = self.y2 + self.parent.y
-
-        x1 = x1*10
-        y1 = y1*10
-        x2 = x2*10
-        y2 = y2*10
+        return (x1,y1,x2,y2)
+        
+    def draw(self,cr):
+        (x1,y1,x2,y2) = self.absoluteCoordinates()
+        x1 = x1*scale
+        y1 = y1*scale
+        x2 = x2*scale
+        y2 = y2*scale
 
         cr.set_source_rgb(0, 0, 0)
         cr.move_to(x1, y1)

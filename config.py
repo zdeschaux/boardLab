@@ -15,5 +15,5 @@ trackingObject= None
 
 
 
-pcb_to_display_pixel_scale = 5e-6
+pcb_to_display_pixel_scale = 10
 camera_pixel_to_pcb_scale = float(25400000)/177.5
