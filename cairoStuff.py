@@ -29,7 +29,7 @@ class Screen( gtk.DrawingArea ):
     def __init__(self):
         super(Screen,self).__init__()
         ## Old fashioned way to connect expose. I don't savvy the gobject stuff.
-        self.set_events(gdk.BUTTON_PRESS_MASK)
+        self.set_events(gdk.BUTTON_PRESS_MASK | gdk.MOTION_NOTIFY | gdk.POINTER_MOTION_MASK)
         self.connect ( "expose_event", self.do_expose_event )
         self.connect ( "button-press-event", self.buttonPress)
         ## This is what gives the animation life!
@@ -40,7 +40,7 @@ class Screen( gtk.DrawingArea ):
         print b
         print 'Button pressed!'
 
-        
+    
     def tick ( self ):
         ## This invalidates the screen, causing the expose event to fire.
         self.alloc = self.get_allocation ( )

@@ -34,13 +34,16 @@ class PCB(Screen):
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
-        self.rot = 0.1
+        self.rot = 0.0
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
         
-        self.setPositionScale(100,100,0.1)
+        self.setPositionScale(0,0,0.0)
         print self.findFiducial()
+        self.connect ( 'motion-notify-event', self.mouseMotion)
 
+    def mouseMotion(self,a,b):
+        self.findModuleUnderMouse(b.x,b.y)
 
     def draw( self, width, height ):
         ## A shortcut
@@ -85,6 +88,7 @@ class PCB(Screen):
         a = self.getElementsWithTagName('package')
         self.packages = [BasicElement(b,self) for b in a]
 
+    
             
 class BasicElement(object):
     def __init__(self,element,pcb):
@@ -147,12 +151,7 @@ class BasicElement(object):
 
     #rewrite
     def checkUnderMouse(self,x,y):
-        sserRect = self.relativePosition()
-        left = sserRect[0]
-        top = sserRect[1]
-        right = left + sserRect[2]
-        bottom = top + sserRect[3]
-        if left <= x and right >= x and top <= y and bottom >= y:
+        if self.minX*scale <= x and self.maxX*scale >= x and self.minY*scale <= y and self.maxY*scale >= y:
             self.underMouse = True
             return True
         else:
@@ -175,6 +174,7 @@ class BasicElement(object):
         self.drawMinRectangle(cr)
         cr.restore()
 
+
     def findMinRectangle(self):
         maxX = float('-inf')
         minX = float('inf')
@@ -195,12 +195,17 @@ class BasicElement(object):
         self.rectLengthX = abs(self.maxX-self.minX)
         self.rectLengthY = abs(self.maxY-self.minY)
 
+
     def drawMinRectangle(self,cr):
-        cr.set_source_rgb(1,0,0)
+        if self.underMouse:
+            cr.set_source_rgb(1,0,0)
+        else:
+            cr.set_source_rgb(0,1,0)
         cr.rectangle(self.minX*scale, self.minY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
         cr.stroke()
 
-                
+        
+        
 class Wire(object):
     def __init__(self,item,parent):
         self.item = item
@@ -228,5 +233,3 @@ class Wire(object):
         cr.move_to(x1, y1)
         cr.line_to(x2, y2)
         cr.stroke()
-        
-        
