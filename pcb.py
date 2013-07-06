@@ -5,6 +5,8 @@ from config import pcb_to_display_pixel_scale as scale
 import  xml.etree.ElementTree as ET
 import parse
 import math
+from numpy import *
+
 
 def getOWH(a):
     origin = a.GetOrigin()
@@ -38,7 +40,7 @@ class PCB(Screen):
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
         
-        self.setPositionScale(0,0,0.0)
+        self.setPositionScale(100,100,0.1)
         print self.findFiducial()
         self.connect ( 'motion-notify-event', self.mouseMotion)
 
@@ -59,7 +61,22 @@ class PCB(Screen):
         cr.restore()
         #self.rot += 0.1
         #print 'here I redrawed myself.'
-     
+    
+    def transformToPCBRef(self,x,y):
+        #x,y are in the global reference frame (the frame of reference of the display)
+        #X,Y are in the reference frame of the pcb
+        (x_p,y_p) = (x-self.x,y-self.y)
+        theta = (1)*self.rot
+        rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
+        inpVect = matrix(((x_p,),(y_p,),))
+        outVect = rotMat * inpVect
+        X = outVect[0,0]
+        Y = outVect[1,0]
+        X = float(X)/scale
+        Y = float(Y)/scale
+        print (x,y),(X,Y)
+        return (X,Y)
+
     def setPositionScale(self,x,y,rot):
         self.x = x
         self.y = y
@@ -67,8 +84,9 @@ class PCB(Screen):
         #self.scale = scale
     
     def findModuleUnderMouse(self,x,y):
+        (X,Y) = self.transformToPCBRef(x,y)
         for element in self.elements:
-            a = element.checkUnderMouse(x,y)
+            a = element.checkUnderMouse(X,Y)
  
     def findFiducial(self):
         pass
@@ -151,7 +169,7 @@ class BasicElement(object):
 
     #rewrite
     def checkUnderMouse(self,x,y):
-        if self.minX*scale <= x and self.maxX*scale >= x and self.minY*scale <= y and self.maxY*scale >= y:
+        if self.minX <= x and self.maxX >= x and self.minY <= y and self.maxY >= y:
             self.underMouse = True
             return True
         else:
