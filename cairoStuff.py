@@ -39,14 +39,18 @@ class Screen( gtk.DrawingArea ):
         print a
         print b
         print 'Button pressed!'
-
     
+    def tick2 (self):
+        self.doTick2()
+        return True
+
     def tick ( self ):
         ## This invalidates the screen, causing the expose event to fire.
         self.alloc = self.get_allocation ( )
         rect = gtk.gdk.Rectangle ( self.alloc.x, self.alloc.y, self.alloc.width, self.alloc.height )
-        self.window.invalidate_rect ( rect, True )        
+        self.window.invalidate_rect ( rect, True )
         return True # Causes timeout to tick again.
+
 
     ## When expose event fires, this is run
     def do_expose_event( self, widget, event ):

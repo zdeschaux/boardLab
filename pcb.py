@@ -1,12 +1,10 @@
-import inspect
+import inspect, parse, math
 from cairoStuff import *
 from config import *
 from config import pcb_to_display_pixel_scale as scale
 import  xml.etree.ElementTree as ET
-import parse
-import math
 from numpy import *
-
+import tracking
 
 def getOWH(a):
     origin = a.GetOrigin()
@@ -21,16 +19,39 @@ def printMembers(a):
         print i
 
 
+
+def rotate(x,y,theta):
+    rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
+    inpVect = matrix(((x,),(y,),))
+    outVect = rotMat * inpVect
+    X = outVect[0,0]
+    Y = outVect[1,0]
+    return (X,Y)
+        
+
+
+class SelectTool(object):
+    def __init__(self):
+        self.activated = False
+        self.x = 0
+        self.y = 0
+    
+    def draw(self,cr):
+        if self.activated:
+            cr.set_source_rgb(0.0,0.0,1.0)
+            cr.rectangle(self.x, self.y, 10,10)
+            cr.stroke()
+
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName):
+    def __init__(self,fileName,tracker):
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
         self.root = self.tree.getroot()
         self.elements = []
         self.loadElements()
-
+        self.tracker = tracker
         ## x,y is where I'm at
         self.x, self.y = 100, 100
         ## rx,ry is point of rotation
@@ -39,29 +60,52 @@ class PCB(Screen):
         self.rot = 0.0
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
-        
         self.setPositionScale(100,100,0.1)
         print self.findFiducial()
         self.connect ( 'motion-notify-event', self.mouseMotion)
-
+        self.selectTool = SelectTool() 
+        
+    def doTick(self):
+        pass
+                
     def mouseMotion(self,a,b):
         self.findModuleUnderMouse(b.x,b.y)
 
-    def draw( self, width, height ):
+    def draw(self, width, height):
+        if not noTrackingDebug:
+            a = self.tracker.getFrame()
+            if a != {}:
+                if tracking.pcb_id in a:
+                    self.x = a[tracking.pcb_id]['x']
+                    self.y = a[tracking.pcb_id]['y']
+                    self.rot = a[tracking.pcb_id]['angle']
+                else:
+                    self.x = 100
+                    self.y = 100
+                    selx.rot = 0
+                        
+                if tracking.selectTool_id in a:
+                    self.selectTool.activated = True
+                    self.selectTool.x = a[tracking.selectTool_id]['x']
+                    self.selectTool.y = a[tracking.selectTool_id]['y']
+                else:
+                    self.selectTool.activated = False
+        else:
+            self.x = 100
+            self.y = 500
+            self.rot = 0
+                            
         ## A shortcut
         cr = self.cr
         cr.save()
-        
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
-       
         for element in self.elements:
             element.draw(cr)
-
         cr.restore()
-        #self.rot += 0.1
-        #print 'here I redrawed myself.'
-    
+
+        self.selectTool.draw(cr)
+
     def transformToPCBRef(self,x,y):
         #x,y are in the global reference frame (the frame of reference of the display)
         #X,Y are in the reference frame of the pcb
@@ -81,7 +125,6 @@ class PCB(Screen):
         self.x = x
         self.y = y
         self.rot = rot
-        #self.scale = scale
     
     def findModuleUnderMouse(self,x,y):
         (X,Y) = self.transformToPCBRef(x,y)
@@ -101,7 +144,7 @@ class PCB(Screen):
         a = self.getElementsWithTagName('element')
         for i in a:
             self.elements.append(BasicElement(i,self))
-        
+       
     def loadPackages(self):
         a = self.getElementsWithTagName('package')
         self.packages = [BasicElement(b,self) for b in a]
@@ -159,7 +202,6 @@ class BasicElement(object):
         for i in self.footPrint:
             if i.tag == 'wire' and i.attrib['layer'] == '21':
                 self.drawingElements.append(Wire(i,self))
-
                 
     #rewrite
     def fontPosition(self):
@@ -167,7 +209,6 @@ class BasicElement(object):
         return (a[0],a[1])
 
 
-    #rewrite
     def checkUnderMouse(self,x,y):
         if self.minX <= x and self.maxX >= x and self.minY <= y and self.maxY >= y:
             self.underMouse = True
@@ -176,17 +217,15 @@ class BasicElement(object):
             self.underMouse = False
             return False
     
-    #rewrite
     def color(self):
         if self.underMouse:
             return red
         else:
             return green
 
-    #rewrite
+
     def draw(self,cr):
         cr.save()
-        applyRotationAboutPoint(cr,self.x*scale,self.y*scale,self.rot)
         for item in self.drawingElements:
             item.draw(cr)
         self.drawMinRectangle(cr)
@@ -223,20 +262,28 @@ class BasicElement(object):
         cr.stroke()
 
         
-        
 class Wire(object):
     def __init__(self,item,parent):
         self.item = item
         self.parent = parent
-        self.x1 = float(item.attrib['x1'])
-        self.y1 = float(item.attrib['y1'])
-        self.x2 = float(item.attrib['x2'])
-        self.y2 = float(item.attrib['y2'])
+        
+        x1 = float(item.attrib['x1'])
+        y1 = float(item.attrib['y1'])
+        x2 = float(item.attrib['x2'])
+        y2 = float(item.attrib['y2'])
+
+        (X1,Y1) = rotate(x1,y1,(-1)*self.parent.rot)
+        (X2,Y2) = rotate(x2,y2,(-1)*self.parent.rot)
+        
+        self.x1 = X1
+        self.y1 = Y1
+        self.x2 = X2
+        self.y2 = Y2
 
     def absoluteCoordinates(self):
         x1 = self.x1 + self.parent.x
         x2 = self.x2 + self.parent.x
-        y1 = self.y1 + self.parent.y
+        y1 = self.y1 + self.parent.y 
         y2 = self.y2 + self.parent.y
         return (x1,y1,x2,y2)
         
