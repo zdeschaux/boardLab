@@ -8,8 +8,8 @@ from parse import *
 host = '192.168.56.238'
 port = 9876
 
-pcb_id = 279
-selectTool_id = 283
+pcb_id = '279'
+selectTool_id = '283'
 
 angle_bias = 180
 
@@ -36,22 +36,20 @@ class tracking(object):
 
     def getFrame(self):
         frame_state = self.connection.recv(1000)
-#        print frame_state
+        #print frame_state
         frame_state = frame_state.strip()
         frame_dict = {}
         if frame_state != '':
             b = parse('{:d} {}',frame_state)
-            frame_state = b[1]
-            for i in range(b[0]):
-                oneFiducial = parse('{id:d} {x:d} {y:d} {angle:f}{rest}',frame_state)
-                res = transform(oneFiducial)
-                frame_dict[oneFiducial['id']] = {'x':res['x'],'y':res['y'],'angle':res['angle']}
-                frame_state =  oneFiducial['rest']
-                #print frame_state
-             #print frame_dict
-            print frame_dict
-
-            return frame_dict
+            if b is not None:
+                frame_state = b[1]
+                for i in range(b[0]):
+                    oneFiducial = parse('{id:d} {x:d} {y:d} {angle:f}{rest}',frame_state)
+                    res = transform(oneFiducial)
+                    frame_dict[oneFiducial['id']] = {'x':res['x'],'y':res['y'],'angle':res['angle']}
+                    frame_state =  oneFiducial['rest']
+        print frame_dict
+        return frame_dict
 
 
 if __name__=="__main__":

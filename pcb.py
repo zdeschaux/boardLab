@@ -4,7 +4,6 @@ from config import *
 from config import pcb_to_display_pixel_scale as scale
 import  xml.etree.ElementTree as ET
 from numpy import *
-import tracking
 
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
@@ -14,8 +13,6 @@ def rotate(x,y,theta):
     Y = outVect[1,0]
     return (X,Y)
         
-
-
 class SelectTool(object):
     def __init__(self):
         self.activated = False
@@ -31,7 +28,7 @@ class SelectTool(object):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName,tracker):
+    def __init__(self,fileName,displayCallback):
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
@@ -42,12 +39,12 @@ class PCB(Screen):
         self.flip()
         self.findMinRectangles()
 
-        self.tracker = tracker
         ## x,y is where I'm at
         self.x, self.y = 100, 100
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
+        self.rotBias = -(math.pi/2)
         self.rot = 0.0
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
@@ -55,37 +52,17 @@ class PCB(Screen):
         print self.findFiducial()
         self.connect ( 'motion-notify-event', self.mouseMotion)
         self.selectTool = SelectTool() 
+        self.displayCallback = displayCallback
         
     def doTick(self):
         pass
                 
     def mouseMotion(self,a,b):
+        print 'jere'
         self.findModuleUnderMouse(b.x,b.y)
 
     def draw(self, width, height):
-        if not noTrackingDebug:
-            a = self.tracker.getFrame()
-            if a != {}:
-                if tracking.pcb_id in a:
-                    self.x = a[tracking.pcb_id]['x']
-                    self.y = a[tracking.pcb_id]['y']
-                    self.rot = a[tracking.pcb_id]['angle']
-                else:
-                    self.x = 00
-                    self.y = 00
-                    selx.rot = 00
-                        
-                if tracking.selectTool_id in a:
-                    self.selectTool.activated = True
-                    self.selectTool.x = a[tracking.selectTool_id]['x']
-                    self.selectTool.y = a[tracking.selectTool_id]['y']
-                else:
-                    self.selectTool.activated = False
-        else:
-            self.x = 00
-            self.y = 00
-            self.rot = 0
-                            
+        #print "I also draw."
         ## A shortcut
         cr = self.cr
         cr.save()
@@ -118,8 +95,13 @@ class PCB(Screen):
     
     def findModuleUnderMouse(self,x,y):
         (X,Y) = self.transformToPCBRef(x,y)
+        a = None
         for element in self.elements:
             a = element.checkUnderMouse(X,Y)
+            if a:
+                a = element
+                break
+        return a
  
     def findFiducial(self):
         #first find the fiducial element
@@ -154,8 +136,8 @@ class PCB(Screen):
     def flip(self):
         for i in self.elements:
             i.flip()
-            
-            
+                        
+
 
 class BasicElement(object):
     def __init__(self,element,pcb):
@@ -184,6 +166,9 @@ class BasicElement(object):
 
         self.findFromLibrary()
         self.loadFromLibrary()
+
+    def __repr__(self):
+        return ','.join([self.partName, self.packageName, self.libraryName])
 
         
     def findFromLibrary(self):
@@ -215,12 +200,15 @@ class BasicElement(object):
 
 
     def checkUnderMouse(self,x,y):
-        if self.minX <= x and self.maxX >= x and self.minY <= y and self.maxY >= y:
+        (absMinX,absMinY) = self.absoluteCoordinates(self.minX,self.minY)
+        (absMaxX,absMaxY) = self.absoluteCoordinates(self.maxX,self.maxY)
+        if absMinX <= x and absMaxX >= x and absMinY <= y and absMaxY >= y:
             self.underMouse = True
             return True
         else:
             self.underMouse = False
             return False
+
     
     def color(self):
         if self.underMouse:
@@ -236,12 +224,10 @@ class BasicElement(object):
         self.drawMinRectangle(cr)
         cr.restore()
 
-
     def flip(self):
         self.y = 0.0 - self.y
         for i in self.drawingElements:
             i.flip()
-
 
     def findMinRectangle(self):
         maxX = float('-inf')
@@ -316,3 +302,5 @@ class Wire(object):
         self.y1 = -self.y1
         self.y2 = -self.y2
         pass
+
+
