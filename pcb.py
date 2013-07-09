@@ -12,7 +12,8 @@ def rotate(x,y,theta):
     X = outVect[0,0]
     Y = outVect[1,0]
     return (X,Y)
-        
+
+       
 class SelectTool(object):
     def __init__(self):
         self.activated = False
@@ -58,7 +59,6 @@ class PCB(Screen):
         pass
                 
     def mouseMotion(self,a,b):
-        print 'jere'
         self.findModuleUnderMouse(b.x,b.y)
 
     def draw(self, width, height):
@@ -136,7 +136,6 @@ class PCB(Screen):
     def flip(self):
         for i in self.elements:
             i.flip()
-                        
 
 
 class BasicElement(object):
@@ -169,7 +168,6 @@ class BasicElement(object):
 
     def __repr__(self):
         return ','.join([self.partName, self.packageName, self.libraryName])
-
         
     def findFromLibrary(self):
         #First find the library
@@ -187,7 +185,6 @@ class BasicElement(object):
         self.library = library
         self.footPrint = footPrint
 
-
     def loadFromLibrary(self):
         for i in self.footPrint:
             if i.tag == 'wire' and i.attrib['layer'] == '21':
@@ -198,7 +195,6 @@ class BasicElement(object):
         a = self.relativePosition()
         return (a[0],a[1])
 
-
     def checkUnderMouse(self,x,y):
         (absMinX,absMinY) = self.absoluteCoordinates(self.minX,self.minY)
         (absMaxX,absMaxY) = self.absoluteCoordinates(self.maxX,self.maxY)
@@ -208,14 +204,12 @@ class BasicElement(object):
         else:
             self.underMouse = False
             return False
-
     
     def color(self):
         if self.underMouse:
             return red
         else:
             return green
-
 
     def draw(self,cr):
         cr.save()
@@ -302,5 +296,3 @@ class Wire(object):
         self.y1 = -self.y1
         self.y2 = -self.y2
         pass
-
-

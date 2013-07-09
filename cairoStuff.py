@@ -32,6 +32,7 @@ class Screen( gtk.DrawingArea ):
         self.set_events(gdk.BUTTON_PRESS_MASK | gdk.MOTION_NOTIFY | gdk.POINTER_MOTION_MASK)
         self.connect ( "expose_event", self.do_expose_event )
         self.connect ( "button-press-event", self.buttonPress)
+        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.Color(1.0,1.0,1.0))
         ## This is what gives the animation life!
         gobject.timeout_add( 50, self.tick ) # Go call tick every 50 whatsits.
 
