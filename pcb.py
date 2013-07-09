@@ -6,20 +6,6 @@ import  xml.etree.ElementTree as ET
 from numpy import *
 import tracking
 
-def getOWH(a):
-    origin = a.GetOrigin()
-    end = a.GetEnd()
-    width = a.GetWidth()
-    height = a.GetHeight()
-    return (origin,width,height)
-
-def printMembers(a):
-    b = inspect.getmembers(a)
-    for i in b:
-        print i
-
-
-
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
     inpVect = matrix(((x,),(y,),))
