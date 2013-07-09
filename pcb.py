@@ -42,6 +42,7 @@ class SelectTool(object):
             cr.rectangle(self.x, self.y, 10,10)
             cr.stroke()
 
+
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
     def __init__(self,fileName,tracker):
@@ -51,6 +52,8 @@ class PCB(Screen):
         self.root = self.tree.getroot()
         self.elements = []
         self.loadElements()
+        self.findMirrorLine()
+        self.flip()
         self.tracker = tracker
         ## x,y is where I'm at
         self.x, self.y = 100, 100
@@ -80,9 +83,9 @@ class PCB(Screen):
                     self.y = a[tracking.pcb_id]['y']
                     self.rot = a[tracking.pcb_id]['angle']
                 else:
-                    self.x = 100
-                    self.y = 100
-                    selx.rot = 0
+                    self.x = 00
+                    self.y = 00
+                    selx.rot = 00
                         
                 if tracking.selectTool_id in a:
                     self.selectTool.activated = True
@@ -92,7 +95,7 @@ class PCB(Screen):
                     self.selectTool.activated = False
         else:
             self.x = 100
-            self.y = 500
+            self.y = 100
             self.rot = 0
                             
         ## A shortcut
@@ -103,7 +106,6 @@ class PCB(Screen):
         for element in self.elements:
             element.draw(cr)
         cr.restore()
-
         self.selectTool.draw(cr)
 
     def transformToPCBRef(self,x,y):
@@ -145,12 +147,25 @@ class PCB(Screen):
         for i in a:
             self.elements.append(BasicElement(i,self))
        
-    def loadPackages(self):
-        a = self.getElementsWithTagName('package')
-        self.packages = [BasicElement(b,self) for b in a]
-
-    
+    def findMirrorLine(self):
+        yMax = float('-inf')
+        yMin = float('+inf')
+        
+        for i in self.elements:
+            if i.maxY not in [float('-inf'),float('inf')] and i.minY not in [float('-inf'),float('inf')]:
+                #print (yMax,yMin,i.maxY,i.minY)
+                yMax = max(yMax,i.absMaxY,i.absMinY)
+                yMin = min(yMin,i.absMinY,i.absMaxY)
+        self.yMid = (yMax+yMax)/2
+        #self.yMid = 0.0
+        print self.yMid
+        
+    def flip(self):
+        for i in self.elements:
+            i.flip(self.yMid)
             
+            
+
 class BasicElement(object):
     def __init__(self,element,pcb):
         self.element = element
@@ -232,6 +247,16 @@ class BasicElement(object):
         cr.restore()
 
 
+    def flip(self,y):
+        self.y = 2*y - self.y
+        self.maxY = (1)*self.maxY
+        self.minY = (1)*self.minY
+        self.absMaxY = self.y + self.maxY
+        self.absMinY = self.y + self.minY
+        for i in self.drawingElements:
+            i.flip(y)
+
+
     def findMinRectangle(self):
         maxX = float('-inf')
         minX = float('inf')
@@ -240,7 +265,7 @@ class BasicElement(object):
 
         for i in self.drawingElements:
             if type(i) == Wire:
-                (x1,y1,x2,y2) = i.absoluteCoordinates()
+                (x1,y1,x2,y2) = (i.x1,i.y1,i.x2,i.y2)
                 maxX = max(maxX,x1,x2)
                 minX = min(minX,x1,x2)
                 minY = min(minY,y1,y2)
@@ -251,15 +276,23 @@ class BasicElement(object):
         self.maxY = maxY
         self.rectLengthX = abs(self.maxX-self.minX)
         self.rectLengthY = abs(self.maxY-self.minY)
-
+        self.absMaxX = maxX + self.x
+        self.absMinX = minX + self.x
+        self.absMaxY = maxY + self.y
+        self.absMinY = minY + self.y
 
     def drawMinRectangle(self,cr):
         if self.underMouse:
             cr.set_source_rgb(1,0,0)
         else:
             cr.set_source_rgb(0,1,0)
-        cr.rectangle(self.minX*scale, self.minY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
+        cr.rectangle(self.absMinX*scale, self.absMinY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
         cr.stroke()
+
+    def absoluteCoordinates(self,x,y):
+        x1 = self.x + x
+        y1 = self.y + y
+        return (x1,y1)
 
         
 class Wire(object):
@@ -272,8 +305,8 @@ class Wire(object):
         x2 = float(item.attrib['x2'])
         y2 = float(item.attrib['y2'])
 
-        (X1,Y1) = rotate(x1,y1,(-1)*self.parent.rot)
-        (X2,Y2) = rotate(x2,y2,(-1)*self.parent.rot)
+        (X1,Y1) = rotate(x1,y1,self.parent.rot)
+        (X2,Y2) = rotate(x2,y2,self.parent.rot)
         
         self.x1 = X1
         self.y1 = Y1
@@ -281,10 +314,8 @@ class Wire(object):
         self.y2 = Y2
 
     def absoluteCoordinates(self):
-        x1 = self.x1 + self.parent.x
-        x2 = self.x2 + self.parent.x
-        y1 = self.y1 + self.parent.y 
-        y2 = self.y2 + self.parent.y
+        (x1,y1) = self.parent.absoluteCoordinates(self.x1,self.y1)
+        (x2,y2) = self.parent.absoluteCoordinates(self.x2,self.y2)
         return (x1,y1,x2,y2)
         
     def draw(self,cr):
@@ -298,3 +329,8 @@ class Wire(object):
         cr.move_to(x1, y1)
         cr.line_to(x2, y2)
         cr.stroke()
+
+    def flip(self,y):
+        #self.y1 = 2*self.parent.y - self.y1
+        #self.y2 = 2*self.parent.y - self.y2
+        pass

@@ -29,6 +29,8 @@ if __name__=="__main__":
         if sys.argv[2] == 'mouse':
             useMouse = True
     if not useMouse:
-        trackingObject = tracking.tracking()
-        trackingObject.connect()
+        trackingObject = None
+        if not noTrackingDebug:
+            trackingObject = tracking.tracking()
+            trackingObject.connect()
     pcb = pcbView(filename,trackingObject,useMouse=useMouse)
