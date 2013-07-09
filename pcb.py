@@ -52,8 +52,10 @@ class PCB(Screen):
         self.root = self.tree.getroot()
         self.elements = []
         self.loadElements()
-        self.findMirrorLine()
+        self.findFiducial()
         self.flip()
+        self.findMinRectangles()
+
         self.tracker = tracker
         ## x,y is where I'm at
         self.x, self.y = 100, 100
@@ -94,8 +96,8 @@ class PCB(Screen):
                 else:
                     self.selectTool.activated = False
         else:
-            self.x = 100
-            self.y = 100
+            self.x = 00
+            self.y = 00
             self.rot = 0
                             
         ## A shortcut
@@ -134,7 +136,23 @@ class PCB(Screen):
             a = element.checkUnderMouse(X,Y)
  
     def findFiducial(self):
-        pass
+        #first find the fiducial element
+        for i in self.elements:
+            if i.packageName.startswith('TOPCODE'):
+                self.fiducial = i
+                break
+
+        fid_x = self.fiducial.x
+        fid_y = self.fiducial.y
+        #now bring everything in the document to the reference frameo of the fiducial
+        for i in self.elements:
+            i.x = i.x - fid_x
+            i.y = i.y - fid_y
+
+    def findMinRectangles(self):
+        for i in self.elements:
+            i.findMinRectangle()
+
 
     def getElementsWithTagName(self,tagName):
         returnArray = []
@@ -146,23 +164,10 @@ class PCB(Screen):
         a = self.getElementsWithTagName('element')
         for i in a:
             self.elements.append(BasicElement(i,self))
-       
-    def findMirrorLine(self):
-        yMax = float('-inf')
-        yMin = float('+inf')
-        
-        for i in self.elements:
-            if i.maxY not in [float('-inf'),float('inf')] and i.minY not in [float('-inf'),float('inf')]:
-                #print (yMax,yMin,i.maxY,i.minY)
-                yMax = max(yMax,i.absMaxY,i.absMinY)
-                yMin = min(yMin,i.absMinY,i.absMaxY)
-        self.yMid = (yMax+yMax)/2
-        #self.yMid = 0.0
-        print self.yMid
-        
+              
     def flip(self):
         for i in self.elements:
-            i.flip(self.yMid)
+            i.flip()
             
             
 
@@ -193,7 +198,6 @@ class BasicElement(object):
 
         self.findFromLibrary()
         self.loadFromLibrary()
-        self.findMinRectangle()
 
         
     def findFromLibrary(self):
@@ -247,14 +251,10 @@ class BasicElement(object):
         cr.restore()
 
 
-    def flip(self,y):
-        self.y = 2*y - self.y
-        self.maxY = (1)*self.maxY
-        self.minY = (1)*self.minY
-        self.absMaxY = self.y + self.maxY
-        self.absMinY = self.y + self.minY
+    def flip(self):
+        self.y = 0.0 - self.y
         for i in self.drawingElements:
-            i.flip(y)
+            i.flip()
 
 
     def findMinRectangle(self):
@@ -262,7 +262,6 @@ class BasicElement(object):
         minX = float('inf')
         minY = float('inf')
         maxY = float('-inf')
-
         for i in self.drawingElements:
             if type(i) == Wire:
                 (x1,y1,x2,y2) = (i.x1,i.y1,i.x2,i.y2)
@@ -276,17 +275,14 @@ class BasicElement(object):
         self.maxY = maxY
         self.rectLengthX = abs(self.maxX-self.minX)
         self.rectLengthY = abs(self.maxY-self.minY)
-        self.absMaxX = maxX + self.x
-        self.absMinX = minX + self.x
-        self.absMaxY = maxY + self.y
-        self.absMinY = minY + self.y
 
     def drawMinRectangle(self,cr):
         if self.underMouse:
             cr.set_source_rgb(1,0,0)
         else:
             cr.set_source_rgb(0,1,0)
-        cr.rectangle(self.absMinX*scale, self.absMinY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
+        (absMinX,absMinY) = self.absoluteCoordinates(self.minX,self.minY)
+        cr.rectangle(absMinX*scale, absMinY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
         cr.stroke()
 
     def absoluteCoordinates(self,x,y):
@@ -305,8 +301,8 @@ class Wire(object):
         x2 = float(item.attrib['x2'])
         y2 = float(item.attrib['y2'])
 
-        (X1,Y1) = rotate(x1,y1,self.parent.rot)
-        (X2,Y2) = rotate(x2,y2,self.parent.rot)
+        (X1,Y1) = rotate(x1,y1,(-1)*self.parent.rot)
+        (X2,Y2) = rotate(x2,y2,(-1)*self.parent.rot)
         
         self.x1 = X1
         self.y1 = Y1
@@ -330,7 +326,7 @@ class Wire(object):
         cr.line_to(x2, y2)
         cr.stroke()
 
-    def flip(self,y):
-        #self.y1 = 2*self.parent.y - self.y1
-        #self.y2 = 2*self.parent.y - self.y2
+    def flip(self):
+        self.y1 = -self.y1
+        self.y2 = -self.y2
         pass
