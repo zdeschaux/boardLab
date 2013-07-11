@@ -157,6 +157,7 @@ class Instance(XMLElement):
         self.x = float(self.root.attrib['x'])
         self.y = float(self.root.attrib['y'])
         self.gateName = self.root.attrib['gate']
+        self.name = self.partName
 
         self.rot = self.findRot()
         self.gate = None
@@ -170,9 +171,7 @@ class Instance(XMLElement):
         self.loadPart()
         self.loadDeviceset()
         self.loadGate()
-  
-        #print self
-        
+       
     def __repr__(self):
         a = 'Instance: %s from library %s deviceset %s @ (%f,%f,%f)'%(self.partName,self.libraryName,self.devicesetName,self.x,self.y,self.rot)
         return a
@@ -239,6 +238,22 @@ class Gate(XMLElement):
 
 
 
+class TextLabel(XMLElement):
+    def __init__(self,element,text,parent):
+        self.root = element
+        self.x = float(element.attrib['x'])
+        self.y = float(element.attrib['y'])
+        self.text = text
+
+    def draw(self,cr):
+        cr.save()
+        cr.set_source_rgb(0.2,0.2,0.2)
+        cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
+        cr.move_to(self.x,self.y)
+        cr.show_text(self.text)
+        cr.restore()
+
+
 class Symbol(XMLElement):
     def __init__(self,element,parent,rootParent):
         self.name = element.attrib['name']
@@ -250,11 +265,13 @@ class Symbol(XMLElement):
         self.wires = []
         self.rectangles = []
         self.pins = []
+        self.textLabels = []
         
         self.loadRectangles()
         self.loadWires()
         self.loadPins()
- 
+        self.loadTextLabels()
+
     def loadWires(self):
         a = self.root.findall('wire')
         for i in a:
@@ -270,6 +287,16 @@ class Symbol(XMLElement):
         for i in a:
             self.pins.append(Pin(i,self))
 
+    def loadTextLabels(self):
+        a = self.root.findall('text')
+        instance = self.parent.parent
+        for i in a:
+            if i.text == '>VALUE' and hasattr(instance,'value') and instance.value is not None:
+                self.textLabels.append(TextLabel(i,instance.value,self))
+            if i.text == '>NAME' and instance.name is not None:
+                self.textLabels.append(TextLabel(i,instance.name,self))
+
+            
     def __repr__(self):
         a = 'Symbol %s from library %s with %d wires'%(self.name,self.libraryName,len(self.wires))
         return a
@@ -281,7 +308,8 @@ class Symbol(XMLElement):
             i.draw(cr)
         for i in self.pins:
             i.draw(cr)
-
+        for i in self.textLabels:
+            i.draw(cr)
 
         
 class Wire(object):
