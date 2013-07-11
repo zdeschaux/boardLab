@@ -6,6 +6,13 @@ import  xml.etree.ElementTree as ET
 from numpy import *
 import sys
 
+pinLengths = {
+    'point':3,
+    'short':5,
+    'middle':7,
+    'long':9,
+}
+
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
     inpVect = matrix(((x,),(y,),))
@@ -13,6 +20,7 @@ def rotate(x,y,theta):
     X = outVect[0,0]
     Y = outVect[1,0]
     return (X,Y)
+
 
        
 class SelectTool(object):
@@ -75,19 +83,68 @@ class Sheet(XMLElement):
         self.root = tag
         self.parent = parent
         self.instances = []
+        self.nets = []
         self.rootParent = rootParent
+        
         self.loadInstances()
-
+        self.loadNets()
 
     def loadInstances(self):
         a = self.getElementsWithTagName('instance')
         for i in a:
             self.instances.append(Instance(i,self,self.rootParent))
 
+    def loadNets(self):
+        a = self.getElementsWithTagName('net')
+        for i in a:
+            self.nets.append(Net(i,self,self.rootParent))
+
     def draw(self,cr):
         for i in self.instances:
             i.draw(cr)
+        for i in self.nets:
+            i.draw(cr)
 
+
+class Net(XMLElement):
+    def __init__(self,tag,parent,rootParent):
+        self.root = tag
+        self.parent = parent
+        self.rootParent = rootParent
+        self.segments = []
+        
+        self.loadSegments()
+
+    def loadSegments(self):
+        a = self.getElementsWithTagName('segment')
+        for i in a:
+            self.segments.append(Segment(i,self,self.rootParent))
+
+    def draw(self,cr):
+        cr.save()
+        for i in self.segments:
+            cr.set_source_rgb(0.0,0.0,0.4)
+            i.draw(cr)
+        cr.restore()
+
+
+class Segment(XMLElement):
+    def __init__(self,tag,parent,rootParent):
+        self.root = tag
+        self.parent = parent
+        self.rootParent = rootParent
+        self.wires = []
+        
+        self.loadWires()
+
+    def loadWires(self):
+        a = self.getElementsWithTagName('wire')
+        for i in a:
+            self.wires.append(Wire(i,self))
+
+    def draw(self,cr):
+        for i in self.wires:
+            i.draw(cr)
 
 
 class Instance(XMLElement):
@@ -152,8 +209,10 @@ class Instance(XMLElement):
         (tx,ty) = (self.x*scale,self.y*scale)
         applyTranslation(cr,tx,ty)
         applyRotationAboutPoint(cr,0,0,self.rot)
+        cr.set_source_rgb(0.4,0.0,0.0)
         self.gate.draw(cr)
         cr.restore()
+
 
 
 class Gate(XMLElement):
@@ -179,6 +238,7 @@ class Gate(XMLElement):
         self.symbol.draw(cr)
 
 
+
 class Symbol(XMLElement):
     def __init__(self,element,parent,rootParent):
         self.name = element.attrib['name']
@@ -189,9 +249,11 @@ class Symbol(XMLElement):
         self.libraryElement = self.parent.libraryElement
         self.wires = []
         self.rectangles = []
+        self.pins = []
         
         self.loadRectangles()
         self.loadWires()
+        self.loadPins()
  
     def loadWires(self):
         a = self.root.findall('wire')
@@ -203,6 +265,11 @@ class Symbol(XMLElement):
         for i in a:
             self.rectangles.append(Rectangle(i,self))
 
+    def loadPins(self):
+        a = self.root.findall('pin')
+        for i in a:
+            self.pins.append(Pin(i,self))
+
     def __repr__(self):
         a = 'Symbol %s from library %s with %d wires'%(self.name,self.libraryName,len(self.wires))
         return a
@@ -212,6 +279,9 @@ class Symbol(XMLElement):
             i.draw(cr)
         for i in self.rectangles:
             i.draw(cr)
+        for i in self.pins:
+            i.draw(cr)
+
 
         
 class Wire(object):
@@ -241,7 +311,7 @@ class Wire(object):
         x2 = self.x2*scale
         y2 = self.y2*scale
 
-        cr.set_source_rgb(0, 0, 0)
+        #cr.set_source_rgb(0, 0, 0)
         cr.move_to(x1, y1)
         cr.line_to(x2, y2)
         cr.stroke()
@@ -250,6 +320,34 @@ class Wire(object):
         self.y1 = -self.y1
         self.y2 = -self.y2
         pass
+
+
+class Pin(XMLElement):
+    def __init__(self,root,parent):
+        self.root = root
+        self.parent = parent
+        
+        self.x = float(root.attrib['x'])
+        self.y = float(root.attrib['y'])
+        self.rot = -self.findRot()
+        self.lengthName = root.attrib['length']
+        (self.x2,self.y2) = rotate(pinLengths[self.lengthName],0,self.rot)
+        self.x2 = self.x2 + self.x
+        self.y2 = self.y2 + self.y
+
+    def draw(self,cr):
+        x1 = self.x*scale
+        y1 = self.y*scale
+        x2 = (self.x2)*scale
+        y2 = (self.y2)*scale
+
+        cr.save()
+        #applyRotationAboutPoint(cr,0,0,-self.rot)
+        cr.set_source_rgb(0, 0.5, 0)
+        cr.move_to(x1, y1)
+        cr.line_to(x2, y2)
+        cr.stroke()
+        cr.restore()
 
 
 class Rectangle(object):
@@ -278,7 +376,6 @@ class Rectangle(object):
         y1 = min(self.y1,self.y2)*scale
         xlen = abs(self.x1-self.x2)*scale
         ylen = abs(self.y1-self.y2)*scale
-        cr.set_source_rgb(0, 0, 0)
         cr.rectangle(x1,y1,xlen,ylen)
         cr.stroke()
 
