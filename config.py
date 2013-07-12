@@ -8,8 +8,11 @@
 darkBlue = (0.0,0.0,0.5)
 fontColor = darkBlue
 
-width = 1920
-height = 1080
+#width = 1920
+#height = 1080
+
+width = 800
+height = 600
 borderWidth = 0
 
 trackingObject= None

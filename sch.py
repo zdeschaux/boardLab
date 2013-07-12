@@ -23,7 +23,6 @@ def rotate(x,y,theta):
     return (X,Y)
 
 
-       
 class SelectTool(object):
     def __init__(self):
         self.activated = False
@@ -66,17 +65,32 @@ class SCH(Screen,XMLElement):
         self.root = self.tree.getroot()
         self.sheets = []
         self.loadSheets()
+        self.selectedInstances = None
         
     def draw(self, width, height):
         #print "I also draw."
         ## A shortcut
         self.sheets[0].draw(self.cr)
 
+    def processFrame(self,frame):
+        frame = frame.strip()
+        if not frame == 'null':
+            if frame in self.sheets[0].instanceHash:
+                self.selectInstance(self.sheets[0].instanceHash[frame])
+
     def loadSheets(self):
         a = self.getElementsWithTagName('sheet')
         for i in a:
             self.sheets.append(Sheet(i,self,self))
               
+    def selectInstance(self,a):
+        if self.selectedInstances is not None:
+            for i in self.selectedInstances:
+                i.selected = False
+        self.selectedInstances = a
+        for i in a:
+            i.selected = True
+
 
 
 class Sheet(XMLElement):
@@ -84,16 +98,22 @@ class Sheet(XMLElement):
         self.root = tag
         self.parent = parent
         self.instances = []
+        self.instanceHash = {}
         self.nets = []
         self.rootParent = rootParent
         
         self.loadInstances()
+        print self.instanceHash
         self.loadNets()
 
     def loadInstances(self):
         a = self.getElementsWithTagName('instance')
         for i in a:
-            self.instances.append(Instance(i,self,self.rootParent))
+            p = Instance(i,self,self.rootParent)
+            self.instances.append(p)
+            if p.name not in self.instanceHash:
+                self.instanceHash[p.name] = []
+            self.instanceHash[p.name].append(p)
 
     def loadNets(self):
         a = self.getElementsWithTagName('net')
@@ -159,7 +179,8 @@ class Instance(XMLElement):
         self.y = float(self.root.attrib['y'])
         self.gateName = self.root.attrib['gate']
         self.name = self.partName
-
+        
+        self.selected = False
         self.rot = self.findRot()
         self.gate = None
         self.devicesetElement = None
@@ -172,6 +193,12 @@ class Instance(XMLElement):
         self.loadPart()
         self.loadDeviceset()
         self.loadGate()
+
+    def color(self):
+        if self.selected:
+            return (0.7,0.0,0.0)
+        else:
+            return (0.3,0.0,0.0)
        
     def __repr__(self):
         a = 'Instance: %s from library %s deviceset %s @ (%f,%f,%f)'%(self.partName,self.libraryName,self.devicesetName,self.x,self.y,self.rot)
@@ -209,7 +236,7 @@ class Instance(XMLElement):
         (tx,ty) = (self.x*scale,self.y*scale)
         applyTranslation(cr,tx,ty)
         applyRotationAboutPoint(cr,0,0,self.rot)
-        cr.set_source_rgb(0.4,0.0,0.0)
+        cr.set_source_rgb(*self.color())
         self.gate.draw(cr)
         cr.restore()
 

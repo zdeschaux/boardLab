@@ -62,7 +62,7 @@ class PCB(Screen):
         a = self.findModuleUnderMouse(b.x,b.y)
         print a
         if a is not None:
-            self.displayCallback(a)
+            self.displayCallback(a.partName)
 
 
     def draw(self, width, height):

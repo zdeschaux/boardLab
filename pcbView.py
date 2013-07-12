@@ -33,7 +33,7 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
         # self.request is the TCP socket connected to the client
         while(1):
             if len(displayQueue) > 0:
-                self.data = displayQueue.popleft().__repr__()
+                self.data = displayQueue.popleft()
             else:
                 self.data = "null"
             # just send back the same data, but upper-cased
@@ -104,8 +104,7 @@ class AutoLoader(object):
 
     def displayCallback(self,a):
         displayQueue.append(a)
-        print "setting display data..",a
-
+        
 
 def trackingLoop(sender):
     if demoFrame is  None:
