@@ -70,23 +70,37 @@ class SCH(Screen,XMLElement):
         self.selectedInstances = None
         
     def draw(self, width, height):
+        '''
+        Translates the canvas to x,y
+        which in turn is set to the center of the selected component
+        '''
         #print "I also draw."
         ## A shortcut
         applyTranslation(self.cr,self.x,self.y)
         self.sheets[0].draw(self.cr)
 
     def processFrame(self,frame):
+        '''
+        This takes in a display frame and selects all instances with the same part name
+        '''
         frame = frame.strip()
         if not frame == 'null':
             if frame in self.sheets[0].instanceHash:
                 self.selectInstance(self.sheets[0].instanceHash[frame])
 
     def loadSheets(self):
+        '''
+        Loads the sheets, but only the first sheet is used right now.
+        '''
         a = self.getElementsWithTagName('sheet')
         for i in a:
             self.sheets.append(Sheet(i,self,self))
               
     def selectInstance(self,a):
+        '''
+        This selects all instances that come in the list a
+        and centers the frame about the first one in the list.
+        '''
         #Handle logistical stuff that has to happen to select an instance
         if self.selectedInstances is not None:
             for i in self.selectedInstances:
