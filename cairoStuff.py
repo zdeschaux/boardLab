@@ -11,6 +11,8 @@ black = (0,0,0)
 pink = (1,0.8,0.8)
 
 def applyRotationAboutPoint(context,x,y,rot):
+    x = float(x)
+    y = float(y)
     ThingMatrix = cairo.Matrix ( 1, 0, 0, 1, 0, 0 )
     cairo.Matrix.translate(ThingMatrix,x,y)
     cairo.Matrix.rotate( ThingMatrix, rot ) # Do the rotation
@@ -19,6 +21,8 @@ def applyRotationAboutPoint(context,x,y,rot):
 
 
 def applyTranslation(context,x,y): 
+    x = float(x)
+    y = float(y)
     ThingMatrix = cairo.Matrix ( 1, 0, 0, 1, 0, 0 )
     cairo.Matrix.translate(ThingMatrix,x,y)
     context.transform(ThingMatrix)

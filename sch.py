@@ -61,6 +61,8 @@ class SCH(Screen,XMLElement):
     def __init__(self,fileName,displayCallback):
         Screen.__init__( self )
         #SCH file loading stuff
+        self.x = 0
+        self.y = 0
         self.tree = ET.parse(fileName)
         self.root = self.tree.getroot()
         self.sheets = []
@@ -70,6 +72,7 @@ class SCH(Screen,XMLElement):
     def draw(self, width, height):
         #print "I also draw."
         ## A shortcut
+        applyTranslation(self.cr,self.x,self.y)
         self.sheets[0].draw(self.cr)
 
     def processFrame(self,frame):
@@ -84,12 +87,17 @@ class SCH(Screen,XMLElement):
             self.sheets.append(Sheet(i,self,self))
               
     def selectInstance(self,a):
+        #Handle logistical stuff that has to happen to select an instance
         if self.selectedInstances is not None:
             for i in self.selectedInstances:
                 i.selected = False
         self.selectedInstances = a
         for i in a:
             i.selected = True
+        
+        #Move x,y so that the first instance of the selected instances is at the center of the screen
+        self.x = (width/2)-(a[0].x*scale)
+        self.y = (height/2)-(a[0].y*scale)
 
 
 
