@@ -57,9 +57,16 @@ class PCB(Screen):
         
     def doTick(self):
         pass
-                
+    
     def mouseMotion(self,a,b):
-        self.findModuleUnderMouse(b.x,b.y)
+        a = self.findModuleUnderMouse(b.x,b.y)
+        print a
+        if a is not None:
+            self.displayCallback(a)
+            pass
+        else:
+            self.selectTool.activated = False
+
 
     def draw(self, width, height):
         #print "I also draw."
@@ -101,7 +108,9 @@ class PCB(Screen):
             if a:
                 a = element
                 break
+        print 'here',a
         return a
+    
  
     def findFiducial(self):
         #first find the fiducial element
