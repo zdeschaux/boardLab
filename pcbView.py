@@ -45,7 +45,7 @@ class AutoLoader(object):
         
     def processTrackingFrame(self,b,data):
         a = json.loads(data)
-        print 'received trackingFrame',b,a
+        #print 'received trackingFrame',b,a
         if a != {}:
             if tracking.pcb_id in a:
                 self.pcb.x = a[tracking.pcb_id]['x'] 
@@ -77,11 +77,15 @@ class AutoLoader(object):
 
 
 def trackingLoop(sender):
-    trackingObject = tracking.tracking()
-    trackingObject.connect()
+    if demoFrame is  None:
+        trackingObject = tracking.tracking()
+        trackingObject.connect()
     while(1):
-        a = trackingObject.getFrame()
-        sender.emit("tracking_frame",json.dumps(a))
+        if demoFrame is not None:
+            sender.emit("tracking_frame",json.dumps(demoFrame))
+        else:
+            a = trackingObject.getFrame()
+            sender.emit("tracking_frame",json.dumps(a))
 
 
 

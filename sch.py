@@ -6,6 +6,7 @@ import  xml.etree.ElementTree as ET
 from numpy import *
 import sys
 
+
 pinLengths = {
     'point':3,
     'short':5,

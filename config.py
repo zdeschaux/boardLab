@@ -20,3 +20,4 @@ sch_to_display_pixel_scale = 4
 
 camera_pixel_to_pcb_scale = float(25400000)/177.5
 
+demoFrame = {279:{'x':500.0,'y':200.0,'angle':0.0}}
