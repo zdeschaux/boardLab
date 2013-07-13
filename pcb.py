@@ -63,9 +63,6 @@ class PCB(Screen):
         print a
         if a is not None:
             self.displayCallback(a)
-            pass
-        else:
-            self.selectTool.activated = False
 
 
     def draw(self, width, height):
@@ -102,15 +99,11 @@ class PCB(Screen):
     
     def findModuleUnderMouse(self,x,y):
         (X,Y) = self.transformToPCBRef(x,y)
-        a = None
         for element in self.elements:
             a = element.checkUnderMouse(X,Y)
             if a:
-                a = element
-                break
-        print 'here',a
-        return a
-    
+                return element
+        return None
  
     def findFiducial(self):
         #first find the fiducial element

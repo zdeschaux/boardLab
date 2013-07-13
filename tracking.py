@@ -1,4 +1,5 @@
-import socket, math
+import math
+from telnetEngine import *
 from parse import *
 
 #AUTHOR: Pragun Goyal, 21, June, 2013
@@ -23,18 +24,7 @@ def transform(a):
     res['angle'] = a['angle']
     return res
 
-
-
-class tracking(object):
-    def __init__(self):
-        self.socket = None
-        
-    def connect(self):
-        print "connecting.."
-        self.connection = socket.socket()
-        self.connection.connect((host,port))
-        self.angle = 0
-
+class tracking(telnetEngine):
     def getFrame(self):
         frame_state = self.connection.recv(1000)
         #print frame_state
@@ -53,8 +43,9 @@ class tracking(object):
         return frame_dict
 
 
+trackingObj = tracking(host,port)
+
 if __name__=="__main__":
-    trackingObj = tracking()
     trackingObj.connect()
     while(1):
         a = trackingObj.getFrame()

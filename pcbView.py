@@ -32,9 +32,10 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
             if len(displayQueue) > 0:
                 self.data = displayQueue.popleft().__repr__()
             else:
-                self.data = "null\n"
+                self.data = "null"
             # just send back the same data, but upper-cased
-            self.request.sendall(self.data.upper())
+            self.data += '\n'
+            self.request.sendall(self.data)
             time.sleep(0.100)
                 
 
