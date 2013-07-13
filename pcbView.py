@@ -3,11 +3,14 @@ import sys, inspect
 from cairoStuff import *
 from pcb import *
 from config import *
-import gobject, tracking
-import threading
+import gobject, threading
 import time, json
 import signal, SocketServer
 from collections import deque
+import tracking
+
+if demoFrame is not None:
+    from tracking import trackingObj as trackingObject
 
 class TrackingSignaller(gobject.GObject):
     def __init__(self):
@@ -106,7 +109,6 @@ class AutoLoader(object):
 
 def trackingLoop(sender):
     if demoFrame is  None:
-        trackingObject = tracking.tracking()
         trackingObject.connect()
     while(1):
         if demoFrame is not None:
