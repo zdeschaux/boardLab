@@ -211,6 +211,7 @@ class Instance(XMLElement):
         self.libraryName = None
         self.deviceName = None
         self.devicesetName = None
+        self.dataSheetFileName = None
 
         self.loadPart()
         self.loadDeviceset()
@@ -236,6 +237,9 @@ class Instance(XMLElement):
                 self.value = None
                 if 'value' in i.attrib:
                     self.value = i.attrib['value']
+            for j in i:
+                if j.tag == 'attribute' and j.attrib['name'] == 'DATASHEET':
+                    self.dataSheetFileName = j.attrib['value']
     
     def loadDeviceset(self):
         a = self.rootParent.getElementsWithTagName('library')

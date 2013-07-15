@@ -2202,6 +2202,7 @@ design rules under a new name.</description>
 <element name="ZU4" library="SmartPrj" package="DIL28-3" value="ATMEGA328P-PU" x="46.355" y="16.383" smashed="yes" rot="R180">
 <attribute name="NAME" x="45.0666" y="15.9044" size="1.27" layer="49" ratio="10"/>
 <attribute name="VALUE" x="62.23" y="17.018" size="1.778" layer="27" ratio="10" rot="R180"/>
+<attribute name="DATASHEET" value="atmega328p.pdf" x="46.355" y="16.383" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="ICSP" library="SmartPrj" package="2X03" value="3x2 M" x="64.897" y="27.94" smashed="yes" rot="R270">
 <attribute name="NAME" x="62.294" y="24.294" size="1.27" layer="25" font="vector" ratio="10" rot="R90"/>
@@ -2253,6 +2254,7 @@ design rules under a new name.</description>
 <element name="U1" library="linear" package="SOT223" value="NCP1117ST50T3G" x="7.747" y="17.399" smashed="yes" rot="R90">
 <attribute name="NAME" x="8.2042" y="16.51" size="1.27" layer="49" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="1.905" y="16.9418" size="1.27" layer="27" rot="R180"/>
+<attribute name="DATASHEET" value="ncp1117st50t3.pdf" x="7.747" y="17.399" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C4" library="SmartPrj" package="C0603-ROUND" value="100n" x="27.94" y="44.45" smashed="yes" rot="R180">
 <attribute name="NAME" x="29.21" y="44.069" size="1.27" layer="49" ratio="10"/>
@@ -2261,6 +2263,7 @@ design rules under a new name.</description>
 <element name="F1" library="rcl" package="L1812" value="MF-MSMF050-2 500mA" x="4.064" y="26.543" smashed="yes" rot="R90">
 <attribute name="NAME" x="4.699" y="25.4" size="1.27" layer="49" ratio="10" rot="R90"/>
 <attribute name="VALUE" x="2.413" y="23.749" size="1.27" layer="27" rot="R90"/>
+<attribute name="DATASHEET" value="mfmsmf.pdf" x="4.064" y="26.543" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C7" library="SmartPrj" package="C0603-ROUND" value="100n" x="27.94" y="31.496" smashed="yes">
 <attribute name="NAME" x="29.718" y="30.988" size="1.27" layer="49" ratio="10"/>
@@ -2273,6 +2276,7 @@ design rules under a new name.</description>
 <element name="T1" library="zetex" package="SOT-23" value="FDN340P" x="8.128" y="26.543" smashed="yes" rot="R270">
 <attribute name="NAME" x="9.144" y="25.908" size="1.27" layer="49" ratio="10"/>
 <attribute name="VALUE" x="9.906" y="27.94" size="1.27" layer="27" ratio="10" rot="R270"/>
+<attribute name="DATASHEET" value="FDN340P.pdf" x="8.128" y="26.543" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="C1" library="SmartPrj" package="C0603-ROUND" value="100n" x="18.415" y="15.367" smashed="yes" rot="R270">
 <attribute name="NAME" x="16.256" y="16.637" size="1.27" layer="49" ratio="10" rot="R270"/>
@@ -2281,6 +2285,7 @@ design rules under a new name.</description>
 <element name="U3" library="SmartPrj" package="MLF32" value="ATMEGA16U2-MU(R)" x="19.939" y="34.671" smashed="yes" rot="R90">
 <attribute name="NAME" x="18.9329" y="34.7458" size="1.27" layer="49" font="vector" ratio="10"/>
 <attribute name="VALUE" x="24.2889" y="30.6209" size="1.27" layer="27" rot="R90"/>
+<attribute name="DATASHEET" value="atmega16u2.pdf" x="19.939" y="34.671" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="C5" library="SmartPrj" package="C0603-ROUND" value="100n" x="27.94" y="29.845" smashed="yes">
 <attribute name="NAME" x="29.591" y="29.21" size="1.27" layer="49" ratio="10"/>
@@ -2293,10 +2298,12 @@ design rules under a new name.</description>
 <element name="Z1" library="varistor" package="CT/CN0603" value="CG0603MLC-05E" x="12.7" y="39.37" smashed="yes" rot="R180">
 <attribute name="NAME" x="12.089" y="39.989" size="1.27" layer="49" ratio="10"/>
 <attribute name="VALUE" x="14.2" y="41.37" size="1.016" layer="27" rot="R180"/>
+<attribute name="DATASHEET" value="CG0603MLC.pdf" x="12.7" y="39.37" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="Z2" library="varistor" package="CT/CN0603" value="CG0603MLC-05E" x="12.7" y="33.655" smashed="yes" rot="R180">
 <attribute name="NAME" x="13.867" y="32.877" size="1.27" layer="49" ratio="10"/>
 <attribute name="VALUE" x="14.2" y="35.655" size="1.016" layer="27" rot="R180"/>
+<attribute name="DATASHEET" value="CG0603MLC.pdf" x="12.7" y="33.655" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="GROUND" library="jumper" package="SJ" value="" x="11.43" y="40.64" smashed="yes" rot="MR0">
 <attribute name="NAME" x="8.636" y="40.513" size="1.27" layer="50" ratio="10" rot="MR0"/>
@@ -2305,6 +2312,7 @@ design rules under a new name.</description>
 <element name="L1" library="wuerth-elektronik" package="0805" value="BLM21" x="7.62" y="45.085" smashed="yes" rot="R180">
 <attribute name="NAME" x="4.572" y="44.3865" size="1.27" layer="49" ratio="10"/>
 <attribute name="VALUE" x="9.525" y="44.1325" size="0.6096" layer="27" rot="R180"/>
+<attribute name="DATASHEET" value="BLM21.pdf" x="7.62" y="45.085" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="RESET-EN" library="jumper" package="SJ" value="" x="27.94" y="27.305" smashed="yes">
 <attribute name="NAME" x="25.019" y="28.448" size="0.8128" layer="21" font="vector" ratio="15"/>
@@ -2361,6 +2369,7 @@ design rules under a new name.</description>
 <element name="U5" library="linear" package="MSOP08" value="LMV358IDGKR" x="19.05" y="20.32" smashed="yes" rot="R90">
 <attribute name="NAME" x="21.59" y="18.288" size="1.27" layer="49" ratio="10" rot="R180"/>
 <attribute name="VALUE" x="21.59" y="23.622" size="1.27" layer="27" ratio="10" rot="R180"/>
+<attribute name="DATASHEET" value="lmv358.pdf" x="19.05" y="20.32" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="RESET" library="SmartPrj" package="TS42" value="TS42031-160R-TR-7260" x="6.35" y="49.403" smashed="yes">
 <attribute name="NAME" x="3.35" y="45.665" size="1.27" layer="21"/>
@@ -2369,10 +2378,12 @@ design rules under a new name.</description>
 <element name="Y2" library="SmartPrj" package="RESONATOR" value="CSTCE16M0V53-R0 16MHZ" x="41.275" y="24.892" smashed="yes">
 <attribute name="NAME" x="40.206" y="25.988" size="1.27" layer="49" ratio="10"/>
 <attribute name="VALUE" x="39.825" y="23.204" size="0.3556" layer="27"/>
+<attribute name="DATASHEET" value="cstce16m0v53.pdf" x="41.275" y="24.892" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U2" library="SmartPrj" package="SOT23-DBV" value="LP2985-33DBVR" x="21.971" y="15.24" smashed="yes" rot="R270">
 <attribute name="NAME" x="21.336" y="16.51" size="1.27" layer="49" rot="R270"/>
 <attribute name="VALUE" x="18.542" y="17.145" size="1.27" layer="27" rot="R270"/>
+<attribute name="DATASHEET" value="lp2985.pdf" x="21.971" y="15.24" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="POWER" library="SmartPrj" package="1X08" value="8x1F-H8.5" x="36.83" y="2.54" smashed="yes">
 <attribute name="NAME" x="39.4208" y="6.7818" size="1.27" layer="25" ratio="10"/>
@@ -2385,6 +2396,7 @@ design rules under a new name.</description>
 <element name="D3" library="diode" package="MINIMELF" value="CD1206-S01575" x="13.081" y="46.228" smashed="yes" rot="R90">
 <attribute name="NAME" x="11.938" y="45.212" size="1.27" layer="49" rot="R90"/>
 <attribute name="VALUE" x="15.494" y="44.577" size="1.27" layer="27" rot="R90"/>
+<attribute name="DATASHEET" value="CD1206_S01575-56441.pdf" x="13.081" y="46.228" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="Y1" library="SmartPrj" package="QS" value="16MHz" x="18.923" y="26.162" smashed="yes" rot="R180">
 <attribute name="NAME" x="20.066" y="26.797" size="1.27" layer="49" ratio="10" rot="R180"/>
