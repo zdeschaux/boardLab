@@ -27,3 +27,6 @@ demoFrame = {279:{'x':500.0,'y':200.0,'angle':0.0}}
 displayOff = False
 
 pcbPort = 9877
+
+datasheetDir = '/home/pragungoyal/boardlab/datasheets/'
+pdfCommand = '/usr/bin/evince-previewer'

@@ -4,7 +4,7 @@ from config import *
 from config import sch_to_display_pixel_scale as scale
 import  xml.etree.ElementTree as ET
 from numpy import *
-import sys
+import sys,subprocess
 
 
 pinLengths = {
@@ -21,6 +21,9 @@ def rotate(x,y,theta):
     X = outVect[0,0]
     Y = outVect[1,0]
     return (X,Y)
+
+
+   
 
 
 class SelectTool(object):
@@ -104,10 +107,10 @@ class SCH(Screen,XMLElement):
         #Handle logistical stuff that has to happen to select an instance
         if self.selectedInstances is not None:
             for i in self.selectedInstances:
-                i.selected = False
+                i.deselect()
         self.selectedInstances = a
         for i in a:
-            i.selected = True
+            i.select()
         
         #Move x,y so that the first instance of the selected instances is at the center of the screen
         self.x = (width/2)-(a[0].x*scale)
@@ -212,10 +215,24 @@ class Instance(XMLElement):
         self.deviceName = None
         self.devicesetName = None
         self.dataSheetFileName = None
+        self.pdfProcess = None
 
         self.loadPart()
         self.loadDeviceset()
         self.loadGate()
+
+    def select(self):
+        self.selected = True
+        if self.dataSheetFileName is not None:
+            self.pdfProcess = subprocess.Popen([pdfCommand,datasheetDir+self.dataSheetFileName])
+
+    def deselect(self):
+        self.selected = False
+        try:
+            self.pdfProcess.kill()
+        except:
+            print 'Couldnt kill the pdf process for some reason'
+       
 
     def color(self):
         if self.selected:
@@ -237,9 +254,9 @@ class Instance(XMLElement):
                 self.value = None
                 if 'value' in i.attrib:
                     self.value = i.attrib['value']
-            for j in i:
-                if j.tag == 'attribute' and j.attrib['name'] == 'DATASHEET':
-                    self.dataSheetFileName = j.attrib['value']
+                for j in i:
+                    if j.tag == 'attribute' and j.attrib['name'] == 'DATASHEET':
+                        self.dataSheetFileName = j.attrib['value']
     
     def loadDeviceset(self):
         a = self.rootParent.getElementsWithTagName('library')
