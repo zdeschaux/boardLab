@@ -64,7 +64,6 @@ class PCB(Screen):
         if a is not None:
             self.displayCallback(a.partName)
 
-
     def draw(self, width, height):
         #print "I also draw."
         ## A shortcut
@@ -153,6 +152,8 @@ class BasicElement(object):
         self.x = float(element.attrib['x'])
         self.y = float(element.attrib['y'])
         self.rot = 0
+        self.pads = []
+        self.smds = []
 
         if 'rot' in element.attrib:
             rot = element.attrib['rot']
@@ -167,6 +168,8 @@ class BasicElement(object):
 
         self.findFromLibrary()
         self.loadFromLibrary()
+        self.loadPads()
+        self.loadSMDs()
 
     def __repr__(self):
         return ','.join([self.partName, self.packageName, self.libraryName])
@@ -186,6 +189,14 @@ class BasicElement(object):
                 break
         self.library = library
         self.footPrint = footPrint
+
+    def loadPads(self):
+        for i in self.footPrint.findall('pad'):
+            self.pads.append(Pad(i,self))
+
+    def loadSMDs(self):
+        for i in self.footPrint.findall('smd'):
+            self.pads.append(SMD(i,self))
 
     def loadFromLibrary(self):
         for i in self.footPrint:
@@ -218,6 +229,10 @@ class BasicElement(object):
         for item in self.drawingElements:
             item.draw(cr)
         self.drawMinRectangle(cr)
+        for pad in self.pads:
+            pad.draw(cr)
+        for smd in self.smds:
+            smd.draw(cr)
         cr.restore()
 
     def flip(self):
@@ -258,7 +273,59 @@ class BasicElement(object):
         y1 = self.y + y
         return (x1,y1)
 
+
+class Pad(object):
+    def __init__(self,item,parent):
+        self.item = item
+        self.parent = parent
+        self.x = float(item.attrib['x'])
+        self.y = float(item.attrib['y'])
+        (self.x,self.y) = rotate(self.x,self.y,(-1)*self.parent.rot)
+
+        self.name = item.attrib['name']
+        if 'diameter' in item.attrib.keys():
+            self.diameter = float(item.attrib['diameter'])
+        if 'shape' in item.attrib.keys():
+            self.shape = item.attrib['shape']
+    
+    def absoluteCoordinates(self):
+        (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
+        return (x,y)
+    
+
+    def draw(self,cr):
+        if hasattr(self,'diameter'):
+            cr.set_source_rgb(0.0,0.0,0.5)
+            (x,y) = self.absoluteCoordinates()
+            cr.arc(x*scale,y*scale,self.diameter*scale,0,2*math.pi)
+            cr.stroke()
+
+
+class SMD(object):
+    def __init__(self,item,parent):
+        self.item = item
+        self.parent = parent
+        self.x = float(item.attrib['x'])
+        self.y = float(item.attrib['y'])
+        if 'rot' in item.attrib.keys():
+            print 'herheeherehreh',item.attrib['rot']
         
+        (self.x,self.y) = rotate(self.x,self.y,(-1)*self.parent.rot)
+
+        self.dx = float(item.attrib['dx'])
+        self.dy = float(item.attrib['dy'])
+        (self.dx,self.dy) = rotate(self.dx,self.dy,(-1)*self.parent.rot)
+        (self.dx,self.dy) = (-self.dx,-self.dy)
+
+        self.name = item.attrib['name']
+
+    def draw(self,cr):
+        cr.set_source_rgb(0.0,0.0,0.5)
+        (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
+        cr.rectangle(x*scale,y*scale,self.dx*scale,self.dy*scale)
+        cr.stroke()
+
+
 class Wire(object):
     def __init__(self,item,parent):
         self.item = item

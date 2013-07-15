@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -20638,9 +20638,7 @@ Source: RS Component / Phycomp</description>
 </class>
 </classes>
 <parts>
-<part name="ZU4" library="SmartPrj" deviceset="ATMEGA328P-" device="PU">
-<attribute name="DATASHEET" value="atmega328p.pdf"/>
-</part>
+<part name="ZU4" library="SmartPrj" deviceset="ATMEGA328P-" device="PU"/>
 <part name="ICSP" library="SmartPrj" deviceset="PINHD-2X3" device="" value="3x2 M"/>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
@@ -20655,12 +20653,8 @@ Source: RS Component / Phycomp</description>
 <part name="P+4" library="supply1" deviceset="+5V" device=""/>
 <part name="C2" library="SmartPrj" deviceset="C-EU" device="0603-RND" value="100n"/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
-<part name="PC1" library="rcl" deviceset="CPOL-EU" device="D" value="47u">
-<attribute name="DATASHEET" value="17152271884d9b17dbe66f0.pdf"/>
-</part>
-<part name="PC2" library="rcl" deviceset="CPOL-EU" device="D" value="47u">
-<attribute name="DATASHEET" value="17152271884d9b17dbe66f0.pdf"/>
-</part>
+<part name="PC1" library="rcl" deviceset="CPOL-EU" device="D" value="47u"/>
+<part name="PC2" library="rcl" deviceset="CPOL-EU" device="D" value="47u"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
@@ -20677,48 +20671,34 @@ Source: RS Component / Phycomp</description>
 <part name="FD3" library="SmartPrj" deviceset="FIDUCIALMOUNT" device=""/>
 <part name="X2" library="SmartPrj" deviceset="PN61729" device="" value="USB-B_TH"/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
-<part name="U1" library="linear" deviceset="MC33269ST*" device="" technology="-3.3T3" value="NCP1117ST50T3G">
-<attribute name="DATASHEET" value="ncp1117st50t3.pdf"/>
-</part>
+<part name="U1" library="linear" deviceset="MC33269ST*" device="" technology="-3.3T3" value="NCP1117ST50T3G"/>
 <part name="C4" library="SmartPrj" deviceset="C-EU" device="0603-RND" value="100n"/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
-<part name="F1" library="rcl" deviceset="L-EU" device="L1812" value="MF-MSMF050-2 500mA">
-<attribute name="DATASHEET" value="mfmsmf.pdf"/>
-</part>
+<part name="F1" library="rcl" deviceset="L-EU" device="L1812" value="MF-MSMF050-2 500mA"/>
 <part name="P+6" library="supply1" deviceset="+5V" device=""/>
 <part name="P+7" library="supply1" deviceset="+5V" device=""/>
 <part name="C7" library="SmartPrj" deviceset="C-EU" device="0603-RND" value="100n"/>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
 <part name="L" library="led" deviceset="LED" device="CHIP-LED0805" value="YELLOW"/>
 <part name="GND17" library="supply1" deviceset="GND" device=""/>
-<part name="T1" library="zetex" deviceset="PMOSSOT23" device="" value="FDN340P">
-<attribute name="DATASHEET" value="FDN340P.pdf"/>
-</part>
+<part name="T1" library="zetex" deviceset="PMOSSOT23" device="" value="FDN340P"/>
 <part name="P+8" library="supply1" deviceset="+5V" device=""/>
 <part name="GND20" library="supply1" deviceset="GND" device=""/>
 <part name="GND18" library="supply1" deviceset="GND" device=""/>
 <part name="P+9" library="supply1" deviceset="+5V" device=""/>
 <part name="C1" library="SmartPrj" deviceset="C-EU" device="0603-RND" value="100n"/>
 <part name="P+10" library="supply1" deviceset="+5V" device=""/>
-<part name="U3" library="SmartPrj" deviceset="ATMEGA16U2-" device="MU" value="ATMEGA16U2-MU(R)">
-<attribute name="DATASHEET" value="atmega16u2.pdf"/>
-</part>
+<part name="U3" library="SmartPrj" deviceset="ATMEGA16U2-" device="MU" value="ATMEGA16U2-MU(R)"/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="C5" library="SmartPrj" deviceset="C-EU" device="0603-RND" value="100n"/>
 <part name="ICSP1" library="SmartPrj" deviceset="PINHD-2X3" device="" value="3x2 M"/>
 <part name="P+11" library="supply1" deviceset="+5V" device=""/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
-<part name="Z1" library="varistor" deviceset="VARISTOR" device="CN0603" value="CG0603MLC-05E">
-<attribute name="DATASHEET" value="CG0603MLC.pdf"/>
-</part>
-<part name="Z2" library="varistor" deviceset="VARISTOR" device="CN0603" value="CG0603MLC-05E">
-<attribute name="DATASHEET" value="CG0603MLC.pdf"/>
-</part>
+<part name="Z1" library="varistor" deviceset="VARISTOR" device="CN0603" value="CG0603MLC-05E"/>
+<part name="Z2" library="varistor" deviceset="VARISTOR" device="CN0603" value="CG0603MLC-05E"/>
 <part name="GROUND" library="jumper" deviceset="SJ" device=""/>
-<part name="L1" library="wuerth-elektronik" deviceset="WE-CBF" device="_0805" value="BLM21">
-<attribute name="DATASHEET" value="BLM21.pdf"/>
-</part>
+<part name="L1" library="wuerth-elektronik" deviceset="WE-CBF" device="_0805" value="BLM21"/>
 <part name="RESET-EN" library="jumper" deviceset="SJ" device=""/>
 <part name="R2" library="SmartPrj" deviceset="R-EU_" device="R0603" value="1M"/>
 <part name="RN2" library="resistor-dil" deviceset="4R-N" device="CAY16" value="1K"/>
@@ -20735,21 +20715,13 @@ Source: RS Component / Phycomp</description>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="JP2" library="SmartPrj" deviceset="PINHD-2X2" device="" value="2x2 M - NM"/>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
-<part name="U5" library="linear" deviceset="LMV358?*" device="MM" technology="X" value="LMV358IDGKR">
-<attribute name="DATASHEET" value="lmv358.pdf"/>
-</part>
+<part name="U5" library="linear" deviceset="LMV358?*" device="MM" technology="X" value="LMV358IDGKR"/>
 <part name="RESET" library="SmartPrj" deviceset="TS42" device="" value="TS42031-160R-TR-7260"/>
-<part name="Y2" library="SmartPrj" deviceset="RESONATOR" device="MU" value="CSTCE16M0V53-R0 16MHZ">
-<attribute name="DATASHEET" value="cstce16m0v53.pdf"/>
-</part>
-<part name="U2" library="SmartPrj" deviceset="LP2985-XXDBVR" device="" technology="33" value="LP2985-33DBVR">
-<attribute name="DATASHEET" value="lp2985.pdf"/>
-</part>
+<part name="Y2" library="SmartPrj" deviceset="RESONATOR" device="MU" value="CSTCE16M0V53-R0 16MHZ"/>
+<part name="U2" library="SmartPrj" deviceset="LP2985-XXDBVR" device="" technology="33" value="LP2985-33DBVR"/>
 <part name="POWER" library="SmartPrj" deviceset="PINHD-1X8" device="" value="8x1F-H8.5"/>
 <part name="D2" library="diode" deviceset="DIODE-" device="MINIMELF" value="CD1206-S01575"/>
-<part name="D3" library="diode" deviceset="DIODE-" device="MINIMELF" value="CD1206-S01575">
-<attribute name="DATASHEET" value="CD1206_S01575-56441.pdf"/>
-</part>
+<part name="D3" library="diode" deviceset="DIODE-" device="MINIMELF" value="CD1206-S01575"/>
 <part name="Y1" library="SmartPrj" deviceset="XTAL/S" device="" value="16MHz"/>
 <part name="U$1" library="SmartPrj" deviceset="DISCLAIMER" device=""/>
 </parts>
@@ -20777,9 +20749,7 @@ Source: RS Component / Phycomp</description>
 <text x="-83.82" y="-50.8" size="5.08" layer="91">Use of the ARDUINO name must be compliant with http://www.arduino.cc/en/Main/Policy</text>
 </plain>
 <instances>
-<instance part="ZU4" gate="G$1" x="157.48" y="53.34">
-<attribute name="DATASHEET" x="157.48" y="53.34" size="1.778" layer="96" display="off"/>
-</instance>
+<instance part="ZU4" gate="G$1" x="157.48" y="53.34"/>
 <instance part="ICSP" gate="A" x="165.1" y="99.06"/>
 <instance part="P+1" gate="1" x="180.34" y="106.68" smashed="yes">
 <attribute name="VALUE" x="182.245" y="109.22" size="1.778" layer="96" rot="R180"/>
@@ -20808,12 +20778,10 @@ Source: RS Component / Phycomp</description>
 <instance part="PC1" gate="G$1" x="162.56" y="167.64" smashed="yes">
 <attribute name="NAME" x="154.94" y="167.64" size="1.778" layer="95"/>
 <attribute name="VALUE" x="154.94" y="165.1" size="1.778" layer="96"/>
-<attribute name="DATASHEET" x="162.56" y="167.64" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="PC2" gate="G$1" x="200.66" y="167.64" smashed="yes">
 <attribute name="NAME" x="203.2" y="167.1066" size="1.778" layer="95"/>
 <attribute name="VALUE" x="202.946" y="164.5666" size="1.778" layer="96"/>
-<attribute name="DATASHEET" x="200.66" y="167.64" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND9" gate="1" x="162.56" y="157.48"/>
 <instance part="GND10" gate="1" x="200.66" y="157.48"/>
@@ -20845,13 +20813,10 @@ Source: RS Component / Phycomp</description>
 <instance part="U1" gate="G$1" x="180.34" y="172.72" smashed="yes">
 <attribute name="NAME" x="175.26" y="182.88" size="1.778" layer="95"/>
 <attribute name="VALUE" x="175.26" y="180.34" size="1.778" layer="96"/>
-<attribute name="DATASHEET" x="180.34" y="172.72" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="C4" gate="G$1" x="193.04" y="104.14"/>
 <instance part="GND13" gate="1" x="193.04" y="111.76" rot="R180"/>
-<instance part="F1" gate="G$1" x="-43.18" y="81.28" rot="R270">
-<attribute name="DATASHEET" x="-43.18" y="81.28" size="1.778" layer="96" rot="R270" display="off"/>
-</instance>
+<instance part="F1" gate="G$1" x="-43.18" y="81.28" rot="R270"/>
 <instance part="P+6" gate="1" x="2.54" y="60.96" smashed="yes">
 <attribute name="VALUE" x="4.445" y="63.5" size="1.778" layer="96" rot="R180"/>
 </instance>
@@ -20865,9 +20830,7 @@ Source: RS Component / Phycomp</description>
 <instance part="GND16" gate="1" x="-33.02" y="27.94"/>
 <instance part="L" gate="G$1" x="104.14" y="162.56"/>
 <instance part="GND17" gate="1" x="104.14" y="152.4"/>
-<instance part="T1" gate="A" x="38.1" y="147.32" rot="MR270">
-<attribute name="DATASHEET" x="38.1" y="147.32" size="1.778" layer="96" rot="MR270" display="off"/>
-</instance>
+<instance part="T1" gate="A" x="38.1" y="147.32" rot="MR270"/>
 <instance part="P+8" gate="1" x="208.28" y="180.34" smashed="yes">
 <attribute name="VALUE" x="210.185" y="182.88" size="1.778" layer="96" rot="R180"/>
 </instance>
@@ -20883,9 +20846,7 @@ Source: RS Component / Phycomp</description>
 <instance part="P+10" gate="1" x="53.34" y="152.4" smashed="yes">
 <attribute name="VALUE" x="55.245" y="154.94" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="U3" gate="G$1" x="40.64" y="58.42">
-<attribute name="DATASHEET" x="40.64" y="58.42" size="1.778" layer="96" display="off"/>
-</instance>
+<instance part="U3" gate="G$1" x="40.64" y="58.42"/>
 <instance part="GND21" gate="1" x="111.76" y="132.08"/>
 <instance part="C5" gate="G$1" x="101.6" y="86.36" rot="R90"/>
 <instance part="ICSP1" gate="A" x="-20.32" y="104.14"/>
@@ -20897,17 +20858,13 @@ Source: RS Component / Phycomp</description>
 <instance part="Z1" gate="G$1" x="-50.8" y="55.88" smashed="yes" rot="R90">
 <attribute name="NAME" x="-53.34" y="53.34" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="-45.72" y="48.26" size="1.778" layer="96" rot="R90"/>
-<attribute name="DATASHEET" x="-50.8" y="55.88" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
 <instance part="Z2" gate="G$1" x="-40.64" y="55.88" smashed="yes" rot="R90">
 <attribute name="NAME" x="-43.18" y="53.34" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="-35.56" y="48.26" size="1.778" layer="96" rot="R90"/>
-<attribute name="DATASHEET" x="-40.64" y="55.88" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
 <instance part="GROUND" gate="1" x="0" y="30.48" rot="R180"/>
-<instance part="L1" gate="G$1" x="-48.26" y="33.02" rot="R90">
-<attribute name="DATASHEET" x="-48.26" y="33.02" size="1.778" layer="96" rot="R90" display="off"/>
-</instance>
+<instance part="L1" gate="G$1" x="-48.26" y="33.02" rot="R90"/>
 <instance part="RESET-EN" gate="1" x="111.76" y="93.98"/>
 <instance part="R2" gate="G$1" x="124.46" y="71.12" smashed="yes" rot="MR90">
 <attribute name="NAME" x="127" y="72.7964" size="1.778" layer="95" rot="MR180"/>
@@ -20964,18 +20921,13 @@ Source: RS Component / Phycomp</description>
 <instance part="JP2" gate="A" x="83.82" y="116.84" rot="MR90"/>
 <instance part="GND15" gate="1" x="88.9" y="50.8"/>
 <instance part="U5" gate="A" x="38.1" y="177.8"/>
-<instance part="U5" gate="B" x="83.82" y="170.18">
-<attribute name="DATASHEET" x="83.82" y="170.18" size="1.778" layer="96" display="off"/>
-</instance>
+<instance part="U5" gate="B" x="83.82" y="170.18"/>
 <instance part="U5" gate="P" x="-27.94" y="177.8"/>
 <instance part="RESET" gate="G$1" x="132.08" y="104.14" rot="R180"/>
 <instance part="Y2" gate="G$1" x="114.3" y="71.12" smashed="yes">
 <attribute name="VALUE" x="104.14" y="63.5" size="1.778" layer="96"/>
-<attribute name="DATASHEET" x="114.3" y="71.12" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="U2" gate="G$1" x="88.9" y="142.24">
-<attribute name="DATASHEET" x="88.9" y="142.24" size="1.778" layer="96" display="off"/>
-</instance>
+<instance part="U2" gate="G$1" x="88.9" y="142.24"/>
 <instance part="POWER" gate="A" x="157.48" y="129.54"/>
 <instance part="D2" gate="G$1" x="129.54" y="86.36" smashed="yes" rot="R90">
 <attribute name="NAME" x="124.9426" y="88.9" size="1.778" layer="95" rot="R270"/>
@@ -20984,7 +20936,6 @@ Source: RS Component / Phycomp</description>
 <instance part="D3" gate="G$1" x="7.62" y="96.52" smashed="yes" rot="R90">
 <attribute name="NAME" x="4.5974" y="96.52" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="12.4714" y="86.36" size="1.778" layer="96" rot="R90"/>
-<attribute name="DATASHEET" x="7.62" y="96.52" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
 <instance part="Y1" gate="G$1" x="2.54" y="73.66" rot="R270"/>
 <instance part="U$1" gate="G$1" x="-83.82" y="-43.18"/>

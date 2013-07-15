@@ -2223,9 +2223,11 @@ design rules under a new name.</description>
 </element>
 <element name="PC1" library="rcl" package="PANASONIC_D" value="47u" x="25.527" y="9.144" smashed="yes" rot="R90">
 <attribute name="VALUE" x="28.194" y="9.779" size="1.27" layer="27" ratio="10" rot="R180"/>
+<attribute name="DATASHEET" value="17152271884d9b17dbe66f0.pdf" x="25.527" y="9.144" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="PC2" library="rcl" package="PANASONIC_D" value="47u" x="18.415" y="9.144" smashed="yes" rot="R90">
 <attribute name="VALUE" x="20.955" y="9.779" size="1.27" layer="27" ratio="10" rot="R180"/>
+<attribute name="DATASHEET" value="17152271884d9b17dbe66f0.pdf" x="18.415" y="9.144" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="ON" library="led" package="CHIP-LED0805" value="GREEN" x="58.42" y="36.576" smashed="yes" rot="R270">
 <attribute name="NAME" x="60.96" y="35.941" size="1.4224" layer="25" font="vector" ratio="15"/>
