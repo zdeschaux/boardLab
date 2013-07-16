@@ -99,7 +99,9 @@ class PCB(Screen):
     def findModuleUnderMouse(self,x,y):
         (X,Y) = self.transformToPCBRef(x,y)
         for element in self.elements:
-            a = element.checkUnderMouse(X,Y)
+            #a = element.checkUnderMouse(X,Y)
+            a = False
+            element.checkPadsAndSMDsUnderMouse(X,Y)
             if a:
                 return element
         return None
@@ -217,6 +219,12 @@ class BasicElement(object):
         else:
             self.underMouse = False
             return False
+
+    def checkPadsAndSMDsUnderMouse(self,x,y):
+        for i in self.pads:
+            i.checkUnderMouse(x,y)
+        for i in self.smds:
+            i.checkUnderMouse(x,y)
     
     def color(self):
         if self.underMouse:
@@ -282,6 +290,7 @@ class Pad(object):
         self.y = float(item.attrib['y'])
         (self.x,self.y) = rotate(self.x,self.y,-self.parent.rot)
 
+        self.underMouse = False
         self.name = item.attrib['name']
         if 'diameter' in item.attrib.keys():
             self.radius = float(item.attrib['diameter'])/2
@@ -292,13 +301,27 @@ class Pad(object):
         (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
         return (x,y)
     
+    def color(self):
+        if self.underMouse:
+            return (0.0,0.0,0.9)
+        else:
+            return (0.0,0.0,0.4)
 
     def draw(self,cr):
         if hasattr(self,'radius'):
-            cr.set_source_rgb(0.0,0.0,0.5)
+            cr.set_source_rgb(*self.color())
             (x,y) = self.absoluteCoordinates()
             cr.arc(x*scale,y*scale,self.radius*scale,0,2*math.pi)
             cr.stroke()
+
+    def checkUnderMouse(self,x,y):
+        if hasattr(self,'radius'):
+            (x1,y1) = self.absoluteCoordinates()
+            distance = math.sqrt(((x-x1)*(x-x1))+((y-y1)*(y-y1)))
+            if distance < self.radius:
+                self.underMouse = True
+            else:
+                self.underMouse = False
 
 
 class SMD(object):
@@ -318,6 +341,8 @@ class SMD(object):
 
         rot =  - self.parent.rot
         rot2 = -self.rot - self.parent.rot
+        self.underMouse = False
+
         (self.x,self.y) = rotate(self.x,self.y,rot)
 
         self.dx = float(item.attrib['dx'])
@@ -329,11 +354,20 @@ class SMD(object):
 
         self.name = item.attrib['name']
 
+    def color(self):
+        if self.underMouse:
+            return (0.0,0.0,0.9)
+        else:
+            return (0.0,0.0,0.4)
+
     def draw(self,cr):
-        cr.set_source_rgb(0.0,0.0,0.5)
+        cr.set_source_rgb(*self.color())
         (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
         cr.rectangle(x*scale,y*scale,self.dx*scale,self.dy*scale)
         cr.stroke()
+
+    def checkUnderMouse(self,x,y):
+        pass
 
 
 class Wire(object):
