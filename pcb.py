@@ -351,7 +351,6 @@ class SMD(object):
         (self.dx,self.dy) = (self.dx,self.dy)
 
         (self.x,self.y) = (self.x-self.dx/2,self.y-self.dy/2)
-
         self.name = item.attrib['name']
 
     def color(self):
@@ -367,7 +366,17 @@ class SMD(object):
         cr.stroke()
 
     def checkUnderMouse(self,x,y):
-        pass
+        (x1,y1) = self.parent.absoluteCoordinates(self.x,self.y)
+        (x2,y2) = self.parent.absoluteCoordinates(self.x+self.dx,self.y+self.dy)
+        xMin = min(x1,x2)
+        xMax = max(x1,x2)
+        yMin = min(y1,y2)
+        yMax = max(y1,y2)
+
+        if x <= xMax and x >= xMin and y <= yMax and y >= yMin:
+            self.underMouse = True
+        else:
+            self.underMouse = False
 
 
 class Wire(object):
