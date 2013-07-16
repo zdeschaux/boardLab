@@ -278,13 +278,13 @@ class Pad(object):
     def __init__(self,item,parent):
         self.item = item
         self.parent = parent
-        self.x = float(item.attrib['x'])
+        self.x = -float(item.attrib['x'])
         self.y = float(item.attrib['y'])
-        (self.x,self.y) = rotate(self.x,self.y,(-1)*self.parent.rot)
+        (self.x,self.y) = rotate(self.x,self.y,-self.parent.rot)
 
         self.name = item.attrib['name']
         if 'diameter' in item.attrib.keys():
-            self.diameter = float(item.attrib['diameter'])
+            self.radius = float(item.attrib['diameter'])/2
         if 'shape' in item.attrib.keys():
             self.shape = item.attrib['shape']
     
@@ -294,10 +294,10 @@ class Pad(object):
     
 
     def draw(self,cr):
-        if hasattr(self,'diameter'):
+        if hasattr(self,'radius'):
             cr.set_source_rgb(0.0,0.0,0.5)
             (x,y) = self.absoluteCoordinates()
-            cr.arc(x*scale,y*scale,self.diameter*scale,0,2*math.pi)
+            cr.arc(x*scale,y*scale,self.radius*scale,0,2*math.pi)
             cr.stroke()
 
 
@@ -307,15 +307,25 @@ class SMD(object):
         self.parent = parent
         self.x = float(item.attrib['x'])
         self.y = float(item.attrib['y'])
+        self.rot = 0.0
         if 'rot' in item.attrib.keys():
-            print 'herheeherehreh',item.attrib['rot']
-        
-        (self.x,self.y) = rotate(self.x,self.y,(-1)*self.parent.rot)
+            rot = item.attrib['rot']
+            print rot
+            rotParse = parse.parse('R{:d}',rot)
+            if rotParse is None:
+                rotParse = parse.parse('MR{:d}',rot)
+            self.rot = float(rotParse[0])*(math.pi/180)
+
+        rot =  - self.parent.rot
+        rot2 = -self.rot - self.parent.rot
+        (self.x,self.y) = rotate(self.x,self.y,rot)
 
         self.dx = float(item.attrib['dx'])
         self.dy = float(item.attrib['dy'])
-        (self.dx,self.dy) = rotate(self.dx,self.dy,(-1)*self.parent.rot)
-        (self.dx,self.dy) = (-self.dx,-self.dy)
+        (self.dx,self.dy) = rotate(self.dx,self.dy,rot2)
+        (self.dx,self.dy) = (self.dx,self.dy)
+
+        (self.x,self.y) = (self.x-self.dx/2,self.y-self.dy/2)
 
         self.name = item.attrib['name']
 
