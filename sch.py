@@ -5,7 +5,7 @@ from config import sch_to_display_pixel_scale as scale
 import  xml.etree.ElementTree as ET
 from numpy import *
 import sys,subprocess
-
+import json
 
 pinLengths = {
     'point':3,
@@ -21,9 +21,6 @@ def rotate(x,y,theta):
     X = outVect[0,0]
     Y = outVect[1,0]
     return (X,Y)
-
-
-   
 
 
 class SelectTool(object):
@@ -86,11 +83,13 @@ class SCH(Screen,XMLElement):
         '''
         This takes in a display frame and selects all instances with the same part name
         '''
-        frame = frame.strip()
-        if not frame == 'null':
-            if frame in self.sheets[0].instanceHash:
-                self.selectInstance(self.sheets[0].instanceHash[frame])
+        (x,y) = self.sheets[0].processFrame(frame)
+        self.moveTo(x,y)
 
+    def moveTo(self,x,y):
+        self.x = (width/2)-x*scale
+        self.y = (height/2)-y*scale
+    
     def loadSheets(self):
         '''
         Loads the sheets, but only the first sheet is used right now.
@@ -115,7 +114,6 @@ class SCH(Screen,XMLElement):
         #Move x,y so that the first instance of the selected instances is at the center of the screen
         self.x = (width/2)-(a[0].x*scale)
         self.y = (height/2)-(a[0].y*scale)
-
 
 
 class Sheet(XMLElement):
@@ -150,6 +148,49 @@ class Sheet(XMLElement):
             i.draw(cr)
         for i in self.nets:
             i.draw(cr)
+
+    def processFrame(self,frame):
+        frame = frame.strip()
+        frameDict = json.loads(frame)
+        print frameDict
+#        if not frame == 'null':
+#            if frame in self.sheets[0].instanceHash:
+#                self.selectInstance(self.sheets[0].instanceHash[frame])
+        if frameDict['type'] == 'VDC':
+            return self.processVDCFrame(frameDict)
+
+    def processVDCFrame(self,frameDict):
+        positive = frameDict['positive']
+        negative = frameDict['negative']
+        
+        positiveParts = self.instanceHash[positive['partName']]
+        negativeParts = self.instanceHash[negative['partName']]
+        
+        positivePart = None
+        negativePart = None
+        positivePin = None
+        negativePin = None
+        
+        for i in positiveParts:
+            if positive['pad'] in i.padHash:
+                positivePart = i
+                positivePin = i.padHash[positive['pad']]
+                
+        for i in negativeParts:
+            if negative['pad'] in i.padHash:
+                negativePart = i
+                negativePin = i.padHash[negative['pad']]
+                
+        positivePin = positivePart.padHash[positive['pad']]
+        negativePin = negativePart.padHash[negative['pad']]
+        
+        positivePin.selected = True
+        negativePin.selected = True
+        positivePart.selected = True
+        negativePart.selected = True
+
+        (centerX,centerY) = ((positivePart.x+negativePart.x)/2,(positivePart.y+negativePart.y)/2)
+        return (centerX,centerY)
 
 
 class Net(XMLElement):
@@ -204,7 +245,8 @@ class Instance(XMLElement):
         self.y = float(self.root.attrib['y'])
         self.gateName = self.root.attrib['gate']
         self.name = self.partName
-        
+        self.padHash = {}
+
         self.selected = False
         self.rot = self.findRot()
         self.gate = None
@@ -219,7 +261,10 @@ class Instance(XMLElement):
 
         self.loadPart()
         self.loadDeviceset()
+        self.loadDevice()
         self.loadGate()
+        self.loadConnects()
+
 
     def select(self):
         self.selected = True
@@ -233,7 +278,6 @@ class Instance(XMLElement):
         except:
             print 'Couldnt kill the pdf process for some reason'
        
-
     def color(self):
         if self.selected:
             return (0.7,0.0,0.0)
@@ -266,7 +310,13 @@ class Instance(XMLElement):
                 for j in i.findall('devicesets/deviceset'):
                     if self.devicesetName == j.attrib['name']:
                         self.devicesetElement = j
-                
+
+    def loadDevice(self):
+        a = self.devicesetElement.findall('devices/device')
+        for i in a:
+            if i.attrib['name'] == self.deviceName:
+                self.deviceElement = i
+             
     def loadGate(self):
         #Then load the gates themselves
         gateElements = self.devicesetElement.findall('gates/gate')
@@ -283,6 +333,13 @@ class Instance(XMLElement):
         self.gate.draw(cr)
         cr.restore()
 
+    def loadConnects(self):
+        a = self.deviceElement.findall('connects/connect')
+        for i in a:
+            if i.attrib['gate'] == self.gateName:
+                if i.attrib['pad'] not in self.padHash:
+                    if i.attrib['pin'] in self.gate.symbol.pinHash:
+                        self.padHash[i.attrib['pad']] = self.gate.symbol.pinHash[i.attrib['pin']]
 
 
 class Gate(XMLElement):
@@ -337,6 +394,7 @@ class Symbol(XMLElement):
         self.rectangles = []
         self.pins = []
         self.textLabels = []
+        self.pinHash = {}
         
         self.loadRectangles()
         self.loadWires()
@@ -356,7 +414,10 @@ class Symbol(XMLElement):
     def loadPins(self):
         a = self.root.findall('pin')
         for i in a:
-            self.pins.append(Pin(i,self))
+            t = Pin(i,self)
+            self.pins.append(t)
+            self.pinHash[t.name] = t
+            
 
     def loadTextLabels(self):
         a = self.root.findall('text')
@@ -425,7 +486,7 @@ class Pin(XMLElement):
     def __init__(self,root,parent):
         self.root = root
         self.parent = parent
-        
+        self.name = root.attrib['name']
         self.x = float(root.attrib['x'])
         self.y = float(root.attrib['y'])
         self.rot = -self.findRot()
@@ -433,6 +494,13 @@ class Pin(XMLElement):
         (self.x2,self.y2) = rotate(pinLengths[self.lengthName],0,self.rot)
         self.x2 = self.x2 + self.x
         self.y2 = self.y2 + self.y
+        self.selected = False
+
+    def color(self):
+        if self.selected:
+            return (0.0, 0.9, 0.0)
+        else:
+            return (0.0, 0.4, 0.0)
 
     def draw(self,cr):
         x1 = self.x*scale
@@ -442,7 +510,7 @@ class Pin(XMLElement):
 
         cr.save()
         #applyRotationAboutPoint(cr,0,0,-self.rot)
-        cr.set_source_rgb(0, 0.5, 0)
+        cr.set_source_rgb(*self.color())
         cr.move_to(x1, y1)
         cr.line_to(x2, y2)
         cr.stroke()

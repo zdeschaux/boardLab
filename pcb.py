@@ -27,6 +27,7 @@ class SelectTool(object):
             cr.stroke()
 
 
+
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
     def __init__(self,fileName,displayCallback):
@@ -319,6 +320,7 @@ class Pad(object):
             (x1,y1) = self.absoluteCoordinates()
             distance = math.sqrt(((x-x1)*(x-x1))+((y-y1)*(y-y1)))
             if distance < self.radius:
+                print self.name, self.parent.partName
                 self.underMouse = True
             else:
                 self.underMouse = False
@@ -349,8 +351,8 @@ class SMD(object):
         self.dy = float(item.attrib['dy'])
         (self.dx,self.dy) = rotate(self.dx,self.dy,rot2)
         (self.dx,self.dy) = (self.dx,self.dy)
-
         (self.x,self.y) = (self.x-self.dx/2,self.y-self.dy/2)
+
         self.name = item.attrib['name']
 
     def color(self):
@@ -375,6 +377,7 @@ class SMD(object):
 
         if x <= xMax and x >= xMin and y <= yMax and y >= yMin:
             self.underMouse = True
+            print self.name, self.parent.partName
         else:
             self.underMouse = False
 
