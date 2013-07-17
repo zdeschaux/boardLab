@@ -124,7 +124,8 @@ class Sheet(XMLElement):
         self.instanceHash = {}
         self.nets = []
         self.rootParent = rootParent
-        
+        self.measurements = []
+
         self.loadInstances()
         print self.instanceHash
         self.loadNets()
@@ -148,6 +149,8 @@ class Sheet(XMLElement):
             i.draw(cr)
         for i in self.nets:
             i.draw(cr)
+        for i in self.measurements:
+            i.draw(cr)
 
     def processFrame(self,frame):
         frame = frame.strip()
@@ -160,37 +163,52 @@ class Sheet(XMLElement):
             return self.processVDCFrame(frameDict)
 
     def processVDCFrame(self,frameDict):
+        measObj = Measurement(frameDict,self)
+        self.measurements.append(measObj)
+        return measObj.center()
+        
+
+
+class Measurement(object):
+    def __init__(self,frameDict,sch):
+        self.type = frameDict['type']
+        self.value = frameDict['value']
         positive = frameDict['positive']
         negative = frameDict['negative']
         
-        positiveParts = self.instanceHash[positive['partName']]
-        negativeParts = self.instanceHash[negative['partName']]
+        positiveParts = sch.instanceHash[positive['partName']]
+        negativeParts = sch.instanceHash[negative['partName']]
         
-        positivePart = None
-        negativePart = None
-        positivePin = None
-        negativePin = None
+        self.positivePart = None
+        self.negativePart = None
+        self.positivePin = None
+        self.negativePin = None
         
         for i in positiveParts:
             if positive['pad'] in i.padHash:
-                positivePart = i
-                positivePin = i.padHash[positive['pad']]
+                self.positivePart = i
+                self.positivePin = i.padHash[positive['pad']]
                 
         for i in negativeParts:
             if negative['pad'] in i.padHash:
-                negativePart = i
-                negativePin = i.padHash[negative['pad']]
+                self.negativePart = i
+                self.negativePin = i.padHash[negative['pad']]
                 
-        positivePin = positivePart.padHash[positive['pad']]
-        negativePin = negativePart.padHash[negative['pad']]
+        self.positivePin = self.positivePart.padHash[positive['pad']]
+        self.negativePin = self.negativePart.padHash[negative['pad']]
         
-        positivePin.selected = True
-        negativePin.selected = True
-        positivePart.selected = True
-        negativePart.selected = True
+        self.positivePin.selected = True
+        self.negativePin.selected = True
+        self.positivePart.selected = True
+        self.negativePart.selected = True
 
-        (centerX,centerY) = ((positivePart.x+negativePart.x)/2,(positivePart.y+negativePart.y)/2)
-        return (centerX,centerY)
+        (self.centerX,self.centerY) = ((self.positivePart.x+self.negativePart.x)/2,(self.positivePart.y+self.negativePart.y)/2)
+    
+    def center(self):
+        return (self.centerX,self.centerY)
+        
+    def draw(self,cr):
+        pass
 
 
 class Net(XMLElement):
