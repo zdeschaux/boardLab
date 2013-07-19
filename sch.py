@@ -224,11 +224,19 @@ class Measurement(object):
 
         lines = []
         (textX,textY) = (0,0)
+        (plusX,plusY) = (0,0)
+        (minusX,minusY) = (0,0)
+        (_,_, plusWidth, plusHeight, _, _) = cr.text_extents('+')
+        (_,_, minusWidth, minusHeight, _, _) = cr.text_extents('-')
+        
+
         if diffX >= diffY:
             y0 = max(y1*scale-100,y2*scale-100,100)
             lines.append(Line(x1*scale,y0,x2*scale,y0))
             textX = (x1+x2)*scale/2
             textY = y0
+            (plusX,plusY) = (x1*scale - plusWidth,y0)
+            (minusX,minusY) = (x2*scale - minusWidth,y0)
             lines.append(Line(x1*scale,y0,x1*scale,y1*scale))
             lines.append(Line(x2*scale,y0,x2*scale,y2*scale))
 
@@ -237,6 +245,8 @@ class Measurement(object):
             lines.append(Line(x0,y1*scale,x0,y2*scale))
             textX = x0
             textY = (y1+y2)*scale/2
+            (plusX,plusY) = (x0,y1*scale - plusHeight/2)
+            (minusX,minusY) = (x0,y2*scale - minusHeight/2)
             lines.append(Line(x0,y1*scale,x1*scale,y1*scale))
             lines.append(Line(x0,y2*scale,x2*scale,y2*scale))
 
@@ -248,10 +258,15 @@ class Measurement(object):
 
         cr.set_font_size(30)
         cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
-        
         (x, y, width, height, dx, dy) = cr.text_extents(self.valueText)
         cr.move_to(textX+20,textY-20)
         cr.show_text(self.valueText) 
+
+        cr.move_to(plusX,plusY)
+        cr.show_text('+')
+        
+        cr.move_to(minusX,minusY)
+        cr.show_text('-')
 
         cr.restore()
 
