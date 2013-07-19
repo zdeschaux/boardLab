@@ -30,3 +30,4 @@ pcbPort = 9877
 
 datasheetDir = '/home/pragungoyal/boardlab/datasheets/'
 pdfCommand = '/usr/bin/evince-previewer'
+

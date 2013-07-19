@@ -6,6 +6,7 @@ import  xml.etree.ElementTree as ET
 from numpy import *
 import sys,subprocess
 import json
+import colors
 
 pinLengths = {
     'point':3,
@@ -173,6 +174,7 @@ class Measurement(object):
     def __init__(self,frameDict,sch):
         self.type = frameDict['type']
         self.value = frameDict['value']
+        self.valueText = '%f V'%(self.value,)
         positive = frameDict['positive']
         negative = frameDict['negative']
         
@@ -202,13 +204,69 @@ class Measurement(object):
         self.positivePart.selected = True
         self.negativePart.selected = True
 
-        (self.centerX,self.centerY) = ((self.positivePart.x+self.negativePart.x)/2,(self.positivePart.y+self.negativePart.y)/2)
+        #(self.centerX,self.centerY) = ((self.positivePart.x+self.negativePart.x)/2,(self.positivePart.y+self.negativePart.y)/2)
+        (x1,y1) = self.positivePin.centerAbsolute()
+        (x2,y2) = self.negativePin.centerAbsolute()
+        (self.centerX,self.centerY) = ((x1+x2)/2,(y1+y2)/2)
     
     def center(self):
         return (self.centerX,self.centerY)
         
     def draw(self,cr):
-        pass
+        cr.save()
+        cr.set_source_rgb(*colors.measurement)
+
+        (x1,y1) = self.positivePin.centerAbsolute()
+        (x2,y2) = self.negativePin.centerAbsolute()
+        
+        diffX = abs(x1-x2)
+        diffY = abs(y1-y2)
+
+        lines = []
+        (textX,textY) = (0,0)
+        if diffX >= diffY:
+            y0 = max(y1*scale-100,y2*scale-100,100)
+            lines.append(Line(x1*scale,y0,x2*scale,y0))
+            textX = (x1+x2)*scale/2
+            textY = y0
+            lines.append(Line(x1*scale,y0,x1*scale,y1*scale))
+            lines.append(Line(x2*scale,y0,x2*scale,y2*scale))
+
+        else:
+            x0 = max(x1*scale-100,x2*scale-100,100)
+            lines.append(Line(x0,y1*scale,x0,y2*scale))
+            textX = x0
+            textY = (y1+y2)*scale/2
+            lines.append(Line(x0,y1*scale,x1*scale,y1*scale))
+            lines.append(Line(x0,y2*scale,x2*scale,y2*scale))
+
+        cr.save()
+        cr.set_dash([5.0,5.0])
+        for i in lines:
+            i.draw(cr)
+        cr.restore()
+
+        cr.set_font_size(30)
+        cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
+        
+        (x, y, width, height, dx, dy) = cr.text_extents(self.valueText)
+        cr.move_to(textX+20,textY-20)
+        cr.show_text(self.valueText) 
+
+        cr.restore()
+
+
+class Line(object):
+    def __init__(self,x1,y1,x2,y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+    
+    def draw(self,cr):
+        cr.move_to(self.x1,self.y1)
+        cr.line_to(self.x2,self.y2)
+        cr.stroke()
 
 
 class Net(XMLElement):
@@ -228,7 +286,7 @@ class Net(XMLElement):
     def draw(self,cr):
         cr.save()
         for i in self.segments:
-            cr.set_source_rgb(0.0,0.0,0.4)
+            cr.set_source_rgb(*colors.net)
             i.draw(cr)
         cr.restore()
 
@@ -298,9 +356,9 @@ class Instance(XMLElement):
        
     def color(self):
         if self.selected:
-            return (0.7,0.0,0.0)
+            return colors.partSelected
         else:
-            return (0.3,0.0,0.0)
+            return colors.part
        
     def __repr__(self):
         a = 'Instance: %s from library %s deviceset %s @ (%f,%f,%f)'%(self.partName,self.libraryName,self.devicesetName,self.x,self.y,self.rot)
@@ -350,6 +408,10 @@ class Instance(XMLElement):
         cr.set_source_rgb(*self.color())
         self.gate.draw(cr)
         cr.restore()
+
+    def absoluteCoordinates(self,x,y):
+        (x1,y1) = rotate(x,y,self.rot)
+        return (x1+self.x,y1+self.y)
 
     def loadConnects(self):
         a = self.deviceElement.findall('connects/connect')
@@ -513,12 +575,17 @@ class Pin(XMLElement):
         self.x2 = self.x2 + self.x
         self.y2 = self.y2 + self.y
         self.selected = False
+        self.centerX = (self.x + self.x2)/2
+        self.centerY = (self.y + self.y2)/2
 
     def color(self):
         if self.selected:
-            return (0.0, 0.9, 0.0)
+            return colors.pinSelected
         else:
-            return (0.0, 0.4, 0.0)
+            return colors.pin
+
+    def centerAbsolute(self):
+        return self.parent.parent.parent.absoluteCoordinates(self.centerX,self.centerY)
 
     def draw(self,cr):
         x1 = self.x*scale
