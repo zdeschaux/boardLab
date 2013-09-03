@@ -23,6 +23,7 @@ displayQueue = deque([])
 
 class MyTCPHandler(SocketServer.BaseRequestHandler):
     """
+    Output of the PCB stuff
     The RequestHandler class for our server.
     It is instantiated once per connection to the server, and must
     override the handle() method to implement communication to the
@@ -80,8 +81,8 @@ class AutoLoader(object):
         
     def processTrackingFrame(self,b,data):
         a = json.loads(data)
-        #print 'received trackingFrame',b,a
-        if a != {}:
+        print 'received trackingFrame',b,a
+        if False:
             if tracking.selectTool_id in a:
                 self.pcb.selectTool.activated = True
                 self.pcb.selectTool.x = a[tracking.selectTool_id]['x']-12
@@ -99,14 +100,11 @@ class AutoLoader(object):
 
 
 def trackingLoop(sender):
-    if demoFrame is  None:
-        trackingObject.connect()
+    #Input of the PCB stuff
+    trackingObject.connect()
     while(1):
-        if demoFrame is not None:
-            sender.emit("tracking_frame",json.dumps(demoFrame))
-        else:
-            a = trackingObject.getFrame()
-            sender.emit("tracking_frame",json.dumps(a))
+        a = trackingObject.getFrame()
+        sender.emit("tracking_frame",json.dumps(a))
 
 
 if __name__=="__main__":

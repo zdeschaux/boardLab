@@ -101,6 +101,7 @@ class PCB(Screen):
         self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
 
     def buttonPress(self,a,b):
+        print b.button
         if b.button == 3:
             self.lastButtonTimeStamp = time.time()
         if b.button == 1:

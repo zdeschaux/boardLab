@@ -1,52 +1,23 @@
-import math
-from telnetEngine import *
-from parse import *
+# AUTHOR: Pragun Goyal, 21, June, 2013
+# Modified: September, 3 2013. Removed all telnet crap used to talk to AR marker tracking softwares. This just talks to the polhemus now.
 
-#AUTHOR: Pragun Goyal, 21, June, 2013
-#This just opens a socket and looks for strings of the form
-#<number of fiducials> <id> <x> <y> <angle> .... \n
+from config import probeTipOffset, fastrakPort
 
-host = '192.168.56.238'
-port = 9876
+class tracking(object):
+    def __init__(self,serialPort):
+        self.fastrak = Fastrak(logFile='rawlog.raw',serialPort='/dev/ttyUSB0',fixedPoints=[probeTipOffset])
+        self.fastrak.setup(reset=True)
+        self.fastrak.setContinuous()
 
-pcb_id = '279'
-selectTool_id = '211'
-
-angle_bias = 180
-
-xRes = 1920
-yRes = 1080
-
-def transform(a):
-    res = {}
-    res['x'] = xRes - a['x']
-    res['y'] = yRes - a['y']
-    res['angle'] = a['angle']
-    return res
-
-class tracking(telnetEngine):
     def getFrame(self):
-        frame_state = self.connection.recv(1000)
-        #print frame_state
-        frame_state = frame_state.strip()
-        frame_dict = {}
-        if frame_state != '':
-            b = parse('{:d} {}',frame_state)
-            if b is not None:
-                frame_state = b[1]
-                for i in range(b[0]):
-                    oneFiducial = parse('{id:d} {x:d} {y:d} {angle:f}{rest}',frame_state)
-                    res = transform(oneFiducial)
-                    frame_dict[oneFiducial['id']] = {'x':res['x'],'y':res['y'],'angle':res['angle']}
-                    frame_state =  oneFiducial['rest']
-        print frame_dict
-        return frame_dict
+        a = self.fastrak.readData()
+        return a
 
-
-trackingObj = tracking(host,port)
+trackingObj = tracking(fastrakPort)
 
 if __name__=="__main__":
     trackingObj.connect()
     while(1):
         a = trackingObj.getFrame()
         print a
+

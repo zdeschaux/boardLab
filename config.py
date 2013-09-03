@@ -1,7 +1,7 @@
 #from pcbnew import *
 #from cairoStuff import *
 #from pcb import *
-
+import numpy as np
 
 #font = pygame.font.SysFont("Helvetica", 12)
 
@@ -21,9 +21,6 @@ noTrackingDebug = True
 pcb_to_display_pixel_scale = 8.537191245945328
 sch_to_display_pixel_scale = 5
 
-camera_pixel_to_pcb_scale = float(25400000)/177.5
-
-demoFrame = {279:{'x':500.0,'y':200.0,'angle':0.0}}
 displayOff = False
 
 pcbPort = 9877
@@ -37,3 +34,6 @@ viaRadius = 0.4
 consecutiveClickInterval = 0.1
 calibrationClickInterval = 2.0
 
+probeTipOffset = np.array(( (-1.7940,),(-0.0061,),(-0.5408,), ))
+
+fastrakPort = '/dev/ttyUSB0'
