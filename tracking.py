@@ -2,6 +2,7 @@
 # Modified: September, 3 2013. Removed all telnet crap used to talk to AR marker tracking softwares. This just talks to the polhemus now.
 
 from config import probeTipOffset, fastrakPort
+from polhemus import Fastrak
 
 class tracking(object):
     def __init__(self,serialPort):
@@ -16,7 +17,6 @@ class tracking(object):
 trackingObj = tracking(fastrakPort)
 
 if __name__=="__main__":
-    trackingObj.connect()
     while(1):
         a = trackingObj.getFrame()
         print a

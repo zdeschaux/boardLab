@@ -8,9 +8,7 @@ import time, json
 import signal, SocketServer
 from collections import deque
 import tracking
-
-if demoFrame is not None:
-    from tracking import trackingObj as trackingObject
+from tracking import trackingObj as trackingObject
 
 class TrackingSignaller(gobject.GObject):
     def __init__(self):
@@ -82,7 +80,7 @@ class AutoLoader(object):
     def processTrackingFrame(self,b,data):
         a = json.loads(data)
         #print 'received trackingFrame',b,a
-        self.pcb.gotTrackingFrame(a)
+        self.pcb.processTrackingFrame(a)
 
     def displayCallback(self,a):
         displayQueue.append(a)
@@ -90,10 +88,10 @@ class AutoLoader(object):
 
 def trackingLoop(sender):
     #Input of the PCB stuff
-    trackingObject.connect()
     while(1):
         a = trackingObject.getFrame()
-        sender.emit("tracking_frame",json.dumps(a))
+        if a is not None:
+            sender.emit("tracking_frame",json.dumps(a))
 
 
 if __name__=="__main__":
