@@ -42,12 +42,14 @@ class PCB(Screen):
         self.connect ( 'button-release-event' ,self.buttonRelease)
         self.displayCallback = displayCallback
         self.lastButtonTimeStamp = None
-        self.mode = 'select'
+        self.mode = 'calibration'
         
         self.selectedSignalForCalibration = 0
         self.selectedViaForCalibration = 0
 
-        
+        #This is a hack to select conviniently spaced vias in the calibration routine        
+        self.viaPairs = [(0,2),(1,15),(1,26)]
+
     def buttonRelease(self,a,b):
         if b.button == 3 and self.lastButtonTimeStamp is not None:
             timeStamp = time.time()
@@ -60,7 +62,7 @@ class PCB(Screen):
             if diff > consecutiveClickInterval and diff < calibrationClickInterval:
                 if self.mode == 'calibration':
                     self.selectNextViaForCalibration()
-                    print 'moving on to the next calibration via'
+                    print 'moving on to the next calibration via:%d signal:%d'%(self.selectedViaForCalibration,self.selectedSignalForCalibration)
                 else:
                     if self.mode == 'select':
                         self.mode = 'voltmeter'
@@ -81,13 +83,9 @@ class PCB(Screen):
     
     def selectNextViaForCalibration(self):
         self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = False
-        self.selectedViaForCalibration += 1
-        if len(self.signals[self.selectedSignalForCalibration].vias) <= self.selectedViaForCalibration:
-            self.selectedViaForCalibration = 0
-            self.selectedSignalForCalibration += 1
-            if len(self.signals) <= self.selectedSignalForCalibration:
-                self.selectedSignalForCalibration = 0
-
+        p = self.viaPairs.pop(0)
+        (self.selectedSignalForCalibration,self.selectedViaForCalibration) = p
+        self.viaPairs.append(p)
         self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
 
     def buttonPress(self,a,b):
