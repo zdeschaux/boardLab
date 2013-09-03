@@ -49,6 +49,10 @@ class PCB(Screen):
 
         #This is a hack to select conviniently spaced vias in the calibration routine        
         self.viaPairs = [(0,2),(1,15),(1,26)]
+        self.selectNextViaForCalibration()
+
+    def selectedVia(self):
+        return self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration]
 
     def buttonRelease(self,a,b):
         if b.button == 3 and self.lastButtonTimeStamp is not None:
@@ -72,6 +76,11 @@ class PCB(Screen):
             if diff >= calibrationClickInterval:
                 self.calibrationIntervalEvent()
                 self.mode = 'calibration'
+
+        if b.button == 1:
+            if self.mode == 'calibration':
+                if self.selectedVia().calibrating:
+                    self.selectedVia().calibrating = False
         
 
     def calibrationIntervalEvent(self):
@@ -81,17 +90,22 @@ class PCB(Screen):
             self.mode = 'calibration'
         self.lastButtonTimeStamp = None
     
+
     def selectNextViaForCalibration(self):
+#        self.selectedVia().selected = False
         self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = False
         p = self.viaPairs.pop(0)
         (self.selectedSignalForCalibration,self.selectedViaForCalibration) = p
         self.viaPairs.append(p)
+#        self.selectedVia().selected = True
         self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
 
     def buttonPress(self,a,b):
         if b.button == 3:
             self.lastButtonTimeStamp = time.time()
-
+        if b.button == 1:
+            if self.mode == 'calibration':
+                self.selectedVia().calibrating = True
 
     def doTick(self):
         pass
@@ -217,6 +231,8 @@ class Via(object):
         self.y = float(element.attrib['y'])
         self.shape = element.attrib['shape']
         self.selected = False
+        self.calibrating = False
+        self.calibrationData = []
 
     def __repr__(self):
         return 'Via on Signal:%s at x:%f,y:%f shaped: %s'%(self.signal.name,self.x,self.y,self.shape)
@@ -225,7 +241,11 @@ class Via(object):
         cr.save()
         cr.translate(self.x,self.y)
         if self.selected and self.signal.pcb.mode == 'calibration':
-            cr.set_source_rgb(1.0,0.0,0.0)
+            cr.set_line_width(4*lineThickness)
+            if self.calibrating:
+                cr.set_source_rgb(1.0,0.0,0.0)
+            else:
+                cr.set_source_rgb(1.0,0.0,1.0)
         cr.arc(0.0, 0.0, viaRadius, -2*math.pi, 0)
         cr.stroke()
         cr.restore()
