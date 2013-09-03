@@ -46,10 +46,10 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
     def handle(self):
         while(1):
             data = {}
-            data['positive'] = {'partName':'ZU4','pad':'26'}
-            data['negative'] = {'partName':'Z2','pad':'2'}
+            data['positive'] = {'partName':'U3','pad':'3'}
+            data['negative'] = {'partName':'U3','pad':'21'}
             data['type'] = 'VDC'
-            data['value'] = 5.2
+            data['value'] = 5.04
             dataStr = json.dumps(data)
             print dataStr
             self.request.sendall(dataStr)
@@ -128,7 +128,6 @@ def trackingLoop(sender):
         else:
             a = trackingObject.getFrame()
             sender.emit("tracking_frame",json.dumps(a))
-
 
 
 if __name__=="__main__":

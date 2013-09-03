@@ -56,7 +56,6 @@ class Screen( gtk.DrawingArea ):
         self.window.invalidate_rect ( rect, True )
         return True # Causes timeout to tick again.
 
-
     ## When expose event fires, this is run
     def do_expose_event( self, widget, event ):
         self.cr = self.window.cairo_create( )

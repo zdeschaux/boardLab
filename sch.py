@@ -470,7 +470,7 @@ class TextLabel(XMLElement):
 
     def draw(self,cr):
         cr.save()
-        cr.set_source_rgb(0.2,0.2,0.2)
+        cr.set_source_rgb(0.0,0.0,0.5)
         cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
         cr.move_to(self.x,self.y)
         cr.show_text(self.text)
@@ -585,6 +585,10 @@ class Pin(XMLElement):
         self.x = float(root.attrib['x'])
         self.y = float(root.attrib['y'])
         self.rot = -self.findRot()
+        self.rotName = ''
+        if 'rot' in root.attrib:
+            self.rotName = root.attrib['rot']
+
         self.lengthName = root.attrib['length']
         (self.x2,self.y2) = rotate(pinLengths[self.lengthName],0,self.rot)
         self.x2 = self.x2 + self.x
@@ -614,7 +618,21 @@ class Pin(XMLElement):
         cr.move_to(x1, y1)
         cr.line_to(x2, y2)
         cr.stroke()
+
+        rot = self.rot
+        cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)        
+        cr.move_to(x2,y2+10)
+        cr.set_source_rgb(0.2,0.2,0.2)
+        applyRotationAboutPoint(cr,x2,y2,-self.rot)
+        if self.rotName == 'R180':
+            (_,_, plusWidth, plusHeight, _, _) = cr.text_extents(self.name)
+            (p,q) = cr.get_current_point()
+            cr.move_to(p+plusWidth,q+plusHeight)
+            applyRotationAboutPoint(cr,x2,y2,self.rot)
+        cr.show_text(self.name)
+
         cr.restore()
+        
 
 
 class Rectangle(object):
