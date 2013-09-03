@@ -1,7 +1,8 @@
 import inspect, parse, math
 from cairoStuff import *
 from config import *
-from config import pcb_to_display_pixel_scale as scale
+from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as lineThickness, viaRadius
+
 import  xml.etree.ElementTree as ET
 from numpy import *
 
@@ -42,14 +43,12 @@ class PCB(Screen):
         self.findMinRectangles()
 
         ## x,y is where I'm at
-        self.x, self.y = 400.0,500.0
+        self.x, self.y = 20.0,60.0
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
         self.rotBias = -(math.pi/2)
         self.rot = 0.0
-        ## sx,sy is to mess with scale
-        self.sx, self.sy = 0.5, 0.5
         self.connect ( 'motion-notify-event', self.mouseMotion)
         self.selectTool = SelectTool() 
         self.displayCallback = displayCallback
@@ -68,6 +67,8 @@ class PCB(Screen):
         ## A shortcut
         cr = self.cr
         cr.save()
+        cr.scale(scale,scale)
+        cr.set_line_width(lineThickness)
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
         for element in self.elements:
@@ -87,8 +88,8 @@ class PCB(Screen):
         outVect = rotMat * inpVect
         X = outVect[0,0]
         Y = outVect[1,0]
-        X = float(X)/scale
-        Y = float(Y)/scale
+        X = float(X)
+        Y = float(Y)
         print (x,y),(X,Y)
         return (X,Y)
 
@@ -173,8 +174,8 @@ class Via(object):
 
     def draw(self,cr):
         cr.save()
-        cr.translate(self.x*scale,self.y*scale)
-        cr.arc(0.0, 0.0, 3, -2*math.pi, 0)
+        cr.translate(self.x,self.y)
+        cr.arc(0.0, 0.0, viaRadius, -2*math.pi, 0)
         cr.stroke()
         cr.restore()
 
@@ -313,7 +314,7 @@ class BasicElement(object):
         else:
             cr.set_source_rgb(0,1,0)
         (absMinX,absMinY) = self.absoluteCoordinates(self.minX,self.minY)
-        cr.rectangle(absMinX*scale, absMinY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
+        cr.rectangle(absMinX, absMinY, self.rectLengthX, self.rectLengthY )
         cr.stroke()
 
     def absoluteCoordinates(self,x,y):
@@ -351,7 +352,7 @@ class Pad(object):
         if hasattr(self,'radius'):
             cr.set_source_rgb(*self.color())
             (x,y) = self.absoluteCoordinates()
-            cr.arc(x*scale,y*scale,self.radius*scale,0,2*math.pi)
+            cr.arc(x,y,self.radius,0,2*math.pi)
             cr.stroke()
 
     def checkUnderMouse(self,x,y):
@@ -403,7 +404,7 @@ class SMD(object):
     def draw(self,cr):
         cr.set_source_rgb(*self.color())
         (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
-        cr.rectangle(x*scale,y*scale,self.dx*scale,self.dy*scale)
+        cr.rectangle(x,y,self.dx,self.dy)
         cr.stroke()
 
     def checkUnderMouse(self,x,y):
@@ -446,10 +447,10 @@ class Wire(object):
         
     def draw(self,cr):
         (x1,y1,x2,y2) = self.absoluteCoordinates()
-        x1 = x1*scale
-        y1 = y1*scale
-        x2 = x2*scale
-        y2 = y2*scale
+        x1 = x1
+        y1 = y1
+        x2 = x2
+        y2 = y2
 
         cr.set_source_rgb(0, 0, 0)
         cr.move_to(x1, y1)
