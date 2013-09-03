@@ -27,7 +27,6 @@ class SelectTool(object):
             cr.stroke()
 
 
-
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
     def __init__(self,fileName,displayCallback):
@@ -36,13 +35,14 @@ class PCB(Screen):
         self.tree = ET.parse(fileName)
         self.root = self.tree.getroot()
         self.elements = []
+        self.signals = []
         self.loadElements()
-        self.findFiducial()
+        self.loadSignals()
         self.flip()
         self.findMinRectangles()
 
         ## x,y is where I'm at
-        self.x, self.y = 100, 100
+        self.x, self.y = 400.0,500.0
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
@@ -50,8 +50,6 @@ class PCB(Screen):
         self.rot = 0.0
         ## sx,sy is to mess with scale
         self.sx, self.sy = 0.5, 0.5
-        self.setPositionScale(100,100,0.1)
-        print self.findFiducial()
         self.connect ( 'motion-notify-event', self.mouseMotion)
         self.selectTool = SelectTool() 
         self.displayCallback = displayCallback
@@ -74,6 +72,8 @@ class PCB(Screen):
         applyRotationAboutPoint(cr,0,0,self.rot)
         for element in self.elements:
             element.draw(cr)
+        for signal in self.signals:
+            signal.draw(cr)
         cr.restore()
         self.selectTool.draw(cr)
 
@@ -92,10 +92,6 @@ class PCB(Screen):
         print (x,y),(X,Y)
         return (X,Y)
 
-    def setPositionScale(self,x,y,rot):
-        self.x = x
-        self.y = y
-        self.rot = rot
     
     def findModuleUnderMouse(self,x,y):
         (X,Y) = self.transformToPCBRef(x,y)
@@ -107,24 +103,10 @@ class PCB(Screen):
                 return element
         return None
  
-    def findFiducial(self):
-        #first find the fiducial element
-        for i in self.elements:
-            if i.packageName.startswith('TOPCODE'):
-                self.fiducial = i
-                break
-
-        fid_x = self.fiducial.x
-        fid_y = self.fiducial.y
-        #now bring everything in the document to the reference frameo of the fiducial
-        for i in self.elements:
-            i.x = i.x - fid_x
-            i.y = i.y - fid_y
 
     def findMinRectangles(self):
         for i in self.elements:
             i.findMinRectangle()
-
 
     def getElementsWithTagName(self,tagName):
         returnArray = []
@@ -137,10 +119,67 @@ class PCB(Screen):
         for i in a:
             self.elements.append(BasicElement(i,self))
               
+    def loadSignals(self):
+        a = self.getElementsWithTagName('signal')
+        for i in a:
+            self.signals.append(SignalElement(i,self))
+
     def flip(self):
         for i in self.elements:
             i.flip()
+        for i in self.signals:
+            i.flip()
 
+
+
+class SignalElement(object):
+    def __init__(self,element,pcb):
+        self.element = element
+        self.pcb = pcb
+        print element.attrib
+        self.name = element.attrib['name']
+        self.sigClass = None
+        self.vias = []
+        if 'class' in element.attrib:
+            self.sigClass = element.attrib['class']
+
+        self.loadVias()
+
+    def __repr__(self):
+        return 'Signal Name:%s class:%s'%(self.name,self.sigClass)
+
+    def loadVias(self):
+       for child in self.element.iter('via'):
+           self.vias.append(Via(child,self))
+
+    def draw(self,cr):
+        for via in self.vias:
+            via.draw(cr)
+
+    def flip(self):
+        for i in self.vias:
+            i.flip()
+
+class Via(object):
+    def __init__(self,element,signal):
+        self.signal = signal
+        self.element = element
+        self.x = float(element.attrib['x'])
+        self.y = float(element.attrib['y'])
+        self.shape = element.attrib['shape']
+
+    def __repr__(self):
+        return 'Via on Signal:%s at x:%f,y:%f shaped: %s'%(self.signal.name,self.x,self.y,self.shape)
+
+    def draw(self,cr):
+        cr.save()
+        cr.translate(self.x*scale,self.y*scale)
+        cr.arc(0.0, 0.0, 3, -2*math.pi, 0)
+        cr.stroke()
+        cr.restore()
+
+    def flip(self):
+        self.y = 0.0-self.y
 
 class BasicElement(object):
     def __init__(self,element,pcb):

@@ -89,16 +89,6 @@ class AutoLoader(object):
         a = json.loads(data)
         #print 'received trackingFrame',b,a
         if a != {}:
-            if tracking.pcb_id in a:
-                self.pcb.x = a[tracking.pcb_id]['x'] 
-                self.pcb.y = a[tracking.pcb_id]['y']
-                self.pcb.rot = a[tracking.pcb_id]['angle'] - self.pcb.rotBias
-                self.pcb.rot = 0
-            else:
-                self.pcb.x = 500
-                self.pcb.y = 500
-                self.pcb.rot = 00
-                        
             if tracking.selectTool_id in a:
                 self.pcb.selectTool.activated = True
                 self.pcb.selectTool.x = a[tracking.selectTool_id]['x']-12
