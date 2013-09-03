@@ -1,7 +1,7 @@
-import inspect, parse, math
+import inspect, parse, math, time
 from cairoStuff import *
 from config import *
-from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as lineThickness, viaRadius
+from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as lineThickness, viaRadius, consecutiveClickInterval, calibrationClickInterval
 
 import  xml.etree.ElementTree as ET
 from numpy import *
@@ -14,18 +14,6 @@ def rotate(x,y,theta):
     Y = outVect[1,0]
     return (X,Y)
 
-       
-class SelectTool(object):
-    def __init__(self):
-        self.activated = False
-        self.x = 0
-        self.y = 0
-    
-    def draw(self,cr):
-        if self.activated:
-            cr.set_source_rgb(0.0,0.0,1.0)
-            cr.rectangle(self.x, self.y, 10,10)
-            cr.stroke()
 
 
 class PCB(Screen):
@@ -49,10 +37,64 @@ class PCB(Screen):
         ## rot is angle counter
         self.rotBias = -(math.pi/2)
         self.rot = 0.0
-        self.connect ( 'motion-notify-event', self.mouseMotion)
-        self.selectTool = SelectTool() 
+        self.connect ( 'motion-notify-event' , self.mouseMotion)
+        self.connect ( 'button-press-event' ,self.buttonPress)
+        self.connect ( 'button-release-event' ,self.buttonRelease)
         self.displayCallback = displayCallback
+        self.lastButtonTimeStamp = None
+        self.mode = 'select'
         
+        self.selectedSignalForCalibration = 0
+        self.selectedViaForCalibration = 0
+
+        
+    def buttonRelease(self,a,b):
+        if b.button == 3 and self.lastButtonTimeStamp is not None:
+            timeStamp = time.time()
+            diff = timeStamp - self.lastButtonTimeStamp
+            self.lastButtonTimeStamp = None
+            print 'difference',diff
+            if diff <= consecutiveClickInterval:
+                return
+  
+            if diff > consecutiveClickInterval and diff < calibrationClickInterval:
+                if self.mode == 'calibration':
+                    self.selectNextViaForCalibration()
+                    print 'moving on to the next calibration via'
+                else:
+                    if self.mode == 'select':
+                        self.mode = 'voltmeter'
+                    else:
+                        self.mode = 'select'
+
+            if diff >= calibrationClickInterval:
+                self.calibrationIntervalEvent()
+                self.mode = 'calibration'
+        
+
+    def calibrationIntervalEvent(self):
+        if self.mode == 'calibration':
+            self.mode = 'select'
+        else:
+            self.mode = 'calibration'
+        self.lastButtonTimeStamp = None
+    
+    def selectNextViaForCalibration(self):
+        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = False
+        self.selectedViaForCalibration += 1
+        if len(self.signals[self.selectedSignalForCalibration].vias) <= self.selectedViaForCalibration:
+            self.selectedViaForCalibration = 0
+            self.selectedSignalForCalibration += 1
+            if len(self.signals) <= self.selectedSignalForCalibration:
+                self.selectedSignalForCalibration = 0
+
+        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
+
+    def buttonPress(self,a,b):
+        if b.button == 3:
+            self.lastButtonTimeStamp = time.time()
+
+
     def doTick(self):
         pass
     
@@ -63,6 +105,11 @@ class PCB(Screen):
             self.displayCallback(a.partName)
 
     def draw(self, width, height):
+        if self.lastButtonTimeStamp is not None:
+            diff = time.time() - self.lastButtonTimeStamp
+            if diff > calibrationClickInterval:
+                self.calibrationIntervalEvent()
+
         #print "I also draw."
         ## A shortcut
         cr = self.cr
@@ -75,8 +122,11 @@ class PCB(Screen):
             element.draw(cr)
         for signal in self.signals:
             signal.draw(cr)
+
+        #Draw what mode we're in
+        cr.move_to(100,50)
+        cr.show_text(self.mode)
         cr.restore()
-        self.selectTool.draw(cr)
 
     def transformToPCBRef(self,x,y):
         #x,y are in the global reference frame (the frame of reference of the display)
@@ -90,7 +140,6 @@ class PCB(Screen):
         Y = outVect[1,0]
         X = float(X)
         Y = float(Y)
-        print (x,y),(X,Y)
         return (X,Y)
 
     
@@ -137,7 +186,6 @@ class SignalElement(object):
     def __init__(self,element,pcb):
         self.element = element
         self.pcb = pcb
-        print element.attrib
         self.name = element.attrib['name']
         self.sigClass = None
         self.vias = []
@@ -161,6 +209,8 @@ class SignalElement(object):
         for i in self.vias:
             i.flip()
 
+
+
 class Via(object):
     def __init__(self,element,signal):
         self.signal = signal
@@ -168,6 +218,7 @@ class Via(object):
         self.x = float(element.attrib['x'])
         self.y = float(element.attrib['y'])
         self.shape = element.attrib['shape']
+        self.selected = False
 
     def __repr__(self):
         return 'Via on Signal:%s at x:%f,y:%f shaped: %s'%(self.signal.name,self.x,self.y,self.shape)
@@ -175,12 +226,16 @@ class Via(object):
     def draw(self,cr):
         cr.save()
         cr.translate(self.x,self.y)
+        if self.selected and self.signal.pcb.mode == 'calibration':
+            cr.set_source_rgb(1.0,0.0,0.0)
         cr.arc(0.0, 0.0, viaRadius, -2*math.pi, 0)
         cr.stroke()
         cr.restore()
 
     def flip(self):
         self.y = 0.0-self.y
+
+
 
 class BasicElement(object):
     def __init__(self,element,pcb):
@@ -323,6 +378,7 @@ class BasicElement(object):
         return (x1,y1)
 
 
+
 class Pad(object):
     def __init__(self,item,parent):
         self.item = item
@@ -420,6 +476,7 @@ class SMD(object):
             print self.name, self.parent.partName
         else:
             self.underMouse = False
+
 
 
 class Wire(object):

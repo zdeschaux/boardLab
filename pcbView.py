@@ -69,17 +69,10 @@ def displayLoop():
 
 class AutoLoader(object):
     def __init__(self,gtkWindow):
-        self.loadingDict = {
-            279:('pcb','funo.brd'),
-            211:('selectTool','red'),
-            107:('selectTool','green'),
-            331:('selectTool','blue'),
-        }
-
         self.objects = {}
         self.window = gtkWindow
 
-        fileName = self.loadingDict[279][1] 
+        fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
         self.pcb = PCB(fileName,displayCallback=self.displayCallback)
         self.pcb.show( )
@@ -100,10 +93,6 @@ class AutoLoader(object):
                     pass
                 else:
                     self.selectTool.activated = False
-        else:
-            self.x = 00
-            self.y = 00
-            self.rot = 0
 
     def displayCallback(self,a):
         displayQueue.append(a)

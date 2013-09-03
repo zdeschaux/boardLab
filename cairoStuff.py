@@ -33,7 +33,8 @@ class Screen( gtk.DrawingArea ):
     def __init__(self):
         super(Screen,self).__init__()
         ## Old fashioned way to connect expose. I don't savvy the gobject stuff.
-        self.set_events(gdk.BUTTON_PRESS_MASK | gdk.MOTION_NOTIFY | gdk.POINTER_MOTION_MASK)
+        self.set_events(gdk.BUTTON_PRESS_MASK | gdk.MOTION_NOTIFY | gdk.POINTER_MOTION_MASK| gdk.BUTTON_RELEASE_MASK)
+
         self.connect ( "expose_event", self.do_expose_event )
         self.connect ( "button-press-event", self.buttonPress)
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.Color(1.0,1.0,1.0))

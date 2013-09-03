@@ -33,3 +33,7 @@ pdfCommand = '/usr/bin/evince-previewer'
 
 pcbLineThickness = 0.25
 viaRadius = 0.4
+
+consecutiveClickInterval = 0.1
+calibrationClickInterval = 2.0
+
