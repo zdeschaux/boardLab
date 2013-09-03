@@ -37,7 +37,6 @@ class PCB(Screen):
         ## rot is angle counter
         self.rotBias = -(math.pi/2)
         self.rot = 0.0
-        self.connect ( 'motion-notify-event' , self.mouseMotion)
         self.connect ( 'button-press-event' ,self.buttonPress)
         self.connect ( 'button-release-event' ,self.buttonRelease)
         self.displayCallback = displayCallback
@@ -111,12 +110,6 @@ class PCB(Screen):
     def doTick(self):
         pass
     
-    def mouseMotion(self,a,b):
-        a = self.findModuleUnderMouse(b.x,b.y)
-        print a
-        if a is not None:
-            self.displayCallback(a.partName)
-
     def draw(self, width, height):
         if self.lastButtonTimeStamp is not None:
             diff = time.time() - self.lastButtonTimeStamp
@@ -193,6 +186,8 @@ class PCB(Screen):
         for i in self.signals:
             i.flip()
 
+    def processTrackingFrame(self,frame):
+        print 'Tracking frame',frame
 
 
 class SignalElement(object):

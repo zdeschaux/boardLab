@@ -81,19 +81,8 @@ class AutoLoader(object):
         
     def processTrackingFrame(self,b,data):
         a = json.loads(data)
-        print 'received trackingFrame',b,a
-        if False:
-            if tracking.selectTool_id in a:
-                self.pcb.selectTool.activated = True
-                self.pcb.selectTool.x = a[tracking.selectTool_id]['x']-12
-                self.pcb.selectTool.y = a[tracking.selectTool_id]['y']+12
-                a = self.pcb.findModuleUnderMouse(self.pcb.selectTool.x,self.pcb.selectTool.y)
-                print a
-                if a is not None:
-                    self.displayCallback(a)
-                    pass
-                else:
-                    self.selectTool.activated = False
+        #print 'received trackingFrame',b,a
+        self.pcb.gotTrackingFrame(a)
 
     def displayCallback(self,a):
         displayQueue.append(a)
