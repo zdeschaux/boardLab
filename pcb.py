@@ -277,7 +277,7 @@ class BasicElement(object):
         cr.rectangle(absMinX*scale, absMinY*scale, self.rectLengthX*scale, self.rectLengthY*scale )
         cr.stroke()
 
-        def absoluteCoordinates(self,x,y):
+    def absoluteCoordinates(self,x,y):
         x1 = self.x + x
         y1 = self.y + y
         return (x1,y1)
