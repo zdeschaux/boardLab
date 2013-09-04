@@ -217,7 +217,7 @@ class PCB(Screen):
             tipTx = np.array(frame[2])
             tipTxCentroid = tipTx - self.centroidB
             sTipTxCentroid = self.scaleAB*tipTxCentroidB
-            rsTipTxCentroid = np.dot(self.rotMat,sTipTxCentroidB)
+            rsTipTxCentroid = np.dot(self.rotMat,sTipTxCentroid)
             rsTipPCB = rsTipTxCentroid + self.centroidA
             rsTipPCB.shape = (2,)
             self.tipProjectionX = rsTipPCB[0]

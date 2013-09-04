@@ -208,6 +208,8 @@ class Plane(object):
 
     @classmethod
     def findRotationTranslationScaleForPointClouds(self,pcloudA,pcloudB):
+        # Returns the rotation matrix and scaling to be applied TO a point in the reference frame of B, to find its representation in A
+        # In other words, the inv(RotationMatrix) and inv(Scale) were applied to points in A to get points of B
         # Find the centroid for both parties of the pointCloud
         centroidA = np.array([0.0,0.0])
         centroidB = np.array([0.0,0.0])
@@ -259,13 +261,14 @@ class Plane(object):
             pointA = translatedPCloudA[i]
             pointB = translatedPCloudB[i]
             Avectors[:,i] = pointA
-            Bvectors[:,i] = pointB*scale
+            Bvectors[:,i] = pointB*scaleAB
             
-        S = np.dot(Avectors,np.transpose(Bvectors))
+        #S = np.dot(Avectors,np.transpose(Bvectors))
+        S = np.dot(Bvectors,np.transpose(Avectors))
         U,s,V = linalg.svd(S)
         R = np.dot(V,np.transpose(U))
 
-        print 'Scale AB',scale
+        print 'Scale AB',scaleAB
         print 'Centroid A',centroidA
         print 'Centroid B',centroidB
         print 'Rotation Matrix',R
