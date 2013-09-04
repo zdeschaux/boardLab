@@ -145,6 +145,11 @@ class PCB(Screen):
         for signal in self.signals:
             signal.draw(cr)
 
+        if self.calibrated:
+            cr.move_to(self.tipProjectionX,self.tipProjectionY)
+            cr.set_source_rgb(1.0,1.0,0.0)
+            cr.arc(0.0, 0.0, viaRadius, -2*math.pi, 0)
+
         #Draw what mode we're in
         cr.move_to(100,50)
         cr.show_text(self.mode)
@@ -206,12 +211,25 @@ class PCB(Screen):
         if self.mode == 'calibration':
             if self.selectedVia().calibrating:
                 self.selectedVia().calibrationData.append(frame)
+
+        if self.calibrated:
+            #calculate tip position for the UI
+            tipTx = np.array(frame[2])
+            tipTxCentroid = tipTx - self.centroidB
+            sTipTxCentroid = self.scaleAB*tipTxCentroidB
+            rsTipTxCentroid = np.dot(self.rotMat,sTipTxCentroidB)
+            rsTipPCB = rsTipTxCentroid + self.centroidA
+            rsTipPCB.shape = (2,)
+            self.tipProjectionX = rsTipPCB[0]
+            self.tipProjectionY = rsTipPCB[1]
+            
         print 'Tracking frame',frame
 
     def calibrate(self):
         # Calibration comes in three phases
         # Phase 1, Find the plane of the PCB
         # make a list of all data points
+        print 'Calibrating...'
         print 'Finding PCB plane..'
         dataPoints = []
         for i in self.signals:
@@ -220,6 +238,7 @@ class PCB(Screen):
         self.plane = Plane.leastSquaresFit(dataPoints)
         #Now, we have the plane. We should find two axes on the plane
         self.findRotationScaleTranslation()
+        self.calibrated = True
         
     def findRotationScaleTranslation(self):
         # I use the technique described in http://igl.ethz.ch/projects/ARAP/svd_rot.pdf
@@ -242,7 +261,12 @@ class PCB(Screen):
         f.write('\n')
         f.close()
 
-        Plane.findRotationTranslationScaleForPointClouds(pCloudA,pCloudB)
+        rotMat, centroidA, centroidB ,scaleaAB = Plane.findRotationTranslationScaleForPointClouds(pCloudA,pCloudB)
+        
+        self.rotMat = rotMat
+        self.centroidA = centroidA
+        self.centroidB = centroidB
+        self.scaleAB = scaleAB
         
 
 class SignalElement(object):
