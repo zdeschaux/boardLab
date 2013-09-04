@@ -8,8 +8,8 @@ import numpy as np
 darkBlue = (0.0,0.0,0.5)
 fontColor = darkBlue
 
-width = 1920
-height = 1080
+width = 900
+height = 700
 
 #width = 800
 #height = 600

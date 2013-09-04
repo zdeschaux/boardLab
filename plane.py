@@ -16,7 +16,7 @@ class Plane(object):
         self.D = float(D)
 
     def z(self,x,y):
-        z = (-1)*(1/self.C)*((self.A*x)+(self.B*y)+(self.D))
+        z = (-1)*(1/self.C)*((self.A*x)+(self.B*y) + (self.D))
         return z
 
     def randomPoints(self,numberOfPoints):
@@ -31,21 +31,101 @@ class Plane(object):
     def gridPoints(self,numberOfPoints):
         a = []
         for i in range(numberOfPoints):
-            x = i
-            y = i
+            x = float(i)
+            y = float(i)
             z = self.z(x,y)
             a.append([x,y,z])
 
-            x = i
+            x = float(i)
             y = 0
             z = self.z(x,y)
             a.append([x,y,z])
             
             x = 0
-            y = i
+            y = float(i)
             z = self.z(x,y)
             a.append([x,y,z])
         return a
+
+    def normVector(self):
+        if self.lsNormalVector:
+            return self.lsNormalVector
+        return [self.A,self.B,self.C]
+    
+    def planePoint(self):
+        if self.lsPoint:
+            return self.lsPoint
+        #here, do some intelligent stuff to return a sensible value of a point, right now do nothing
+
+    def parameterize(self):
+        p0 = np.array([self.planePoint()])
+
+        # Here's how we'll parametereize, we'll take three vectors [1,0,0],[0,1,0],[0,0,1], we'll add all three to p0. 
+        # Take orthographic projections of all three resulting points on the plane. And choose the point with the longest pi-p0 vector
+        vs = [np.array([[0.0,0.0,1.0]]), np.array([[0.0,1.0,0.0]]), np.array([[1.0,0.0,0.0]])]
+        ps = [p0 + v for v in vs]
+    
+        projectedPs = [self.projectPoint(p) for p in ps]
+        projectedVs = [p - p0 for p in projectedPs]
+        normVs = np.array([linalg.norm(v) for v in projectedVs])
+        longestProjectionVectorIndex = normVs.argmax()
+
+        # Here! We have the first basis vector in the plane
+        vect1 = projectedVs[longestProjectionVectorIndex]
+        # Just for one measure of goodness, lets normalize the vector
+        vect1 = vect1/linalg.norm(vect1)
+        vect2 = np.cross(vect1,self.normVector())
+        vect2 = vect2/linalg.norm(vect2)
+
+        self.origin = p0
+        self.basisVector1 = np.array(vect1)
+        self.basisVector2 = np.array(vect2)
+        tmpNormVector = np.array(self.normVector())
+
+        self.basisVector1.shape = (3,1)
+        self.basisVector2.shape = (3,1)
+        tmpNormVector.shape  = (3,1)
+        tmpNormVector = tmpNormVector/linalg.norm(tmpNormVector)
+
+        # This matrix, say A, when multiplied with say x.
+        # Ax = y. Then y is the XYZ representation of the point x specified in the plane co-ordinate system
+        self.planeRepresentationToSensor = np.hstack([self.basisVector1,self.basisVector2,tmpNormVector])
+        self.sensorRepresentationToPlane = linalg.inv(self.planeRepresentationToSensor)
+        
+
+    def planeRepresentationForSensorPoint(self,p):
+        p = np.array(p)
+        pDash = p - self.origin
+        pDash.shape = (3,1)
+        q = np.dot(self.sensorRepresentationToPlane,pDash)
+        return q
+
+    def sensorRepresentationForPlanePoint(self,p):
+        p = np.array(p)
+        p.shape = (3,1)
+        q = np.dot(self.planeRepresentationToSensor,p)
+        qDash = q + self.origin
+        return q
+
+    def projectPoint(self,p):
+        if type(p) == list:
+            p = np.array([p])
+        origin = np.array([self.planePoint()])
+        Vp_origin = p - origin
+        nVect = np.array(self.normVector())
+
+        Vp_origin.shape = (3,1)
+        nVect.shape = (1,3)
+        dist = np.dot(nVect,Vp_origin)[0,0]
+
+        projectedPoint = p - dist*nVect
+        projectedPoint.shape = (3,)
+
+        print 'checking projection'
+        print projectedPoint[2],self.z(projectedPoint[0],projectedPoint[1]), p[0,2], self.z(p[0,0],p[0,1])
+
+        return [projectedPoint[0],projectedPoint[1],projectedPoint[2]]
+
 
     def __repr__(self):
         return 'Plane: %fx + %fy + %fz + %f = 0\n'%(self.A,self.B,self.C,self.D)
@@ -75,7 +155,7 @@ class Plane(object):
 
         # Now, lets calculate N
         # Butt, first we need to calculate M(A), the mother matrix of N.
-        # Of which, N is going to be the eigenvector, corresponding to the smalles eigenvalue. How cute!
+        # Of which, N is going to be the eigenvector, corresponding to the smallest eigenvalue. How cute!
 
         MA = np.zeros([3,3])
         # Now we start filling up MA
@@ -101,7 +181,7 @@ class Plane(object):
         minEigValueIndex = np.argmin(eigvalues)
         #This right here is the normal vector for the plane!
         minEigVector = eigenvectors[:,minEigValueIndex]
-        
+        minEigVector = minEigVector/linalg.norm(minEigVector)
         #Now, we calculate the simple form of the plane
         A = minEigVector[0]
         B = minEigVector[1]
@@ -110,8 +190,15 @@ class Plane(object):
         #We reshpae the minEigVector so that numpy knows that it is actually a vertical vector
         minEigVector.shape = (3,1)
         aVector = np.array([[a,b,c]])
-        D = (-1)*( np.dot(aVector,minEigVector)[0,0] )
+        dotP = np.dot(aVector,minEigVector)
+#        print dotP
+        D = (-1)*( dotP[0,0] )
 
         #And now, we dish out the newly found plane!!
-        return Plane(A,B,C,D)
+        fitPlane = Plane(A,B,C,D)
+        fitPlane.lsPoint = [a,b,c]
+        fitPlane.lsNormalVector = [A,B,C]
 
+        return fitPlane
+
+    

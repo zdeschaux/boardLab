@@ -156,7 +156,12 @@ class Fastrak(object):
                 print 'End of log reached.. quitting...'
                 sys.exit(0)
 
-        v = parseOutput(a)
+        try:
+            v = parseOutput(a)
+        except:
+            print 'Error parsing\n'
+            print a
+            return None
         #print v
         #print a,l,v
         xyzRx = [v[0],v[1],v[2]]

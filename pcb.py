@@ -5,6 +5,7 @@ from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as line
 import json
 import  xml.etree.ElementTree as ET
 from numpy import *
+from plane import Plane
 
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
@@ -85,6 +86,7 @@ class PCB(Screen):
     def calibrationIntervalEvent(self):
         if self.mode == 'calibration':
             self.dumpCalibrationData()
+            self.calibrate()
             self.mode = 'select'
         else:
             self.mode = 'calibration'
@@ -205,6 +207,21 @@ class PCB(Screen):
             if self.selectedVia().calibrating:
                 self.selectedVia().calibrationData.append(frame)
         print 'Tracking frame',frame
+
+    def calibrate(self):
+        # Calibration comes in three phases
+        # Phase 1, Find the plane of the PCB
+        # make a list of all data points
+        print 'Finding PCB plane..'
+        dataPoints = []
+        for i in self.signals:
+            for j in i.vias:
+                dataPoints += j.calibrationData
+        self.plane = Plane.leastSquaresFit(dataPoints)
+        #Now, we have the plane. We should find two axes on the plane
+        
+        
+        
 
 
 class SignalElement(object):
