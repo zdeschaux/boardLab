@@ -2,7 +2,7 @@ import inspect, parse, math, time
 from cairoStuff import *
 from config import *
 from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as lineThickness, viaRadius, consecutiveClickInterval, calibrationClickInterval
-
+import json
 import  xml.etree.ElementTree as ET
 from numpy import *
 
@@ -84,6 +84,7 @@ class PCB(Screen):
 
     def calibrationIntervalEvent(self):
         if self.mode == 'calibration':
+            self.dumpCalibrationData()
             self.mode = 'select'
         else:
             self.mode = 'calibration'
@@ -91,13 +92,25 @@ class PCB(Screen):
     
 
     def selectNextViaForCalibration(self):
-#        self.selectedVia().selected = False
-        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = False
+        self.selectedVia().selected = False
+#        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = False
         p = self.viaPairs.pop(0)
         (self.selectedSignalForCalibration,self.selectedViaForCalibration) = p
         self.viaPairs.append(p)
-#        self.selectedVia().selected = True
-        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
+        self.selectedVia().selected = True
+#        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
+
+    def dumpCalibrationData(self):
+        print 'Dumping calibration data into:%s' % (calibrationDataFile)
+        f = open(calibrationDataFile,'w')
+        viaList = []
+        for i in self.signals:
+            for j in i.vias:
+                k = {'x':j.x,'y':j.y,'data':j.calbrationData}
+                viaList.append(k)
+        f.write(json.dumps(viaList))
+        f.close()
+        print 'Done dumping....'
 
     def buttonPress(self,a,b):
         print b.button
@@ -105,6 +118,7 @@ class PCB(Screen):
             self.lastButtonTimeStamp = time.time()
         if b.button == 1:
             if self.mode == 'calibration':
+                self.selectedVia().calibrationData = []
                 self.selectedVia().calibrating = True
 
     def doTick(self):
@@ -187,6 +201,9 @@ class PCB(Screen):
             i.flip()
 
     def processTrackingFrame(self,frame):
+        if self.mode == 'calibration':
+            if self.selectedVia().calibrating:
+                self.selectedVia().calibrationData.append(frame)
         print 'Tracking frame',frame
 
 

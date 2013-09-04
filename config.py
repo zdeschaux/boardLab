@@ -37,3 +37,4 @@ calibrationClickInterval = 2.0
 probeTipOffset = np.array(( (-1.7940,),(-0.0061,),(-0.5408,), ))
 
 fastrakPort = '/dev/ttyUSB0'
+calibrationDataFile = 'calibration.log'
