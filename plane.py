@@ -94,6 +94,8 @@ class Plane(object):
         
 
     def planeRepresentationForSensorPoint(self,p):
+        # For points inside the plane it gives the plane representation for the point
+        # For points outside the plane it gives the plane representation for the projection of the point on the plane
         p = np.array(p)
         pDash = p - self.origin
         pDash.shape = (3,1)
@@ -204,4 +206,66 @@ class Plane(object):
 
         return fitPlane
 
-    
+    @classmethod
+    def findRotationTranslationScaleForPointClouds(self,pcloudA,pcloudB):
+        # Find the centroid for both parties of the pointCloud
+        centroidA = np.array([0.0,0.0])
+        centroidB = np.array([0.0,0.0])
+        pointCloudSize = len(pcloud1)
+        for i in range(pointCloudSize):
+            pointA = pcloudA[i]
+            pointB = pcloudB[i]
+            a = np.array(pointA)/pointCloudSize # This is the location of the via on the PCB
+            b = np.array(pointB)/pointCloudSize # This is the location of the via from the sensor
+            centroidA += a
+            centroidB += b
+
+        print 'Centroid A',centroidA
+        print 'Centroid B',centroidB
+
+        # Move both pointClouds to their centroids respectively
+        # Also build the X,Y matrices to multiple and get the covariance matrix at the same time
+
+        Avectors = np.zeros(2,pointCloudSize)
+        Bvectors = np.zeros(2,pointCloudSize)
+
+        translatedPCloudA = []
+        translatedPCloudB = []
+        for i in range(pointCloudSize):
+            pointA = pcloudA[i]
+            pointB = pcloudB[i]
+            newA = pointA - centroidA
+            newB = pointB - centroidB
+            translatedPCloudA.append(newA)
+            translatedPCloudB.append(newB)
+
+        # timeToCalculate the scaling
+        normA = []
+        normB = []
+        scaleAB = []
+        for i in range(pointCloudSize):
+            a = linalg.norm(translatedPCloudA[i])
+            b = linalg.norm(translatedPCloudB[i])
+            normA.append(a)
+            normB.append(b)
+            scaleAB.append(a/b)
+        
+        scale = np.mean(scaleAB)
+        
+        #scale the B vectors to make them equilength with A vectors
+        # Build the covariance matrix
+
+        for i in range(pointCloudSize):
+            pointA = translatedPCloudA[i]
+            pointB = translatedPCloudB[i]
+            Avectors[:,i] = pointA
+            Bvectors[:,i] = pointB*scale
+            
+        S = np.dot(Avectors,np.transpose(Bvectors))
+        U,s,V = linalg.svd(S)
+        R = np.dot(V,np.transpose(U))
+
+        print 'Scale AB',scale
+        print 'Centroid A',centroidA
+        print 'Centroid B',centroidB
+        print 'Rotation Matrix',R

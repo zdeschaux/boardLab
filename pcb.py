@@ -219,10 +219,32 @@ class PCB(Screen):
                 dataPoints += j.calibrationData
         self.plane = Plane.leastSquaresFit(dataPoints)
         #Now, we have the plane. We should find two axes on the plane
+        self.findRotationScaleTranslation()
         
+    def findRotationScaleTranslation(self):
+        # I use the technique described in http://igl.ethz.ch/projects/ARAP/svd_rot.pdf
+        # to calculate the rotation matrix
         
-        
+        # We begin by assembling both pointclouds
+        pCloudA = []
+        pCloudB = []
+        for signal in self.signals:
+            for via in signal.vias:
+                for dataPoint in via.calibrationData:
+                    tipPosition = dataPoint[2]
+                    tipPositionOnPCBPlane = self.plane.planeRepresentationForSensorPoint(tipPosition)
+                    pCloudA.append(np.array([via.x,via.y]))
+                    pCloudB.append(np.array(tipPositionOnPCBPlane))
 
+        f = open('pointcloud.dat',w)
+        t = {'A':pCloudA,'B':pCloudB}
+        f.write(json.dumps(t))
+        f.write('\n')
+        f.close()
+
+        Plane.findRotationTranslationScaleForPointClouds(pCloudA,pCloudB)
+
+        
 
 class SignalElement(object):
     def __init__(self,element,pcb):
