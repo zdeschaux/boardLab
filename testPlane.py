@@ -44,18 +44,22 @@ print outputPlane.planePoint()
 
 print '\nChecking parameterization'
 planePoints = []
+
 print '\nParameterizing sample points'
 for i in samplePoints:
     q = outputPlane.planeRepresentationForSensorPoint(i)
-    q.shape = (3,)
     planePoints.append(q)
-    print str(q)
+    #print str(q)
 
 
 if True:
     print '\nDe-parameterizng sample points'
     for i in range(len(planePoints)):
         q = outputPlane.sensorRepresentationForPlanePoint(planePoints[i])
-        q.shape = (3,)
+        if True:
+            print ''
+            print str(samplePoints[i])
+            print str(planePoints[i])
         print str(q)
+
 

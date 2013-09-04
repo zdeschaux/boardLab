@@ -98,14 +98,17 @@ class Plane(object):
         pDash = p - self.origin
         pDash.shape = (3,1)
         q = np.dot(self.sensorRepresentationToPlane,pDash)
-        return q
+        q.shape = (3,)
+        return [q[0],q[1]]
 
     def sensorRepresentationForPlanePoint(self,p):
-        p = np.array(p)
+        p = np.array([p[0],p[1],0.0])
         p.shape = (3,1)
         q = np.dot(self.planeRepresentationToSensor,p)
+        q.shape = (3,)
         qDash = q + self.origin
-        return q
+        qDash.shape = (3,)
+        return [qDash[0],qDash[1],qDash[2]]
 
     def projectPoint(self,p):
         if type(p) == list:
