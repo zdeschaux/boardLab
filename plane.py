@@ -211,7 +211,7 @@ class Plane(object):
         # Find the centroid for both parties of the pointCloud
         centroidA = np.array([0.0,0.0])
         centroidB = np.array([0.0,0.0])
-        pointCloudSize = len(pcloud1)
+        pointCloudSize = len(pcloudA)
         for i in range(pointCloudSize):
             pointA = pcloudA[i]
             pointB = pcloudB[i]
@@ -220,14 +220,14 @@ class Plane(object):
             centroidA += a
             centroidB += b
 
-        print 'Centroid A',centroidA
-        print 'Centroid B',centroidB
+        #print 'Centroid A',centroidA
+        #print 'Centroid B',centroidB
 
         # Move both pointClouds to their centroids respectively
         # Also build the X,Y matrices to multiple and get the covariance matrix at the same time
 
-        Avectors = np.zeros(2,pointCloudSize)
-        Bvectors = np.zeros(2,pointCloudSize)
+        Avectors = np.zeros((2,pointCloudSize))
+        Bvectors = np.zeros((2,pointCloudSize))
 
         translatedPCloudA = []
         translatedPCloudB = []
@@ -250,7 +250,7 @@ class Plane(object):
             normB.append(b)
             scaleAB.append(a/b)
         
-        scale = np.mean(scaleAB)
+        scaleAB = np.mean(scaleAB)
         
         #scale the B vectors to make them equilength with A vectors
         # Build the covariance matrix
@@ -269,3 +269,6 @@ class Plane(object):
         print 'Centroid A',centroidA
         print 'Centroid B',centroidB
         print 'Rotation Matrix',R
+
+        return R, centroidA, centroidB, scaleAB
+

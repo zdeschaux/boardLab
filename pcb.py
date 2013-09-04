@@ -243,7 +243,6 @@ class PCB(Screen):
         f.close()
 
         Plane.findRotationTranslationScaleForPointClouds(pCloudA,pCloudB)
-
         
 
 class SignalElement(object):

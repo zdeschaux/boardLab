@@ -4,6 +4,7 @@
 import sys
 from plane import Plane
 import numpy.random as random
+import numpy as np
 
 def str(a):
     return ' '.join([b.__str__() for b in a])
@@ -61,5 +62,36 @@ if True:
             print str(samplePoints[i])
             print str(planePoints[i])
         print str(q)
+
+
+
+print '\nChecking rotation, translation, scaling estimation'
+p = [[1.0,1.0], [10.0,10.0], [10.0,1.0]]
+pT = [1.0,10.0]
+scale = 1.5
+
+rotationAngle = 60.0
+rotAng = (rotationAngle/180)*np.pi
+rotmat = np.array([ [np.cos(rotAng),-np.sin(rotAng)],[np.sin(rotAng),np.cos(rotAng)]])
+print rotmat
+
+print '\n Rotating points'
+rp = [np.dot(rotmat,i) for i in p]
+rpT = np.dot(rotmat,pT)*scale
+
+#adding noise to these points
+pcloudA = []
+pcloudB = []
+numPoints = 5
+
+for i in range(numPoints):
+    for j in range(len(p)):
+        pcloudA.append(np.array(p[j]))
+        d = rp[j] + np.array([0.1*random.randn(),0.3*random.randn()])
+        d *= scale
+        pcloudB.append(d)
+    
+
+Plane.findRotationTranslationScaleForPointClouds(pcloudA,pcloudB)
 
 
