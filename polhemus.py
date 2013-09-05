@@ -1,6 +1,6 @@
 import serial, time
 from parse import parse
-import numpy as np
+import numpy as np, numpy.linalg as linalg
 
 def parseOutput(a):
     sensor = a[0:2]
@@ -48,6 +48,7 @@ class Quaternion(object):
         rotationMatrix[2,2] = 1.0-(2.0*q1*q1)-(2.0*q2*q2)
 
         self.rotMat = rotationMatrix
+        self.invRotMat = linalg.inv(self.rotMat)
         return rotationMatrix
 
     def rotateVector(self,vector):

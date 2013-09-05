@@ -149,7 +149,7 @@ class Plane(object):
         sumOfCoordinates = [0.0,0.0,0.0]
         
         # Just add all the points first
-        print listOfPoints
+        #print listOfPoints
         for p in listOfPoints:
             sumOfCoordinates[0] += p[0]
             sumOfCoordinates[1] += p[1]
@@ -270,6 +270,7 @@ class Plane(object):
         S = np.dot(Bvectors,np.transpose(Avectors))
         U,s,V = linalg.svd(S)
         R = np.dot(V,np.transpose(U))
+        #iR = linalg.inv(R)
 
         print 'Scale AB',scaleAB
         print 'Centroid A',centroidA

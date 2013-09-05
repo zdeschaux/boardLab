@@ -49,7 +49,7 @@ class PCB(Screen):
         self.calibrated = False
 
         #This is a hack to select conviniently spaced vias in the calibration routine        
-        self.viaPairs = [(0,2),(1,15),(1,26)]
+        self.viaPairs = [(1,10),(1,15),(1,26)]
         self.selectNextViaForCalibration()
 
 
@@ -231,7 +231,7 @@ class PCB(Screen):
             self.tipProjectionX = rsTipPCB[0]+self.x
             self.tipProjectionY = rsTipPCB[1]+self.y
             
-            print rsTipPCB
+            #print rsTipPCB
 
         #print 'Tracking frame',frame
 
@@ -247,6 +247,7 @@ class PCB(Screen):
                 for k in j.calibrationData:
                     dataPoints.append(k[2])
         self.plane = Plane.leastSquaresFit(dataPoints)
+        print self.plane
         self.plane.parameterize()
         #Now, we have the plane. We should find two axes on the plane
         self.findRotationScaleTranslation()
@@ -271,13 +272,10 @@ class PCB(Screen):
         logCloudB = []
 
         for i in range(len(pCloudA)):
-#            print pCloudA[i]
-#            sys.exit(-1)
-            logCloudA.append([pCloudA[i][0],pCloudA[i][0]])
-            logCloudB.append([pCloudB[i][0],pCloudB[i][0]])
+            logCloudA.append([pCloudA[i][0],pCloudA[i][1]])
+            logCloudB.append([pCloudB[i][0],pCloudB[i][1]])
 
         t = {'A':logCloudA,'B':logCloudB}
-        print t
         f.write(json.dumps(t))
         f.write('\n')
         f.close()
