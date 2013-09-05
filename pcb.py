@@ -138,6 +138,17 @@ class PCB(Screen):
         cr = self.cr
         cr.save()
         cr.scale(scale,scale)
+
+        if self.calibrated:
+            cr.set_source_rgb(1.0,1.0,0.0)
+            cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+
+        cr.set_source_rgb(0.0,0.0,0.0)
+        cr.arc(5.0, 60.0, viaRadius, -2*math.pi, 0)
+        cr.arc(5.0, 5.0, viaRadius, -2*math.pi, 0)
+        cr.arc(60.0, 5.0, viaRadius, -2*math.pi, 0)
+        cr.arc(60.0, 60.0, viaRadius, -2*math.pi, 0)
+        
         cr.set_line_width(lineThickness)
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
@@ -145,12 +156,6 @@ class PCB(Screen):
             element.draw(cr)
         for signal in self.signals:
             signal.draw(cr)
-
-        if self.calibrated:
-            cr.move_to(self.tipProjectionX,self.tipProjectionY)
-            cr.set_source_rgb(1.0,1.0,0.0)
-            cr.arc(0.0, 0.0, viaRadius, -2*math.pi, 0)
-
         #Draw what mode we're in
         cr.move_to(100,50)
         cr.show_text(self.mode)
@@ -223,8 +228,8 @@ class PCB(Screen):
             rsTipPlaneCentroid = np.dot(self.rotMat,sTipPlaneCentroid)
             rsTipPCB = rsTipPlaneCentroid + self.centroidA
             rsTipPCB.shape = (2,)
-            self.tipProjectionX = rsTipPCB[0]
-            self.tipProjectionY = rsTipPCB[1]
+            self.tipProjectionX = rsTipPCB[0]+self.x
+            self.tipProjectionY = rsTipPCB[1]+self.y
             
             print rsTipPCB
 
@@ -283,6 +288,7 @@ class PCB(Screen):
         self.centroidA = centroidA
         self.centroidB = centroidB
         self.scaleAB = scaleAB
+        self.calibrated = True
         
 
 class SignalElement(object):
