@@ -61,7 +61,7 @@ class PCB(Screen):
             timeStamp = time.time()
             diff = timeStamp - self.lastButtonTimeStamp
             self.lastButtonTimeStamp = None
-            print 'difference',diff
+            print 'Time between click and release',diff
             if diff <= consecutiveClickInterval:
                 return
   
@@ -115,7 +115,7 @@ class PCB(Screen):
         print 'Done dumping....'
 
     def buttonPress(self,a,b):
-        print b.button
+        print 'Button pressed',b.button
         if b.button == 3:
             self.lastButtonTimeStamp = time.time()
         if b.button == 1:
