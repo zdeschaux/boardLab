@@ -52,6 +52,7 @@ class PCB(Screen):
         self.viaPairs = [(0,2),(1,15),(1,26)]
         self.selectNextViaForCalibration()
 
+
     def selectedVia(self):
         return self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration]
 
@@ -96,12 +97,10 @@ class PCB(Screen):
 
     def selectNextViaForCalibration(self):
         self.selectedVia().selected = False
-#        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = False
         p = self.viaPairs.pop(0)
         (self.selectedSignalForCalibration,self.selectedViaForCalibration) = p
         self.viaPairs.append(p)
         self.selectedVia().selected = True
-#        self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration].selected = True
 
     def dumpCalibrationData(self):
         print 'Dumping calibration data into:%s' % (calibrationDataFile)
@@ -160,6 +159,7 @@ class PCB(Screen):
         cr.move_to(100,50)
         cr.show_text(self.mode)
         cr.restore()
+
 
     def transformToPCBRef(self,x,y):
         #x,y are in the global reference frame (the frame of reference of the display)

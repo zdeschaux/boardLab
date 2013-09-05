@@ -4,9 +4,13 @@ import numpy as np
 
 def parseOutput(a):
     sensor = a[0:2]
-    x = float(a[5:11])
-    y = float(a[13:19])
-    z = float(a[21:27])
+
+    #Here we convert the output of the fast track xyz measurements into milimeters.
+
+    x = 10*float(a[5:11])
+    y = 10*float(a[13:19])
+    z = 10*float(a[21:27])
+
     q1 = float(a[27:34])
     q2 = float(a[34:41])
     q3 = float(a[41:48])
@@ -122,13 +126,18 @@ class Fastrak(object):
             print self.serial.readline()
             
             print 'Setting output to cartesian and quaternion..'
-            #self.serial.write('O1,50,52,61,51\r')
             self.serial.write('O1,0,2,0,0,11,1\r')
             time.sleep(0.5)
             self.serial.write('O1\r')
             time.sleep(0.5)
             print self.serial.readline()
-            
+
+            print 'Setting the output unit to centimeters..'
+            self.serial.write('u\r')
+            time.sleep(0.5)
+            print self.serial.readline()
+
+
         if self.mode == 'playBackLog':
             #nothing to do
             pass

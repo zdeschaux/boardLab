@@ -208,7 +208,7 @@ class Plane(object):
         return fitPlane
 
     @classmethod
-    def findRotationTranslationScaleForPointClouds(self,pcloudA,pcloudB):
+    def findRotationTranslationScaleForPointClouds(self,pcloudA,pcloudB,findScale=False):
         # Returns the rotation matrix and scaling to be applied TO a point in the reference frame of B, to find its representation in A
         # In other words, the inv(RotationMatrix) and inv(Scale) were applied to points in A to get points of B
         # Find the centroid for both parties of the pointCloud
@@ -242,18 +242,20 @@ class Plane(object):
             translatedPCloudA.append(newA)
             translatedPCloudB.append(newB)
 
-        # timeToCalculate the scaling
-        normA = []
-        normB = []
-        scaleAB = []
-        for i in range(pointCloudSize):
-            a = linalg.norm(translatedPCloudA[i])
-            b = linalg.norm(translatedPCloudB[i])
-            normA.append(a)
-            normB.append(b)
-            scaleAB.append(a/b)
+        scaleAB = 1.0
+        if findScale:
+            # timeToCalculate the scaling
+            normA = []
+            normB = []
+            scaleAB = []
+            for i in range(pointCloudSize):
+                a = linalg.norm(translatedPCloudA[i])
+                b = linalg.norm(translatedPCloudB[i])
+                normA.append(a)
+                normB.append(b)
+                scaleAB.append(a/b)
         
-        scaleAB = np.mean(scaleAB)
+            scaleAB = np.mean(scaleAB)
         
         #scale the B vectors to make them equilength with A vectors
         # Build the covariance matrix
