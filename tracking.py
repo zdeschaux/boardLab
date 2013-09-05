@@ -7,7 +7,7 @@ from polhemus import Fastrak
 class tracking(object):
     def __init__(self,serialPort):
         self.fastrak = Fastrak(logFile='rawlog.raw',serialPort='/dev/ttyUSB0',fixedPoints=[probeTipOffset])
-        self.fastrak.setup(reset=True)
+        self.fastrak.setup(reset=False)
         self.fastrak.setContinuous()
 
     def getFrame(self):

@@ -126,8 +126,8 @@ class Plane(object):
         projectedPoint = p - dist*nVect
         projectedPoint.shape = (3,)
 
-        print 'checking projection'
-        print projectedPoint[2],self.z(projectedPoint[0],projectedPoint[1]), p[0,2], self.z(p[0,0],p[0,1])
+        #print 'checking projection'
+        #print projectedPoint[2],self.z(projectedPoint[0],projectedPoint[1]), p[0,2], self.z(p[0,0],p[0,1])
 
         return [projectedPoint[0],projectedPoint[1],projectedPoint[2]]
 
@@ -149,6 +149,7 @@ class Plane(object):
         sumOfCoordinates = [0.0,0.0,0.0]
         
         # Just add all the points first
+        print listOfPoints
         for p in listOfPoints:
             sumOfCoordinates[0] += p[0]
             sumOfCoordinates[1] += p[1]

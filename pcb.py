@@ -1,4 +1,4 @@
-import inspect, parse, math, time
+import inspect, parse, math, time, sys
 from cairoStuff import *
 from config import *
 from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as lineThickness, viaRadius, consecutiveClickInterval, calibrationClickInterval
@@ -216,14 +216,18 @@ class PCB(Screen):
         if self.calibrated:
             #calculate tip position for the UI
             tipTx = np.array(frame[2])
-            tipTxCentroid = tipTx - self.centroidB
-            sTipTxCentroid = self.scaleAB*tipTxCentroidB
-            rsTipTxCentroid = np.dot(self.rotMat,sTipTxCentroid)
-            rsTipPCB = rsTipTxCentroid + self.centroidA
+            tipTxProjection = self.plane.projectPoint(tipTx)
+            tipPlane = self.plane.planeRepresentationForSensorPoint(tipTxProjection)
+            tipPlaneCentroid = tipPlane - self.centroidB
+            sTipPlaneCentroid = self.scaleAB*tipPlaneCentroid
+            rsTipPlaneCentroid = np.dot(self.rotMat,sTipPlaneCentroid)
+            rsTipPCB = rsTipPlaneCentroid + self.centroidA
             rsTipPCB.shape = (2,)
             self.tipProjectionX = rsTipPCB[0]
             self.tipProjectionY = rsTipPCB[1]
             
+            print rsTipPCB
+
         #print 'Tracking frame',frame
 
     def calibrate(self):
@@ -235,8 +239,10 @@ class PCB(Screen):
         dataPoints = []
         for i in self.signals:
             for j in i.vias:
-                dataPoints += j.calibrationData
+                for k in j.calibrationData:
+                    dataPoints.append(k[2])
         self.plane = Plane.leastSquaresFit(dataPoints)
+        self.plane.parameterize()
         #Now, we have the plane. We should find two axes on the plane
         self.findRotationScaleTranslation()
         self.calibrated = True
@@ -244,7 +250,6 @@ class PCB(Screen):
     def findRotationScaleTranslation(self):
         # I use the technique described in http://igl.ethz.ch/projects/ARAP/svd_rot.pdf
         # to calculate the rotation matrix
-        
         # We begin by assembling both pointclouds
         pCloudA = []
         pCloudB = []
@@ -256,13 +261,23 @@ class PCB(Screen):
                     pCloudA.append(np.array([via.x,via.y]))
                     pCloudB.append(np.array(tipPositionOnPCBPlane))
 
-        f = open('pointcloud.dat',w)
-        t = {'A':pCloudA,'B':pCloudB}
+        f = open('pointcloud.dat','w')
+        logCloudA = []
+        logCloudB = []
+
+        for i in range(len(pCloudA)):
+#            print pCloudA[i]
+#            sys.exit(-1)
+            logCloudA.append([pCloudA[i][0],pCloudA[i][0]])
+            logCloudB.append([pCloudB[i][0],pCloudB[i][0]])
+
+        t = {'A':logCloudA,'B':logCloudB}
+        print t
         f.write(json.dumps(t))
         f.write('\n')
         f.close()
 
-        rotMat, centroidA, centroidB ,scaleaAB = Plane.findRotationTranslationScaleForPointClouds(pCloudA,pCloudB)
+        rotMat, centroidA, centroidB ,scaleAB = Plane.findRotationTranslationScaleForPointClouds(pCloudA,pCloudB)
         
         self.rotMat = rotMat
         self.centroidA = centroidA
