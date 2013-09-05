@@ -46,6 +46,7 @@ class PCB(Screen):
         
         self.selectedSignalForCalibration = 0
         self.selectedViaForCalibration = 0
+        self.calibrated = False
 
         #This is a hack to select conviniently spaced vias in the calibration routine        
         self.viaPairs = [(0,2),(1,15),(1,26)]
@@ -108,7 +109,7 @@ class PCB(Screen):
         viaList = []
         for i in self.signals:
             for j in i.vias:
-                k = {'x':j.x,'y':j.y,'data':j.calbrationData}
+                k = {'x':j.x,'y':j.y,'data':j.calibrationData}
                 viaList.append(k)
         f.write(json.dumps(viaList))
         f.close()
@@ -223,7 +224,7 @@ class PCB(Screen):
             self.tipProjectionX = rsTipPCB[0]
             self.tipProjectionY = rsTipPCB[1]
             
-        print 'Tracking frame',frame
+        #print 'Tracking frame',frame
 
     def calibrate(self):
         # Calibration comes in three phases
