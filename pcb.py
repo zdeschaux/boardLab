@@ -1,4 +1,10 @@
+# Pragun Maharaj, 
+# Notes:
+# flip() functions are deprecated, they were used when I didnt know how 
+# to set cairo context up with a reflecting matrix
+
 import inspect, parse, math, time, sys
+import cairo
 from cairoStuff import *
 from config import *
 from config import pcb_to_display_pixel_scale as scale, pcbLineThickness as lineThickness, viaRadius, consecutiveClickInterval, calibrationClickInterval
@@ -16,7 +22,6 @@ def rotate(x,y,theta):
     return (X,Y)
 
 
-
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
     def __init__(self,fileName,displayCallback):
@@ -28,8 +33,12 @@ class PCB(Screen):
         self.signals = []
         self.loadElements()
         self.loadSignals()
-        self.flip()
+        #self.flip()
         self.findMinRectangles()
+
+
+        #Here we create a reflecting cairo matrix so that we dont have to flip the PCB 
+        self.reflectingMatrix = cairo.Matrix(xx=1.0,yx=0.0,xy=0.0,yy=-1.0,x0=0.0,y0=1100.0)
 
         ## x,y is where I'm at
         self.x, self.y = 20.0,60.0
@@ -135,6 +144,7 @@ class PCB(Screen):
         #print "I also draw."
         ## A shortcut
         cr = self.cr
+        cr.set_matrix(self.reflectingMatrix)
         cr.save()
         cr.scale(scale,scale)
 
@@ -142,11 +152,12 @@ class PCB(Screen):
             cr.set_source_rgb(1.0,1.0,0.0)
             cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
 
-        cr.set_source_rgb(0.0,0.0,0.0)
-        cr.arc(5.0, 60.0, viaRadius, -2*math.pi, 0)
-        cr.arc(5.0, 5.0, viaRadius, -2*math.pi, 0)
-        cr.arc(60.0, 5.0, viaRadius, -2*math.pi, 0)
-        cr.arc(60.0, 60.0, viaRadius, -2*math.pi, 0)
+        #cr.set_source_rgb(0.0,0.0,0.0)
+        #Use these to get a sense of pixel locatioins on the screen.
+        #cr.arc(5.0, 60.0, viaRadius, -2*math.pi, 0)
+        #cr.arc(5.0, 5.0, viaRadius, -2*math.pi, 0)
+        #cr.arc(60.0, 5.0, viaRadius, -2*math.pi, 0)
+        #cr.arc(60.0, 60.0, viaRadius, -2*math.pi, 0)
         
         cr.set_line_width(lineThickness)
         applyTranslation(cr,self.x,self.y)
@@ -231,8 +242,6 @@ class PCB(Screen):
             self.tipProjectionX = rsTipPCB[0]+self.x
             self.tipProjectionY = rsTipPCB[1]+self.y
             
-            #print rsTipPCB
-
         #print 'Tracking frame',frame
 
     def calibrate(self):

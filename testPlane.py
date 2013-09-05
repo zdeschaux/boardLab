@@ -1,7 +1,7 @@
 # Pragun Maharaj, September 2, 2013
 # This guy just test the plane.py file
 
-import sys
+import sys, json
 from plane import Plane
 import numpy.random as random
 import numpy as np
@@ -94,4 +94,16 @@ for i in range(numPoints):
 
 Plane.findRotationTranslationScaleForPointClouds(pcloudA,pcloudB)
 
+#This uses the pointcloud data in the file
+print 'Now running pointCLoud alignment on real data...'
+f = open('pointcloud.dat')
+g = f.readlines()[0]
+h = json.loads(g)
+A = h['A']
+B = h['B']
+
+for i in B:
+    i[1] = -i[1]
+
+Plane.findRotationTranslationScaleForPointClouds(A,B)
 

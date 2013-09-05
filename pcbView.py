@@ -7,8 +7,15 @@ import gobject, threading
 import time, json
 import signal, SocketServer
 from collections import deque
-import tracking
-from tracking import trackingObj as trackingObject
+
+
+noTracking = False
+#This enables you to make UI changes without connecting a tracker
+if len(sys.argv) >=2 and sys.argv[1] == 'dummy':
+    noTracking = True
+else:
+    import tracking
+    from tracking import trackingObj as trackingObject
 
 class TrackingSignaller(gobject.GObject):
     def __init__(self):
@@ -95,16 +102,19 @@ def trackingLoop(sender):
 
 
 if __name__=="__main__":
+    print sys.argv
     window = gtk.Window( )
     window.connect( "delete-event", gtk.main_quit )
     window.set_size_request ( width, height )
 
     autoLoader = AutoLoader(window)
-    trackingSignaller = TrackingSignaller()
-    trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)
+    
+    if not noTracking:
+        trackingSignaller = TrackingSignaller()
+        trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)
 
-    trackingThread = threading.Thread(target=trackingLoop,args=(trackingSignaller,))
-    trackingThread.start()
+        trackingThread = threading.Thread(target=trackingLoop,args=(trackingSignaller,))
+        trackingThread.start()
 
     displayThread = threading.Thread(target=displayLoop)
     displayThread.start()
