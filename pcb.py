@@ -145,14 +145,14 @@ class PCB(Screen):
                 self.selectedVia().calibrationData = []
                 self.selectedVia().calibrating = True
 
-            if self.mode == 'select' or self.mode == 'voltage':
+            if self.mode == 'select' or self.mode == 'voltmeter':
                 (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
                 if self.mode == 'select':
                     for element in self.elements:
                         a = element.checkUnderMouse(x,y)
-                if self.mode == 'voltage':
+                if self.mode == 'voltmeter':
                     for element in self.elements:
-                        element.checkPadsAndSMDsUnderMouse(x,y)
+                        a = element.checkPadsAndSMDsUnderMouse(x,y)
                  
     def doTick(self):
         pass
@@ -170,7 +170,6 @@ class PCB(Screen):
         cr.save()
         cr.scale(scale,scale)
         
-
         if self.mode is not 'calibration':
             if self.usingMouse:
                 (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
@@ -186,7 +185,6 @@ class PCB(Screen):
                 cr.stroke()
                 cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
                 cr.fill()
-
 
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
