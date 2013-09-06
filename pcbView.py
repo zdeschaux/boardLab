@@ -8,7 +8,6 @@ import time, json
 import signal, SocketServer
 from collections import deque
 
-
 noTracking = False
 #This enables you to make UI changes without connecting a tracker
 if len(sys.argv) >=2 and sys.argv[1] == 'dummy':
@@ -23,9 +22,8 @@ class TrackingSignaller(gobject.GObject):
        
 gobject.type_register(TrackingSignaller)
 gobject.signal_new("tracking_frame", TrackingSignaller, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
-
 gobject.signal_new("mouse_frame", TrackingSignaller, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
-
+gobject.signal_new("ui_event", PCB, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
 
 displayQueue = deque([])
 
@@ -96,7 +94,8 @@ class AutoLoader(object):
         a = json.loads(data)
         self.pcb.processMouseFrame(a)
 
-    def displayCallback(self,a):
+    def forwardUIEvent(self,b,data):
+        print 'uiEvent',data
         displayQueue.append(a)
 
 def trackingLoop(sender):
@@ -131,6 +130,8 @@ if __name__=="__main__":
     window.set_size_request ( width, height )
 
     autoLoader = AutoLoader(window)
+
+    autoLoader.pcb.connect("ui_event",autoLoader.forwardUIEvent)
     
     trackingSignaller = TrackingSignaller()
     trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)

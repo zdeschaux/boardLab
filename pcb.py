@@ -14,6 +14,7 @@ from numpy import *
 from plane import Plane
 from colors import *
 
+
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
     inpVect = matrix(((x,),(y,),))
@@ -25,7 +26,7 @@ def rotate(x,y,theta):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName,displayCallback,usingMouse = False):
+    def __init__(self,fileName,usingMouse = False):
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
@@ -46,11 +47,9 @@ class PCB(Screen):
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter
-        self.rotBias = -(math.pi/2)
         self.rot = 0.0
         self.connect ( 'button-press-event' ,self.buttonPress)
         self.connect ( 'button-release-event' ,self.buttonRelease)
-        self.displayCallback = displayCallback
         self.lastButtonTimeStamp = None
 
         #We want to begin in calibration, unless the user is using the mouse only
@@ -150,9 +149,13 @@ class PCB(Screen):
                 if self.mode == 'select':
                     for element in self.elements:
                         a = element.checkUnderMouse(x,y)
+                        if a:
+                            self.emit('ui_event',{'event':'select','partName':element.partName})
                 if self.mode == 'voltmeter':
                     for element in self.elements:
                         a = element.checkPadsAndSMDsUnderMouse(x,y)
+                        if a is not None:
+                            self.emit('ui_event',{'event':'voltage','partName':element.partName,'pin':a})
                  
     def doTick(self):
         pass
@@ -460,9 +463,13 @@ class BasicElement(object):
 
     def checkPadsAndSMDsUnderMouse(self,x,y):
         for i in self.pads:
-            i.checkUnderMouse(x,y)
+            a = i.checkUnderMouse(x,y)
+            if a:
+                return i.name
         for i in self.smds:
-            i.checkUnderMouse(x,y)
+            a = i.checkUnderMouse(x,y)
+            if a:
+                return i.name
     
     def color(self):
         if self.underMouse:
@@ -569,6 +576,7 @@ class SMD(object):
         self.parent = parent
         self.x = float(item.attrib['x'])
         self.y = float(item.attrib['y'])
+        self.name = item.attrib['name']
         self.rot = 0.0
         if 'rot' in item.attrib.keys():
             rot = item.attrib['rot']
@@ -589,8 +597,6 @@ class SMD(object):
         (self.dx,self.dy) = rotate(self.dx,self.dy,rot2)
         (self.dx,self.dy) = (self.dx,self.dy)
         (self.x,self.y) = (self.x-self.dx/2,self.y-self.dy/2)
-
-        self.name = item.attrib['name']
 
     def color(self):
         if self.underMouse:
