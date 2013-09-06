@@ -134,6 +134,25 @@ if __name__=="__main__":
 
     # Open a named pipe
     if False:
+
+wfPath = "./p2"
+try:
+    os.mkfifo(wfPath)
+    os.mkfifo(rfPath)
+except OSError:
+    pass
+rp = open(rfPath, 'r')
+response = rp.read()
+print "P2 hear %s" % response
+rp.close()
+wp = open(wfPath, 'w')
+wp.write("P2: I'm fine, thank you! And you?")		
+wp.close()
+rp = open(rfPath, 'r')
+response = rp.read()
+print "P2 hear %s" % response
+rp.close()
+
         try:
             os.remove(namedPipe)
         except OSError:
