@@ -12,6 +12,7 @@ import json
 import  xml.etree.ElementTree as ET
 from numpy import *
 from plane import Plane
+from colors import *
 
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
@@ -35,9 +36,7 @@ class PCB(Screen):
         self.loadSignals()
         self.findMinRectangles()
 
-
         self.usingMouse = usingMouse #Very lame
-
 
         #Here we create a reflecting cairo matrix so that we dont have to flip the PCB 
         self.reflectingMatrix = cairo.Matrix(xx=1.0,yx=0.0,xy=0.0,yy=-1.0,x0=0.0,y0=1100.0)
@@ -162,11 +161,14 @@ class PCB(Screen):
 
         if self.usingMouse:
             (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
-        cr.set_source_rgb(1.0,1.0,0.0)
-        cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)        
-
-        
+         
         cr.set_line_width(lineThickness)
+
+        cr.set_source_rgb(*tipColor)
+        cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+        cr.stroke()
+
+ 
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
         for element in self.elements:
@@ -349,18 +351,22 @@ class Via(object):
     def __repr__(self):
         return 'Via on Signal:%s at x:%f,y:%f shaped: %s'%(self.signal.name,self.x,self.y,self.shape)
 
+
+    def color(self):
+        if self.calibrating:
+            return calibratingViaColor
+        else:
+            return viaColor
+
     def draw(self,cr):
         cr.save()
-        cr.translate(self.x,self.y)
         if self.selected and self.signal.pcb.mode == 'calibration':
             cr.set_line_width(4*lineThickness)
-            if self.calibrating:
-                cr.set_source_rgb(1.0,0.0,0.0)
-            else:
-                cr.set_source_rgb(1.0,0.0,1.0)
-        cr.arc(0.0, 0.0, viaRadius, -2*math.pi, 0)
-        cr.stroke()
+        cr.set_source_rgb(*self.color())
+        cr.arc(self.x, self.y, viaRadius, -2*math.pi, 0)
+        cr.fill()
         cr.restore()
+
 
     def flip(self):
         self.y = 0.0-self.y
@@ -495,9 +501,9 @@ class BasicElement(object):
 
     def drawMinRectangle(self,cr):
         if self.underMouse:
-            cr.set_source_rgb(1,0,0)
+            cr.set_source_rgb(*minRectangleSelected)
         else:
-            cr.set_source_rgb(0,1,0)
+            cr.set_source_rgb(*minRectangle)
         (absMinX,absMinY) = self.absoluteCoordinates(self.minX,self.minY)
         cr.rectangle(absMinX, absMinY, self.rectLengthX, self.rectLengthY )
         cr.stroke()
@@ -530,9 +536,9 @@ class Pad(object):
     
     def color(self):
         if self.underMouse:
-            return (0.0,0.0,0.9)
+            return padSelected
         else:
-            return (0.0,0.0,0.4)
+            return pad
 
     def draw(self,cr):
         if hasattr(self,'radius'):
@@ -583,9 +589,9 @@ class SMD(object):
 
     def color(self):
         if self.underMouse:
-            return (0.0,0.0,0.9)
+            return padSelected
         else:
-            return (0.0,0.0,0.4)
+            return pad
 
     def draw(self,cr):
         cr.set_source_rgb(*self.color())
@@ -639,7 +645,7 @@ class Wire(object):
         x2 = x2
         y2 = y2
 
-        cr.set_source_rgb(0, 0, 0)
+        cr.set_source_rgb(*wire)
         cr.move_to(x1, y1)
         cr.line_to(x2, y2)
         cr.stroke()
