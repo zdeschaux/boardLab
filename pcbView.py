@@ -24,6 +24,9 @@ class TrackingSignaller(gobject.GObject):
 gobject.type_register(TrackingSignaller)
 gobject.signal_new("tracking_frame", TrackingSignaller, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
 
+gobject.signal_new("mouse_frame", TrackingSignaller, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
+
+
 displayQueue = deque([])
 
 class MyTCPHandler(SocketServer.BaseRequestHandler):
@@ -80,7 +83,7 @@ class AutoLoader(object):
 
         fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
-        self.pcb = PCB(fileName,displayCallback=self.displayCallback)
+        self.pcb = PCB(fileName,displayCallback=self.displayCallback,usingMouse=noTracking)
         self.pcb.show( )
         window.add(self.pcb)
         
@@ -89,32 +92,52 @@ class AutoLoader(object):
         #print 'received trackingFrame',b,a
         self.pcb.processTrackingFrame(a)
 
+    def processMouseFrame(self,b,data):
+        a = json.loads(data)
+        self.pcb.processMouseFrame(a)
+
     def displayCallback(self,a):
         displayQueue.append(a)
-
 
 def trackingLoop(sender):
     #Input of the PCB stuff
     while(1):
-        a = trackingObject.getFrame()
-        if a is not None:
-            sender.emit("tracking_frame",json.dumps(a))
+        if not noTracking:
+            a = trackingObject.getFrame()
+            if a is not None:
+                sender.emit("tracking_frame",json.dumps(a))
+
+
+def mousePress(a,b):
+    data = {'x':b.x, 'y':b.y, 'button':b.button, 'type':'press'}
+    trackingSignaller.emit("mouse_frame",json.dumps(data))
+
+def mouseRelease(a,b):
+    data = {'x':b.x, 'y':b.y, 'button':b.button, 'type':'release'}
+    trackingSignaller.emit("mouse_frame",json.dumps(data))
 
 
 if __name__=="__main__":
     print sys.argv
     window = gtk.Window( )
+    window.set_events(gdk.BUTTON_PRESS_MASK | gdk.MOTION_NOTIFY | gdk.POINTER_MOTION_MASK| gdk.BUTTON_RELEASE_MASK)
+
     window.connect( "delete-event", gtk.main_quit )
+
+    if noTracking:
+        window.connect('button-press-event',mousePress)
+        window.connect('button-release-event',mouseRelease)
+
     window.set_size_request ( width, height )
 
     autoLoader = AutoLoader(window)
     
-    if not noTracking:
-        trackingSignaller = TrackingSignaller()
-        trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)
-
-        trackingThread = threading.Thread(target=trackingLoop,args=(trackingSignaller,))
-        trackingThread.start()
+    trackingSignaller = TrackingSignaller()
+    trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)
+    trackingSignaller.connect("mouse_frame",autoLoader.processMouseFrame)
+    
+    trackingThread = threading.Thread(target=trackingLoop,args=(trackingSignaller,))
+    trackingThread.start()
 
     displayThread = threading.Thread(target=displayLoop)
     displayThread.start()

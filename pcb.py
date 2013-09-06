@@ -24,7 +24,7 @@ def rotate(x,y,theta):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName,displayCallback):
+    def __init__(self,fileName,displayCallback,usingMouse = False):
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
@@ -33,8 +33,10 @@ class PCB(Screen):
         self.signals = []
         self.loadElements()
         self.loadSignals()
-        #self.flip()
         self.findMinRectangles()
+
+
+        self.usingMouse = usingMouse #Very lame
 
 
         #Here we create a reflecting cairo matrix so that we dont have to flip the PCB 
@@ -51,11 +53,21 @@ class PCB(Screen):
         self.connect ( 'button-release-event' ,self.buttonRelease)
         self.displayCallback = displayCallback
         self.lastButtonTimeStamp = None
+
+        #We want to begin in calibration, unless the user is using the mouse only
         self.mode = 'calibration'
+        if self.usingMouse:
+            self.mode = 'select'
         
         self.selectedSignalForCalibration = 0
         self.selectedViaForCalibration = 0
         self.calibrated = False
+
+        self.tipProjectionX = 0.0
+        self.tipProjectionY = 0.0
+
+        self.mouseX = 0.0
+        self.mouseY = 0.0
 
         #This is a hack to select conviniently spaced vias in the calibration routine        
         self.viaPairs = [(1,10),(1,15),(1,26)]
@@ -65,6 +77,7 @@ class PCB(Screen):
     def selectedVia(self):
         return self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration]
 
+
     def buttonRelease(self,a,b):
         if b.button == 3 and self.lastButtonTimeStamp is not None:
             timeStamp = time.time()
@@ -72,8 +85,7 @@ class PCB(Screen):
             self.lastButtonTimeStamp = None
             print 'Time between click and release',diff
             if diff <= consecutiveClickInterval:
-                return
-  
+                return  
             if diff > consecutiveClickInterval and diff < calibrationClickInterval:
                 if self.mode == 'calibration':
                     self.selectNextViaForCalibration()
@@ -148,16 +160,11 @@ class PCB(Screen):
         cr.save()
         cr.scale(scale,scale)
 
-        if self.calibrated:
-            cr.set_source_rgb(1.0,1.0,0.0)
-            cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+        if self.usingMouse:
+            (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
+        cr.set_source_rgb(1.0,1.0,0.0)
+        cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)        
 
-        #cr.set_source_rgb(0.0,0.0,0.0)
-        #Use these to get a sense of pixel locatioins on the screen.
-        #cr.arc(5.0, 60.0, viaRadius, -2*math.pi, 0)
-        #cr.arc(5.0, 5.0, viaRadius, -2*math.pi, 0)
-        #cr.arc(60.0, 5.0, viaRadius, -2*math.pi, 0)
-        #cr.arc(60.0, 60.0, viaRadius, -2*math.pi, 0)
         
         cr.set_line_width(lineThickness)
         applyTranslation(cr,self.x,self.y)
@@ -224,6 +231,9 @@ class PCB(Screen):
         for i in self.signals:
             i.flip()
 
+    def processMouseFrame(self,frame):
+        (self.mouseX,self.mouseY) = (frame['x'],frame['y'])
+
     def processTrackingFrame(self,frame):
         if self.mode == 'calibration':
             if self.selectedVia().calibrating:
@@ -240,9 +250,7 @@ class PCB(Screen):
             rsTipPCB = rsTipPlaneCentroid + self.centroidA
             rsTipPCB.shape = (2,)
             self.tipProjectionX = rsTipPCB[0]+self.x
-            self.tipProjectionY = rsTipPCB[1]+self.y
-            
-        #print 'Tracking frame',frame
+            self.tipProjectionY = rsTipPCB[1]+self.y            
 
     def calibrate(self):
         # Calibration comes in three phases
