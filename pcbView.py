@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, inspect
+import os, sys, inspect
 from cairoStuff import *
 from pcb import *
 from config import *
@@ -37,20 +37,19 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
     """
 
     #This is the real handle, the other one is just to test stuff without a real tracking system.
-    def handle1(self):
+    def handle(self):
         # self.request is the TCP socket connected to the client
         while(1):
             if len(displayQueue) > 0:
                 self.data = displayQueue.popleft()
             else:
                 self.data = "null"
-            # just send back the same data, but upper-cased
             self.data += '\n'
             self.request.sendall(self.data)
             time.sleep(0.100)
 
 
-    def handle(self):
+    def handle1(self):
         while(1):
             data = {}
             data['positive'] = {'partName':'U3','pad':'3'}
@@ -75,9 +74,10 @@ def displayLoop():
 
 
 class AutoLoader(object):
-    def __init__(self,gtkWindow):
+    def __init__(self,gtkWindow,eventPipe):
         self.objects = {}
         self.window = gtkWindow
+        self.eventPipe = eventPipe
 
         fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
@@ -96,7 +96,9 @@ class AutoLoader(object):
 
     def forwardUIEvent(self,b,data):
         print 'uiEvent',data
+        #self.eventPipe.write(data)
         displayQueue.append(data)
+
 
 def trackingLoop(sender):
     #Input of the PCB stuff
@@ -110,6 +112,7 @@ def trackingLoop(sender):
 def mousePress(a,b):
     data = {'x':b.x, 'y':b.y, 'button':b.button, 'type':'press'}
     trackingSignaller.emit("mouse_frame",json.dumps(data))
+
 
 def mouseRelease(a,b):
     data = {'x':b.x, 'y':b.y, 'button':b.button, 'type':'release'}
@@ -129,14 +132,22 @@ if __name__=="__main__":
 
     window.set_size_request ( width, height )
 
-    autoLoader = AutoLoader(window)
+    # Open a named pipe
+    if False:
+        try:
+            os.remove(namedPipe)
+        except OSError:
+            print 'Couldn\'t delete the named pipe, maybe it wasn\'t there...'
+        os.mkfifo(namedPipe,0644)
+        eventPipe = os.open(namedPipe, os.O_NONBLOCK|os.O_WRONLY)     # open fifo pipe file as fd
 
-    autoLoader.pcb.connect("ui_event",autoLoader.forwardUIEvent)
-    
+    autoLoader = AutoLoader(window,None)
+
+    autoLoader.pcb.connect("ui_event",autoLoader.forwardUIEvent)    
     trackingSignaller = TrackingSignaller()
     trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)
     trackingSignaller.connect("mouse_frame",autoLoader.processMouseFrame)
-    
+
     trackingThread = threading.Thread(target=trackingLoop,args=(trackingSignaller,))
     trackingThread.start()
 

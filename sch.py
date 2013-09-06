@@ -84,8 +84,10 @@ class SCH(Screen,XMLElement):
         '''
         This takes in a display frame and selects all instances with the same part name
         '''
-        (x,y) = self.sheets[0].processFrame(frame)
-        self.moveTo(x,y)
+        a = self.sheets[0].processFrame(frame)
+        if a is not None:
+            (x,y) = a
+            self.moveTo(x,y)
 
     def moveTo(self,x,y):
         self.x = (width/2)-x*scale
@@ -157,11 +159,13 @@ class Sheet(XMLElement):
         frame = frame.strip()
         frameDict = json.loads(frame)
         print frameDict
-#        if not frame == 'null':
-#            if frame in self.sheets[0].instanceHash:
-#                self.selectInstance(self.sheets[0].instanceHash[frame])
-        if frameDict['type'] == 'VDC':
-            return self.processVDCFrame(frameDict)
+        if frameDict is not None:
+            if frameDict['type'] == 'VDC':
+                return self.processVDCFrame(frameDict)
+            if frameDict['type'] == 'select':
+                p = self.instanceHash[frameDict['partName']]
+                self.parent.selectInstance(p)
+                return (p.x,p.y)
 
     def processVDCFrame(self,frameDict):
         measObj = Measurement(frameDict,self)

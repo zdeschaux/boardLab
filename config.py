@@ -25,7 +25,7 @@ displayOff = False
 
 pcbPort = 9877
 
-datasheetDir = '/home/pragungoyal/boardlab/datasheets/'
+datasheetDir = '/home/pragungoyal/boardLab/app/datasheets/'
 pdfCommand = '/usr/bin/evince-previewer'
 
 pcbLineThickness = 0.25
@@ -38,3 +38,5 @@ probeTipOffset = np.array(( (-45.5676,),(-0.15494,),(-13.736,), ))
 
 fastrakPort = '/dev/ttyUSB0'
 calibrationDataFile = 'calibration.log'
+
+namedPipe = '/tmp/boardLabUIEvents'

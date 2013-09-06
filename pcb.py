@@ -151,12 +151,17 @@ class PCB(Screen):
                     for element in self.elements:
                         a = element.checkUnderMouse(x,y)
                         if a:
-                            self.emit('ui_event',json.dumps({'event':'select','partName':element.partName}))
+                            self.emit('ui_event',json.dumps({'type':'select','partName':element.partName}))
                 if self.mode == 'voltmeter':
                     for element in self.elements:
                         a = element.checkPadsAndSMDsUnderMouse(x,y)
                         if a is not None:
-                            self.emit('ui_event',json.dumps({'event':'voltage','partName':element.partName,'pin':a}))
+                            data = {}
+                            data['positive'] = {'partName':element.partName,'pad':a}
+                            data['negative'] = {'partName':'U3','pad':'21'}
+                            data['type'] = 'VDC'
+                            data['value'] = 5.04
+                            self.emit('ui_event',json.dumps(data))
                  
     def doTick(self):
         pass
@@ -173,12 +178,13 @@ class PCB(Screen):
         cr.set_matrix(self.reflectingMatrix)
         cr.save()
         cr.scale(scale,scale)
+
+        cr.set_line_width(lineThickness)
         
         if self.mode is not 'calibration':
             if self.usingMouse:
                 (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
                 
-            cr.set_line_width(lineThickness)
             cr.set_source_rgb(*tipColor)
             if self.mode == 'select':
                 cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
@@ -363,8 +369,11 @@ class Via(object):
 
 
     def color(self):
-        if self.calibrating:
-            return calibratingViaColor
+        if self.selected:
+            if self.calibrating:
+                return calibratingViaColor
+            else:
+                return selectedViaColor
         else:
             return viaColor
 
