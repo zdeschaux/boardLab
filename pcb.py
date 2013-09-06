@@ -122,6 +122,7 @@ class PCB(Screen):
         self.viaPairs.append(p)
         self.selectedVia().selected = True
 
+
     def dumpCalibrationData(self):
         print 'Dumping calibration data into:%s' % (calibrationDataFile)
         f = open(calibrationDataFile,'w')
@@ -134,6 +135,7 @@ class PCB(Screen):
         f.close()
         print 'Done dumping....'
 
+
     def buttonPress(self,a,b):
         print 'Button pressed',b.button
         if b.button == 3:
@@ -143,6 +145,15 @@ class PCB(Screen):
                 self.selectedVia().calibrationData = []
                 self.selectedVia().calibrating = True
 
+            if self.mode == 'select' or self.mode == 'voltage':
+                (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
+                if self.mode == 'select':
+                    for element in self.elements:
+                        a = element.checkUnderMouse(x,y)
+                if self.mode == 'voltage':
+                    for element in self.elements:
+                        element.checkPadsAndSMDsUnderMouse(x,y)
+                 
     def doTick(self):
         pass
     
@@ -158,17 +169,25 @@ class PCB(Screen):
         cr.set_matrix(self.reflectingMatrix)
         cr.save()
         cr.scale(scale,scale)
+        
 
-        if self.usingMouse:
-            (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
-         
-        cr.set_line_width(lineThickness)
+        if self.mode is not 'calibration':
+            if self.usingMouse:
+                (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
+                
+            cr.set_line_width(lineThickness)
+            cr.set_source_rgb(*tipColor)
+            if self.mode == 'select':
+                cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+                cr.stroke()
+                
+            if self.mode == 'voltmeter':
+                cr.arc(self.tipProjectionX, self.tipProjectionY, 3*viaRadius, -2*math.pi, 0)
+                cr.stroke()
+                cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+                cr.fill()
 
-        cr.set_source_rgb(*tipColor)
-        cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
-        cr.stroke()
 
- 
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
         for element in self.elements:
@@ -176,10 +195,8 @@ class PCB(Screen):
         for signal in self.signals:
             signal.draw(cr)
         #Draw what mode we're in
-        cr.move_to(100,50)
-        cr.show_text(self.mode)
         cr.restore()
-
+     
 
     def transformToPCBRef(self,x,y):
         #x,y are in the global reference frame (the frame of reference of the display)
@@ -195,17 +212,6 @@ class PCB(Screen):
         Y = float(Y)
         return (X,Y)
 
-    
-    def findModuleUnderMouse(self,x,y):
-        (X,Y) = self.transformToPCBRef(x,y)
-        for element in self.elements:
-            #a = element.checkUnderMouse(X,Y)
-            a = False
-            element.checkPadsAndSMDsUnderMouse(X,Y)
-            if a:
-                return element
-        return None
- 
 
     def findMinRectangles(self):
         for i in self.elements:
@@ -254,6 +260,7 @@ class PCB(Screen):
             self.tipProjectionX = rsTipPCB[0]+self.x
             self.tipProjectionY = rsTipPCB[1]+self.y            
 
+
     def calibrate(self):
         # Calibration comes in three phases
         # Phase 1, Find the plane of the PCB
@@ -271,6 +278,7 @@ class PCB(Screen):
         #Now, we have the plane. We should find two axes on the plane
         self.findRotationScaleTranslation()
         self.calibrated = True
+
         
     def findRotationScaleTranslation(self):
         # I use the technique described in http://igl.ethz.ch/projects/ARAP/svd_rot.pdf
@@ -512,7 +520,6 @@ class BasicElement(object):
         x1 = self.x + x
         y1 = self.y + y
         return (x1,y1)
-
 
 
 class Pad(object):

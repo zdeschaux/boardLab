@@ -1,4 +1,4 @@
-mouse = file('/dev/input/mouse1')
+mouse = file('/dev/input/mouse0')
 while True:
     status, dx, dy = tuple(ord(c) for c in mouse.read(3))
 
