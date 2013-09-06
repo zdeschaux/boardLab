@@ -32,6 +32,7 @@ class PCB(Screen):
         self.tree = ET.parse(fileName)
         self.root = self.tree.getroot()
         self.elements = []
+
         self.signals = []
         self.loadElements()
         self.loadSignals()
@@ -150,12 +151,12 @@ class PCB(Screen):
                     for element in self.elements:
                         a = element.checkUnderMouse(x,y)
                         if a:
-                            self.emit('ui_event',{'event':'select','partName':element.partName})
+                            self.emit('ui_event',json.dumps({'event':'select','partName':element.partName}))
                 if self.mode == 'voltmeter':
                     for element in self.elements:
                         a = element.checkPadsAndSMDsUnderMouse(x,y)
                         if a is not None:
-                            self.emit('ui_event',{'event':'voltage','partName':element.partName,'pin':a})
+                            self.emit('ui_event',json.dumps({'event':'voltage','partName':element.partName,'pin':a}))
                  
     def doTick(self):
         pass
@@ -564,11 +565,10 @@ class Pad(object):
             (x1,y1) = self.absoluteCoordinates()
             distance = math.sqrt(((x-x1)*(x-x1))+((y-y1)*(y-y1)))
             if distance < self.radius:
-                print self.name, self.parent.partName
                 self.underMouse = True
             else:
                 self.underMouse = False
-
+            return self.underMouse
 
 class SMD(object):
     def __init__(self,item,parent):
@@ -620,10 +620,9 @@ class SMD(object):
 
         if x <= xMax and x >= xMin and y <= yMax and y >= yMin:
             self.underMouse = True
-            print self.name, self.parent.partName
         else:
             self.underMouse = False
-
+        return self.underMouse
 
 
 class Wire(object):
