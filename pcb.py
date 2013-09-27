@@ -26,12 +26,13 @@ def rotate(x,y,theta):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName,usingMouse = False):
+    def __init__(self,fileName,usingMouse = False, multimeter=None):
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
         self.root = self.tree.getroot()
         self.elements = []
+        self.multimeter = multimeter
 
         self.signals = []
         self.loadElements()
@@ -184,7 +185,7 @@ class PCB(Screen):
                         data['positive'] = {'partName':element.partName,'pad':a}
                         data['negative'] = {'partName':'U3','pad':'21'}
                         data['type'] = 'VDC'
-                        data['value'] = 5.04
+                        data['value'] = self.multimeter.measure()
                         self.emit('ui_event',json.dumps(data))
         
 

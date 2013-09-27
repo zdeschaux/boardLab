@@ -8,6 +8,8 @@ import time, json
 import signal, SocketServer
 from collections import deque
 
+
+# Dummy tracking or real tracking
 noTracking = False
 #This enables you to make UI changes without connecting a tracker
 if len(sys.argv) >=2 and sys.argv[1] == 'dummy':
@@ -16,9 +18,17 @@ else:
     import tracking
     from tracking import trackingObj as trackingObject
 
-
+# Dummy probe or real probe
 if not noProbe:
     from probeEvents import probeObj
+
+
+# Dummy multimeter or real multimeter
+if not noMultimeter:
+    from multimeter import multimeterObj
+else:
+    from dummyMultimeter import dummyMultimeterObj as multimeterObj
+
 
 class TrackingSignaller(gobject.GObject):
     def __init__(self):
@@ -80,7 +90,7 @@ class AutoLoader(object):
 
         fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
-        self.pcb = PCB(fileName,usingMouse=noTracking)
+        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj)
         self.pcb.show( )
         window.add(self.pcb)
         

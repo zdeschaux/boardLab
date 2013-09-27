@@ -1,24 +1,10 @@
 import serial, time
 
-
 class Multimeter(object):
     def __init__(self,port='/dev/ttyUSB0'):
-        ser = serial.Serial()
-        ser.port = '/dev/ttyUSB0'
-        ser.baudrate = 9600
-        ser.bytesize = serial.EIGHTBITS
-        ser.parity = serial.PARITY_NONE
-        ser.stopbits = serial.STOPBITS_ONE
-        ser.timeout = 1
-        ser.xonxoff = False
-        ser.rtscts = False
-        ser.dsrdtr = False
-        ser.writeTimeout = 2
+        ser = serial.Serial(port,9600,timeout=1,dsrdtr=True, stopbits=serial.STOPBITS_TWO)
         self.ser = ser
         self.id = None
-
-    def connect(self):
-        self.ser.open()
 
     def writeCommand(self,cmd):
         wcmd = cmd + '\n'
@@ -29,7 +15,6 @@ class Multimeter(object):
         self.writeCommand('*IDN?')
         resp = self.ser.readline()
         self.id = resp
-        #print resp
         return resp
 
     def reset(self):
@@ -56,30 +41,36 @@ class Multimeter(object):
 
 
     def setupForRemote(self):
-        self.connect()
+        a = self.ser.readline()
         self.getId()
         self.clear()
         self.reset()
         self.clear()
         self.display(True)
         self.setSystem('REM')
-        
+        self.clear()
+        self.readError()
         
     def measure(self,what="VOLT:DC",range=10.0,resolution=0.003):
         wcmd = 'MEAS:'+what+"? %f,%f"%(range,resolution,)
         self.writeCommand(wcmd)
         resp = self.ser.readline()
+        print 'resp',resp
         return float(resp)
 
     def readError(self):
-        a.writeCommand('SYST:ERROR?')
-        resp = a.ser.readline()
+        self.writeCommand('SYST:ERROR?')
+        resp = self.ser.readline()
         print resp
         return resp
-        
+   
+multimeterObj = Multimeter()
+multimeterObj.setupForRemote()
+
+     
 if __name__ == "__main__":
-    a = Multimeter()
-    a.setupForRemote()
-    print a.id
-    voltage = a.measure()
-    print voltage
+    print multimeterObj.id
+    while(True):
+        voltage = multimeterObj.measure()
+        print voltage
+
