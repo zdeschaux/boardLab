@@ -37,6 +37,8 @@ calibrationClickInterval = 2.0
 probeTipOffset = np.array(( (-45.5676,),(-0.15494,),(-13.736,), ))
 
 fastrakPort = '/dev/ttyUSB0'
+probePort = '/dev/ttyUSB0'
+
 calibrationDataFile = 'calibration.log'
 
 namedPipe = './uiEvents'
