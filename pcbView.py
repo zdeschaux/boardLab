@@ -16,10 +16,20 @@ else:
     import tracking
     from tracking import trackingObj as trackingObject
 
+
+if not noProbe:
+    from probeEvents import probeObj
+
 class TrackingSignaller(gobject.GObject):
     def __init__(self):
         self.__gobject_init__()
+
        
+class ProbeSignaller(gobject.GObject):
+    def __init__(self):
+        self.__gobject_init__()
+
+
 gobject.type_register(TrackingSignaller)
 gobject.signal_new("tracking_frame", TrackingSignaller, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
 gobject.signal_new("mouse_frame", TrackingSignaller, gobject.SIGNAL_RUN_FIRST,gobject.TYPE_NONE, (str,))
@@ -83,6 +93,10 @@ class AutoLoader(object):
         a = json.loads(data)
         self.pcb.processMouseFrame(a)
 
+    def processProbeEvent(self,b,data):
+        a = json.loads(data)
+        self.pcb.probeEvent(a)
+
     def forwardUIEvent(self,b,data):
         print 'uiEvent',data
         #self.eventPipe.write(data)
@@ -96,6 +110,14 @@ def trackingLoop(sender):
             a = trackingObject.getFrame()
             if a is not None:
                 sender.emit("tracking_frame",json.dumps(a))
+
+
+def probeLoop(sender):
+    while(1):
+        if not noProbe:
+            a = probeObj.getEvent()
+            if a is not None:
+                sender.emit("probe_event",json.dumps(a))
 
 
 def mousePress(a,b):
@@ -123,25 +145,24 @@ if __name__=="__main__":
 
     # Open a named pipe
     if False:
-
-wfPath = "./p2"
-try:
-    os.mkfifo(wfPath)
-    os.mkfifo(rfPath)
-except OSError:
-    pass
-rp = open(rfPath, 'r')
-response = rp.read()
-print "P2 hear %s" % response
-rp.close()
-wp = open(wfPath, 'w')
-wp.write("P2: I'm fine, thank you! And you?")		
-wp.close()
-rp = open(rfPath, 'r')
-response = rp.read()
-print "P2 hear %s" % response
-rp.close()
-
+        wfPath = "./p2"
+        try:
+            os.mkfifo(wfPath)
+            os.mkfifo(rfPath)
+        except OSError:
+            pass
+        rp = open(rfPath, 'r')
+        response = rp.read()
+        print "P2 hear %s" % response
+        rp.close()
+        wp = open(wfPath, 'w')
+        wp.write("P2: I'm fine, thank you! And you?")		
+        wp.close()
+        rp = open(rfPath, 'r')
+        response = rp.read()
+        print "P2 hear %s" % response
+        rp.close()
+        
         try:
             os.remove(namedPipe)
         except OSError:
@@ -155,6 +176,12 @@ rp.close()
     trackingSignaller = TrackingSignaller()
     trackingSignaller.connect("tracking_frame",autoLoader.processTrackingFrame)
     trackingSignaller.connect("mouse_frame",autoLoader.processMouseFrame)
+    
+    probeSignaller = ProbeSignaller()
+    probeSignaller.connect("probe_event",autoLoader.processProbeEvent)
+
+    probeThread = threading.Thread(target=probeLoop,args=(probeSignaller,))
+    probeThread.start()
 
     trackingThread = threading.Thread(target=trackingLoop,args=(trackingSignaller,))
     trackingThread.start()

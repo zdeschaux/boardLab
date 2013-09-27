@@ -77,8 +77,8 @@ class PCB(Screen):
         return self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration]
 
 
-    def buttonRelease(self,a,b):
-        if b.button == 3 and self.lastButtonTimeStamp is not None:
+    def modeRelease(self):
+        if self.lastButtonTimeStamp is not None:
             timeStamp = time.time()
             diff = timeStamp - self.lastButtonTimeStamp
             self.lastButtonTimeStamp = None
@@ -99,12 +99,19 @@ class PCB(Screen):
                 self.calibrationIntervalEvent()
                 self.mode = 'calibration'
 
-        if b.button == 1:
-            if self.mode == 'calibration':
-                if self.selectedVia().calibrating:
-                    self.selectedVia().calibrating = False
-        
 
+    def triggerRelease(self):
+        if self.mode == 'calibration':
+            if self.selectedVia().calibrating:
+                self.selectedVia().calibrating = False
+
+    def buttonRelease(self,a,b):
+        # Only mouse/trackpad release
+        if b.button == 3:
+            self.modeRelease()
+        if b.button == 1:
+            self.triggerRelease()
+            
     def calibrationIntervalEvent(self):
         if self.mode == 'calibration':
             self.dumpCalibrationData()
@@ -136,32 +143,59 @@ class PCB(Screen):
         print 'Done dumping....'
 
 
+    def probeEvent(self,b):
+        #I process probeEvents and send them down some channel
+        if b['button'] == 'front':
+            if b['event'] == 'press':
+                self.triggerPress()
+            if b['event'] == 'release':
+                self.triggerRelease()
+
+        if b['button'] == 'back':
+            if b['event'] == 'press':
+                self.modePress()
+            if b['event'] == 'release':
+                self.modeRelease()
+
+
+    def modePress(self):
+        # I come here, from any event generation if it has been mapped to modePress
+        self.lastButtonTimeStamp = time.time()
+
+
+    def triggerPress(self):
+        # I come here, from any event generation if it has been mapped to triggerPress
+        if self.mode == 'calibration':
+            self.selectedVia().calibrationData = []
+            self.selectedVia().calibrating = True
+            
+        if self.mode == 'select' or self.mode == 'voltmeter':
+            (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
+            if self.mode == 'select':
+                for element in self.elements:
+                    a = element.checkUnderMouse(x,y)
+                    if a:
+                        self.emit('ui_event',json.dumps({'type':'select','partName':element.partName}))
+            if self.mode == 'voltmeter':
+                for element in self.elements:
+                    a = element.checkPadsAndSMDsUnderMouse(x,y)
+                    if a is not None:
+                        data = {}
+                        data['positive'] = {'partName':element.partName,'pad':a}
+                        data['negative'] = {'partName':'U3','pad':'21'}
+                        data['type'] = 'VDC'
+                        data['value'] = 5.04
+                        self.emit('ui_event',json.dumps(data))
+        
+
     def buttonPress(self,a,b):
+        # I come here, if a MOUSE button is pressed,
+        # this should happen if someone's testing me using a mouse or a trackpad
         print 'Button pressed',b.button
         if b.button == 3:
-            self.lastButtonTimeStamp = time.time()
+            self.modePress()
         if b.button == 1:
-            if self.mode == 'calibration':
-                self.selectedVia().calibrationData = []
-                self.selectedVia().calibrating = True
-
-            if self.mode == 'select' or self.mode == 'voltmeter':
-                (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
-                if self.mode == 'select':
-                    for element in self.elements:
-                        a = element.checkUnderMouse(x,y)
-                        if a:
-                            self.emit('ui_event',json.dumps({'type':'select','partName':element.partName}))
-                if self.mode == 'voltmeter':
-                    for element in self.elements:
-                        a = element.checkPadsAndSMDsUnderMouse(x,y)
-                        if a is not None:
-                            data = {}
-                            data['positive'] = {'partName':element.partName,'pad':a}
-                            data['negative'] = {'partName':'U3','pad':'21'}
-                            data['type'] = 'VDC'
-                            data['value'] = 5.04
-                            self.emit('ui_event',json.dumps(data))
+            self.triggerPress()
                  
     def doTick(self):
         pass

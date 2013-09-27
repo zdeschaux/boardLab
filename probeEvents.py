@@ -12,7 +12,7 @@ class probe(object):
         self.serialPortName = serialPort
         self.serial = serial.Serial(serialPort,115200,timeout=1)
 
-    def getEvents(self):
+    def getEvent(self):
         evt = None
         a = self.serial.readline()
         if a.startswith('AP'):
@@ -29,6 +29,6 @@ probeObj = probe(probePort)
 
 if __name__=="__main__":
     while(1):
-        a = probeObj.getEvents()
+        a = probeObj.getEvent()
         print a
 
