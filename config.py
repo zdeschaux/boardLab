@@ -33,9 +33,14 @@ calibrationClickInterval = 2.0
 
 #probeTipOffset = np.array(( (-45.5676,),(-0.15494,),(-13.736,), ))
 #probeTipOffset = np.array(( (-112.4983,), (1.8242,), (-17.4066,), ))
-probeTipOffset = np.array(( (-116.0914,), (0.4789,),  -17.8473,), ))
+
+#These values are hand teased
+#probeTipOffset = np.array(( (-115.5,), (0.0,),  (-15.5,), ))
+
+probeTipOffset = np.array(( (-116.2510,), (-0.0838,), (-17.8813,), ))
+
 fastrakPort = '/dev/ttyUSB0'
-probePort = '/dev/ttyUSB0'
+probePort = '/dev/ttyUSB1'
 multimeterPort = '/dev/ttyUSB0'
 
 
@@ -43,5 +48,5 @@ calibrationDataFile = 'calibration.log'
 
 namedPipe = './uiEvents'
 
-noProbe = True
+noProbe = False
 noMultimeter = True
