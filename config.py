@@ -31,7 +31,8 @@ viaRadius = 0.4
 consecutiveClickInterval = 0.1
 calibrationClickInterval = 2.0
 
-probeTipOffset = np.array(( (-45.5676,),(-0.15494,),(-13.736,), ))
+#probeTipOffset = np.array(( (-45.5676,),(-0.15494,),(-13.736,), ))
+probeTipOffset = np.array(( (-112.4983,), (1.8242,), (-17.4066,), ))
 
 fastrakPort = '/dev/ttyUSB0'
 probePort = '/dev/ttyUSB0'
