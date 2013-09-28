@@ -3,6 +3,11 @@
 
 from config import probeTipOffset, fastrakPort
 from polhemus import Fastrak
+import sys
+
+rawonly = False
+if len(sys.argv) >= 2 and sys.argv[1] == 'rawonly':
+    rawonly = True
 
 class tracking(object):
     def __init__(self,serialPort):
@@ -19,5 +24,16 @@ trackingObj = tracking(fastrakPort)
 if __name__=="__main__":
     while(1):
         a = trackingObj.getFrame()
-        print a
+        if a is not None:
+            if rawonly:
+                m = ''
+                for i in a[0]:
+                    m += str(i)
+                    m += ' '
+                for i in a[1]:
+                    m += str(i)
+                    m += ' '
+                print m
+            else:
+                print a
 

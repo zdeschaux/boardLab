@@ -42,5 +42,5 @@ calibrationDataFile = 'calibration.log'
 
 namedPipe = './uiEvents'
 
-noProbe = False
+noProbe = True
 noMultimeter = True
