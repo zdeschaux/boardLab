@@ -13,7 +13,8 @@ import  xml.etree.ElementTree as ET
 from numpy import *
 from plane import Plane
 from colors import *
-
+import threading
+        
 
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
@@ -34,6 +35,8 @@ class PCB(Screen):
         self.elements = []
         self.multimeter = multimeter
 
+
+        self.measurementId = 0
         self.signals = []
         self.loadElements()
         self.loadSignals()
@@ -62,6 +65,8 @@ class PCB(Screen):
         self.selectedSignalForCalibration = 0
         self.selectedViaForCalibration = 0
         self.calibrated = False
+
+        self.triggerPressed = False
 
         self.tipProjectionX = 0.0
         self.tipProjectionY = 0.0
@@ -109,6 +114,10 @@ class PCB(Screen):
         if self.mode == 'calibration':
             if self.selectedVia().calibrating:
                 self.selectedVia().calibrating = False
+        if self.mode == 'wave':
+            self.triggerPressed = False
+            self.measurementId += 1
+
 
     def buttonRelease(self,a,b):
         # Only mouse/trackpad release
@@ -198,13 +207,24 @@ class PCB(Screen):
                     a = element.checkPadsAndSMDsUnderMouse(x,y)
                     if a is not None:
                         data = {}
+                        data['id'] = self.measurementId
                         data['positive'] = {'partName':element.partName,'pad':a}
                         #negative is connected to the ground of the circuit
                         data['type'] = 'VAC'
                         data['value'] = self.multimeter.measure()
+                        self.originalMeasurement = data
                         self.emit('ui_event',json.dumps(data))
+                        self.triggerPressed = True
+                        measurementThread = threading.Thread(target=self.takeMeasurements)
+                        measurementThread.start()
                 
-        
+
+    def takeMeasurements(self):
+        while(self.triggerPressed):
+            self.originalMeasurement['value'] = self.multimeter.measure()
+            print 'sending measurement'
+            self.emit('ui_event',json.dumps(self.originalMeasurement))
+            time.sleep(0.2)
 
     def buttonPress(self,a,b):
         # I come here, if a MOUSE button is pressed,

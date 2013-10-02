@@ -123,7 +123,7 @@ class SCH(Screen,XMLElement):
             self.selectedPins.append(i)
 
 
-    def selectInstances(self,a):
+    def selectInstances(self,a,datasheets=True):
         '''
         This selects all instances that come in the list a
         and centers the frame about the first one in the list.
@@ -134,7 +134,7 @@ class SCH(Screen,XMLElement):
                 i.deselect()
         self.selectedInstances = a
         for i in a:
-            i.select()
+            i.select(datasheet=datasheets)
         
         #Move x,y so that the first instance of the selected instances is at the center of the screen
         self.x = (width/2)-(a[0].x*scale)
@@ -149,7 +149,7 @@ class Sheet(XMLElement):
         self.instanceHash = {}
         self.nets = []
         self.rootParent = rootParent
-        self.measurements = []
+        self.measurement = None
 
         self.loadInstances()
         print self.instanceHash
@@ -174,8 +174,8 @@ class Sheet(XMLElement):
             i.draw(cr)
         for i in self.nets:
             i.draw(cr)
-        for i in self.measurements:
-            i.draw(cr)
+        if self.measurement is not None:
+            self.measurement.draw(cr)
 
 
     def processFrame(self,frame):
@@ -192,20 +192,23 @@ class Sheet(XMLElement):
 
 
     def processVACFrame(self,frameDict):
-        measObj = ACMeasurement(frameDict,self)
-        self.measurements = []
-        self.measurements.append(measObj)
+        print 'and here'
+        if self.measurement is not None and self.measurement.type == 'VAC' and frameDict['id'] == self.measurement.id:
+            print 'here'
+            self.measurement.addValue(frameDict)
+        else:
+            measObj = ACMeasurement(frameDict,self)
+            self.measurement = measObj
         
-        self.parent.selectInstances([measObj.positivePart])
-        self.parent.selectPins([measObj.positivePin])
+            self.parent.selectInstances([measObj.positivePart],datasheets=False)
+            self.parent.selectPins([measObj.positivePin])
         
-        return measObj.center()
+        return self.measurement.center()
 
 
     def processVDCFrame(self,frameDict):
         measObj = DCMeasurement(frameDict,self)
-        self.measurements = []
-        self.measurements.append(measObj)
+        self.measurement = measObj
 
         self.parent.selectInstances([measObj.positivePart])
         self.parent.selectPins([measObj.positivePin])
@@ -221,9 +224,9 @@ class Sheet(XMLElement):
 
 class ACMeasurement(object):
     def __init__(self,frameDict,schSheet):
+        self.id = frameDict['id']
         self.type = frameDict['type']
-        self.value = frameDict['value']
-        self.valueText = '%f V'%(self.value,)
+        self.values = [frameDict['value']]
         positive = frameDict['positive']
         positiveParts = schSheet.instanceHash[positive['partName']]
     
@@ -240,8 +243,22 @@ class ACMeasurement(object):
         (x1,y1) = self.positivePin.centerAbsolute()
         (self.centerX,self.centerY) = (x1,y1)
 
+        self.createImage()
+
+
+    def addValue(self,frameDict):
+        maxLen = 100
+        if self.positivePin.testData is not None:
+            maxLen = len(self.positivePin.testData['voltage'])
+
+        if len(self.values) >= maxLen:
+            self.values = self.values[1:]
+        self.values.append(frameDict['value'])
+        self.createImage()
+
+    def createImage(self):
         #create the plot to be displayed
-        plotPng('s.png')
+        plotPng('s.png',self.values,testData=self.positivePin.testData)
         self.imagesurface = cairo.ImageSurface.create_from_png('s.png')
         self.imageHeight = self.imagesurface.get_height()
     
@@ -391,9 +408,10 @@ class Instance(XMLElement):
         if self.dataSheetFileName is not None:
             self.pdfProcess = subprocess.Popen([pdfCommand,datasheetDir+self.dataSheetFileName])
 
-    def select(self):
+    def select(self,datasheet=True):
         self.selected = True
-        self.loadDatasheet()
+        if datasheet:
+            self.loadDatasheet()
 
     def closeDatasheet(self):
         try:
@@ -681,7 +699,6 @@ class Pin(XMLElement):
             cr.move_to(p+plusWidth,q+plusHeight)
             applyRotationAboutPoint(cr,x2,y2,self.rot)
         cr.show_text(self.name)
-
         cr.restore()
         
 
