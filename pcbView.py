@@ -8,13 +8,7 @@ import time, json
 import signal, SocketServer
 from collections import deque
 
-
-# Dummy tracking or real tracking
-noTracking = False
-#This enables you to make UI changes without connecting a tracker
-if len(sys.argv) >=2 and sys.argv[1] == 'dummy':
-    noTracking = True
-else:
+if not noTracking:
     import tracking
     from tracking import trackingObj as trackingObject
 
