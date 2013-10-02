@@ -179,9 +179,7 @@ class Sheet(XMLElement):
             if frameDict['type'] == 'VDC':
                 return self.processVDCFrame(frameDict)
             if frameDict['type'] == 'select':
-                p = self.instanceHash[frameDict['partName']]
-                self.parent.selectInstances(p)
-                return (p.x,p.y)
+                return self.processSelectFrame(frameDict)
 
     def processVDCFrame(self,frameDict):
         measObj = Measurement(frameDict,self)
@@ -193,6 +191,11 @@ class Sheet(XMLElement):
 
         return measObj.center()
         
+
+    def processSelectFrame(self,frameDict):
+        p = self.instanceHash[frameDict['partName']]
+        self.parent.selectInstances(p)
+        return (p[0].x,p[0].y)
 
 
 class Measurement(object):
