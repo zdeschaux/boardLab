@@ -183,7 +183,7 @@ class PCB(Screen):
                     if a is not None:
                         data = {}
                         data['positive'] = {'partName':element.partName,'pad':a}
-                        data['negative'] = {'partName':'U3','pad':'21'}
+                        #negative is connected to the ground of the circuit
                         data['type'] = 'VDC'
                         data['value'] = self.multimeter.measure()
                         self.emit('ui_event',json.dumps(data))

@@ -69,7 +69,8 @@ class SCH(Screen,XMLElement):
         self.sheets = []
         self.loadSheets()
         self.selectedInstances = None
-        
+        self.selectedPins = []
+
     def draw(self, width, height):
         '''
         Translates the canvas to x,y
@@ -101,7 +102,22 @@ class SCH(Screen,XMLElement):
         for i in a:
             self.sheets.append(Sheet(i,self,self))
               
-    def selectInstance(self,a):
+
+    def selectPins(self,a):
+        '''
+        This selects all pins that come in the list and deselects the ones that were in the previous list.
+        '''
+        #Handle logistical stuff that has to happen to select an instance
+        for i in self.selectedPins:
+            i.deselect()
+
+        self.selectedPins = []
+        for i in a:
+            i.select()
+            self.selectedPins.append(i)
+
+
+    def selectInstances(self,a):
         '''
         This selects all instances that come in the list a
         and centers the frame about the first one in the list.
@@ -164,54 +180,43 @@ class Sheet(XMLElement):
                 return self.processVDCFrame(frameDict)
             if frameDict['type'] == 'select':
                 p = self.instanceHash[frameDict['partName']]
-                self.parent.selectInstance(p)
+                self.parent.selectInstances(p)
                 return (p.x,p.y)
 
     def processVDCFrame(self,frameDict):
         measObj = Measurement(frameDict,self)
+        self.measurements = []
         self.measurements.append(measObj)
+
+        self.parent.selectInstances([measObj.positivePart])
+        self.parent.selectPins([measObj.positivePin])
+
         return measObj.center()
         
 
 
 class Measurement(object):
-    def __init__(self,frameDict,sch):
+    def __init__(self,frameDict,schSheet):
         self.type = frameDict['type']
         self.value = frameDict['value']
         self.valueText = '%f V'%(self.value,)
         positive = frameDict['positive']
-        negative = frameDict['negative']
-        
-        positiveParts = sch.instanceHash[positive['partName']]
-        negativeParts = sch.instanceHash[negative['partName']]
-        
+        positiveParts = schSheet.instanceHash[positive['partName']]
+    
         self.positivePart = None
-        self.negativePart = None
         self.positivePin = None
-        self.negativePin = None
         
         for i in positiveParts:
             if positive['pad'] in i.padHash:
                 self.positivePart = i
                 self.positivePin = i.padHash[positive['pad']]
-                
-        for i in negativeParts:
-            if negative['pad'] in i.padHash:
-                self.negativePart = i
-                self.negativePin = i.padHash[negative['pad']]
-                
+                                
         self.positivePin = self.positivePart.padHash[positive['pad']]
-        self.negativePin = self.negativePart.padHash[negative['pad']]
-        
-        self.positivePin.selected = True
-        self.negativePin.selected = True
-        self.positivePart.selected = True
-        self.negativePart.selected = True
-
+                
         #(self.centerX,self.centerY) = ((self.positivePart.x+self.negativePart.x)/2,(self.positivePart.y+self.negativePart.y)/2)
         (x1,y1) = self.positivePin.centerAbsolute()
-        (x2,y2) = self.negativePin.centerAbsolute()
-        (self.centerX,self.centerY) = ((x1+x2)/2,(y1+y2)/2)
+        (self.centerX,self.centerY) = (x1,y1)
+
     
     def center(self):
         return (self.centerX,self.centerY)
@@ -221,56 +226,11 @@ class Measurement(object):
         cr.set_source_rgb(*colors.measurement)
 
         (x1,y1) = self.positivePin.centerAbsolute()
-        (x2,y2) = self.negativePin.centerAbsolute()
         
-        diffX = abs(x1-x2)
-        diffY = abs(y1-y2)
-
-        lines = []
-        (textX,textY) = (0,0)
-        (plusX,plusY) = (0,0)
-        (minusX,minusY) = (0,0)
-        (_,_, plusWidth, plusHeight, _, _) = cr.text_extents('+')
-        (_,_, minusWidth, minusHeight, _, _) = cr.text_extents('-')
-        
-
-        if diffX >= diffY:
-            y0 = max(y1*scale-100,y2*scale-100,100)
-            lines.append(Line(x1*scale,y0,x2*scale,y0))
-            textX = (x1+x2)*scale/2
-            textY = y0
-            (plusX,plusY) = (x1*scale - plusWidth,y0)
-            (minusX,minusY) = (x2*scale - minusWidth,y0)
-            lines.append(Line(x1*scale,y0,x1*scale,y1*scale))
-            lines.append(Line(x2*scale,y0,x2*scale,y2*scale))
-
-        else:
-            x0 = max(x1*scale-100,x2*scale-100,100)
-            lines.append(Line(x0,y1*scale,x0,y2*scale))
-            textX = x0
-            textY = (y1+y2)*scale/2
-            (plusX,plusY) = (x0,y1*scale - plusHeight/2)
-            (minusX,minusY) = (x0,y2*scale - minusHeight/2)
-            lines.append(Line(x0,y1*scale,x1*scale,y1*scale))
-            lines.append(Line(x0,y2*scale,x2*scale,y2*scale))
-
-        cr.save()
-        cr.set_dash([5.0,5.0])
-        for i in lines:
-            i.draw(cr)
-        cr.restore()
-
         cr.set_font_size(30)
         cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
-        (x, y, width, height, dx, dy) = cr.text_extents(self.valueText)
-        cr.move_to(textX+20,textY-20)
+        cr.move_to(x1*scale+60,y1*scale)
         cr.show_text(self.valueText) 
-
-        cr.move_to(plusX,plusY)
-        cr.show_text('+')
-        
-        cr.move_to(minusX,minusY)
-        cr.show_text('-')
 
         cr.restore()
 
@@ -360,18 +320,23 @@ class Instance(XMLElement):
         self.loadGate()
         self.loadConnects()
 
-
-    def select(self):
-        self.selected = True
+    def loadDatasheet(self):
         if self.dataSheetFileName is not None:
             self.pdfProcess = subprocess.Popen([pdfCommand,datasheetDir+self.dataSheetFileName])
 
-    def deselect(self):
-        self.selected = False
+    def select(self):
+        self.selected = True
+        self.loadDatasheet()
+
+    def closeDatasheet(self):
         try:
             self.pdfProcess.kill()
         except:
             print 'Couldnt kill the pdf process for some reason'
+        
+    def deselect(self):
+        self.selected = False
+        self.closeDatasheet()
        
     def color(self):
         if self.selected:
@@ -600,6 +565,12 @@ class Pin(XMLElement):
         self.selected = False
         self.centerX = (self.x + self.x2)/2
         self.centerY = (self.y + self.y2)/2
+
+    def select(self):
+        self.selected = True
+
+    def deselect(self):
+        self.selected = False
 
     def color(self):
         if self.selected:
