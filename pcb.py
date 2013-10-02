@@ -93,6 +93,10 @@ class PCB(Screen):
                 else:
                     if self.mode == 'select':
                         self.mode = 'voltmeter'
+                    elif self.mode == 'voltmeter':
+                        self.mode = 'wave'
+                    elif self.mode == 'wave':
+                        self.mode = 'select'
                     else:
                         self.mode = 'select'
 
@@ -170,13 +174,14 @@ class PCB(Screen):
             self.selectedVia().calibrationData = []
             self.selectedVia().calibrating = True
             
-        if self.mode == 'select' or self.mode == 'voltmeter':
+        if self.mode == 'select' or self.mode == 'voltmeter' or self.mode == 'wave':
             (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
             if self.mode == 'select':
                 for element in self.elements:
                     a = element.checkUnderMouse(x,y)
                     if a:
                         self.emit('ui_event',json.dumps({'type':'select','partName':element.partName}))
+
             if self.mode == 'voltmeter':
                 for element in self.elements:
                     a = element.checkPadsAndSMDsUnderMouse(x,y)
@@ -187,6 +192,18 @@ class PCB(Screen):
                         data['type'] = 'VDC'
                         data['value'] = self.multimeter.measure()
                         self.emit('ui_event',json.dumps(data))
+
+            if self.mode == 'wave':
+                for element in self.elements:
+                    a = element.checkPadsAndSMDsUnderMouse(x,y)
+                    if a is not None:
+                        data = {}
+                        data['positive'] = {'partName':element.partName,'pad':a}
+                        #negative is connected to the ground of the circuit
+                        data['type'] = 'VAC'
+                        data['value'] = self.multimeter.measure()
+                        self.emit('ui_event',json.dumps(data))
+                
         
 
     def buttonPress(self,a,b):
@@ -231,6 +248,15 @@ class PCB(Screen):
                 cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
                 cr.fill()
 
+            if self.mode == 'wave':
+                cr.arc(self.tipProjectionX, self.tipProjectionY, 3*viaRadius, -2*math.pi, 0)
+                cr.move_to(self.tipProjectionX-1.5*viaRadius, self.tipProjectionY)
+                cr.line_to(self.tipProjectionX+1.5*viaRadius, self.tipProjectionY)
+                cr.move_to(self.tipProjectionX, self.tipProjectionY-1.5*viaRadius)
+                cr.line_to(self.tipProjectionX, self.tipProjectionY+1.5*viaRadius)
+                
+                cr.stroke()
+                
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)
         for element in self.elements:

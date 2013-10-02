@@ -15,6 +15,9 @@ pinLengths = {
     'long':9,
 }
 
+
+imagesurface = cairo.ImageSurface.create_from_png('s.png')
+
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
     inpVect = matrix(((x,),(y,),))
@@ -78,7 +81,13 @@ class SCH(Screen,XMLElement):
         '''
         #print "I also draw."
         ## A shortcut
-        applyTranslation(self.cr,self.x,self.y)
+        cr = self.cr
+        applyTranslation(cr,self.x,self.y)
+        cr.save()    # push a new context onto the stack
+        cr.scale(0.5, 0.5)    # scale the context by (x, y)
+        cr.set_source_surface(imagesurface,0,0)
+        cr.paint()
+        cr.restore() 
         self.sheets[0].draw(self.cr)
 
     def processFrame(self,frame):
