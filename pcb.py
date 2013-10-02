@@ -254,7 +254,6 @@ class PCB(Screen):
                 cr.line_to(self.tipProjectionX+1.5*viaRadius, self.tipProjectionY)
                 cr.move_to(self.tipProjectionX, self.tipProjectionY-1.5*viaRadius)
                 cr.line_to(self.tipProjectionX, self.tipProjectionY+1.5*viaRadius)
-                
                 cr.stroke()
                 
         applyTranslation(cr,self.x,self.y)

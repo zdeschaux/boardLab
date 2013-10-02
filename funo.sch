@@ -16567,8 +16567,8 @@ chip</description>
 <pin name="(ADC4)PC4" x="17.78" y="5.08" length="middle" rot="R180"/>
 <pin name="(ADC3)PC3" x="17.78" y="2.54" length="middle" rot="R180"/>
 <pin name="(ADC2)PC2" x="17.78" y="0" length="middle" rot="R180"/>
-<pin name="(ADC1)PC1" x="17.78" y="-2.54" length="middle" rot="R180"/>
-<pin name="(ADC0)PC0)" x="17.78" y="-5.08" length="middle" rot="R180"/>
+<pin name="(ADC1)PC1" x="17.78" y="-2.54" length="middle" rot="R180" testData="sine1.txt"/>
+<pin name="(ADC0)PC0)" x="17.78" y="-5.08" length="middle" rot="R180" />
 <pin name="(SCK)PB5" x="17.78" y="25.4" length="middle" rot="R180"/>
 <pin name="(MISO)PB4" x="17.78" y="22.86" length="middle" rot="R180"/>
 <pin name="(MOSI)PB3" x="17.78" y="20.32" length="middle" rot="R180"/>
@@ -17615,7 +17615,7 @@ UART&lt;p&gt;
 <devices>
 <device name="PU" package="DIL28-3">
 <connects>
-<connect gate="G$1" pin="(ADC0)PC0)" pad="23"/>
+<connect gate="G$1" pin="(ADC0)PC0)" pad="23" />
 <connect gate="G$1" pin="(ADC1)PC1" pad="24"/>
 <connect gate="G$1" pin="(ADC2)PC2" pad="25"/>
 <connect gate="G$1" pin="(ADC3)PC3" pad="26"/>

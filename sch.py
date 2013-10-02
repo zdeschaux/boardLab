@@ -8,6 +8,9 @@ import sys,subprocess
 import json
 import colors
 
+from plot import plotPng
+
+
 pinLengths = {
     'point':3,
     'short':5,
@@ -16,7 +19,6 @@ pinLengths = {
 }
 
 
-imagesurface = cairo.ImageSurface.create_from_png('s.png')
 
 def rotate(x,y,theta):
     rotMat = matrix(((math.cos(theta),math.sin(theta)),((-1)*math.sin(theta),math.cos(theta)),))
@@ -83,11 +85,6 @@ class SCH(Screen,XMLElement):
         ## A shortcut
         cr = self.cr
         applyTranslation(cr,self.x,self.y)
-        cr.save()    # push a new context onto the stack
-        cr.scale(0.5, 0.5)    # scale the context by (x, y)
-        cr.set_source_surface(imagesurface,0,0)
-        cr.paint()
-        cr.restore() 
         self.sheets[0].draw(self.cr)
 
     def processFrame(self,frame):
@@ -180,6 +177,7 @@ class Sheet(XMLElement):
         for i in self.measurements:
             i.draw(cr)
 
+
     def processFrame(self,frame):
         frame = frame.strip()
         frameDict = json.loads(frame)
@@ -189,9 +187,23 @@ class Sheet(XMLElement):
                 return self.processVDCFrame(frameDict)
             if frameDict['type'] == 'select':
                 return self.processSelectFrame(frameDict)
+            if frameDict['type'] == 'VAC':
+                return self.processVACFrame(frameDict)
+
+
+    def processVACFrame(self,frameDict):
+        measObj = ACMeasurement(frameDict,self)
+        self.measurements = []
+        self.measurements.append(measObj)
+        
+        self.parent.selectInstances([measObj.positivePart])
+        self.parent.selectPins([measObj.positivePin])
+        
+        return measObj.center()
+
 
     def processVDCFrame(self,frameDict):
-        measObj = Measurement(frameDict,self)
+        measObj = DCMeasurement(frameDict,self)
         self.measurements = []
         self.measurements.append(measObj)
 
@@ -199,7 +211,7 @@ class Sheet(XMLElement):
         self.parent.selectPins([measObj.positivePin])
 
         return measObj.center()
-        
+
 
     def processSelectFrame(self,frameDict):
         p = self.instanceHash[frameDict['partName']]
@@ -207,7 +219,50 @@ class Sheet(XMLElement):
         return (p[0].x,p[0].y)
 
 
-class Measurement(object):
+class ACMeasurement(object):
+    def __init__(self,frameDict,schSheet):
+        self.type = frameDict['type']
+        self.value = frameDict['value']
+        self.valueText = '%f V'%(self.value,)
+        positive = frameDict['positive']
+        positiveParts = schSheet.instanceHash[positive['partName']]
+    
+        self.positivePart = None
+        self.positivePin = None
+        
+        for i in positiveParts:
+            if positive['pad'] in i.padHash:
+                self.positivePart = i
+                self.positivePin = i.padHash[positive['pad']]
+                                
+        self.positivePin = self.positivePart.padHash[positive['pad']]
+                
+        (x1,y1) = self.positivePin.centerAbsolute()
+        (self.centerX,self.centerY) = (x1,y1)
+
+        #create the plot to be displayed
+        plotPng('s.png')
+        self.imagesurface = cairo.ImageSurface.create_from_png('s.png')
+        self.imageHeight = self.imagesurface.get_height()
+    
+    def center(self):
+        return (self.centerX,self.centerY)
+        
+    def draw(self,cr):
+        cr.save()
+        cr.set_source_rgb(*colors.measurement)
+
+        (x1,y1) = self.positivePin.centerAbsolute()
+        
+        cr.save()    # push a new context onto the stack
+        cr.set_source_surface(self.imagesurface,x1*scale+60,(y1*scale)-self.imageHeight/2)
+        cr.paint()
+        cr.restore() 
+
+        cr.restore()
+        
+
+class DCMeasurement(object):
     def __init__(self,frameDict,schSheet):
         self.type = frameDict['type']
         self.value = frameDict['value']
@@ -571,6 +626,15 @@ class Pin(XMLElement):
             self.rotName = root.attrib['rot']
 
         self.lengthName = root.attrib['length']
+
+        #Load test data to plot pretty graphs with
+        self.testData = None
+        if 'testData' in root.attrib:
+            f = open(root.attrib['testData'],'r')
+            self.testData = json.loads(f.readline())
+            f.close()
+            #print self.testData
+
         (self.x2,self.y2) = rotate(pinLengths[self.lengthName],0,self.rot)
         self.x2 = self.x2 + self.x
         self.y2 = self.y2 + self.y
