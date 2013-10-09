@@ -11,7 +11,7 @@ if len(sys.argv) >= 2 and sys.argv[1] == 'rawonly':
 
 class tracking(object):
     def __init__(self,serialPort):
-        self.fastrak = Fastrak(logFile='rawlog.raw',serialPort='/dev/ttyUSB0',fixedPoints=[probeTipOffset])
+        self.fastrak = Fastrak(logFile='rawlog.raw',serialPort=fastrakPort,fixedPoints=[probeTipOffset])
         self.fastrak.setup(reset=False)
         self.fastrak.setContinuous()
 

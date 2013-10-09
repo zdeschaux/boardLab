@@ -5,5 +5,7 @@ class dummyMultimeter(object):
     def measure(self):
         return 5.0
 
+    def measure2(self):
+        return 0.5
 
 dummyMultimeterObj = dummyMultimeter()

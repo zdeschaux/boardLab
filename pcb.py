@@ -211,7 +211,7 @@ class PCB(Screen):
                         data['positive'] = {'partName':element.partName,'pad':a}
                         #negative is connected to the ground of the circuit
                         data['type'] = 'VAC'
-                        data['value'] = self.multimeter.measure()
+                        data['value'] = self.multimeter.measure2()
                         self.originalMeasurement = data
                         self.emit('ui_event',json.dumps(data))
                         self.triggerPressed = True
@@ -649,11 +649,16 @@ class Pad(object):
             cr.arc(x,y,self.radius,0,2*math.pi)
             cr.stroke()
 
+            cr.set_source_rgb(0.5,0.5,0.5)
+            (x,y) = self.absoluteCoordinates()
+            cr.arc(x,y,1.8*self.radius,0,2*math.pi)
+            cr.stroke()
+
     def checkUnderMouse(self,x,y):
         if hasattr(self,'radius'):
             (x1,y1) = self.absoluteCoordinates()
             distance = math.sqrt(((x-x1)*(x-x1))+((y-y1)*(y-y1)))
-            if distance < self.radius:
+            if distance < 1.8*self.radius:
                 self.underMouse = True
             else:
                 self.underMouse = False

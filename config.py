@@ -48,6 +48,13 @@ calibrationDataFile = 'calibration.log'
 
 namedPipe = './uiEvents'
 
+#
 noProbe = True
 noMultimeter = True
 noTracking = True
+
+#demo Mode!!
+if False:
+    noProbe = False
+    noMultimeter = True
+    noTracking = False
