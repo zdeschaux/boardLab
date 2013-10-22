@@ -189,6 +189,8 @@ class Sheet(XMLElement):
                 return self.processSelectFrame(frameDict)
             if frameDict['type'] == 'VAC':
                 return self.processVACFrame(frameDict)
+            if frameDict['type'] == 'datasheet':
+                return self.processDatasheetFrame(frameDict)
 
 
     def processVACFrame(self,frameDict):
@@ -217,6 +219,12 @@ class Sheet(XMLElement):
 
 
     def processSelectFrame(self,frameDict):
+        p = self.instanceHash[frameDict['partName']]
+        self.parent.selectInstances(p,datasheets=False)
+        return (p[0].x,p[0].y)
+
+
+    def processDatasheetFrame(self,frameDict):
         p = self.instanceHash[frameDict['partName']]
         self.parent.selectInstances(p)
         return (p[0].x,p[0].y)

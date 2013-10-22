@@ -4,7 +4,7 @@ fontColor = darkBlue
 
 #PCB colors
 viaColor = (0.5,0.5,0.5)
-selectedViaColor = (1.0,0.0,1.0)
+selectedViaColor = (0.0,0.0,1.0)
 calibratingViaColor = (1.0,0.0,0.0)
 tipColor = (1.0,0.0,0.0)
 minRectangle = (0.0,0.8,0.0)

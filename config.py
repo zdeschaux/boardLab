@@ -22,7 +22,7 @@ displayOff = False
 
 pcbPort = 9877
 
-datasheetDir = '/home/pragungoyal/boardLab/app/datasheets/'
+datasheetDir = '/mnt/hgfs/pragungoyal/Dropbox/boardLab/app/datasheets'
 pdfCommand = '/usr/bin/evince-previewer'
 
 pcbLineThickness = 0.25
@@ -48,13 +48,16 @@ calibrationDataFile = 'calibration.log'
 
 namedPipe = './uiEvents'
 
+
+fastrakSensor = 2
+
 #
 noProbe = True
 noMultimeter = True
 noTracking = True
 
 #demo Mode!!
-if False:
+if True:
     noProbe = False
     noMultimeter = True
     noTracking = False

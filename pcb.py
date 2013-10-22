@@ -101,6 +101,8 @@ class PCB(Screen):
                     elif self.mode == 'voltmeter':
                         self.mode = 'wave'
                     elif self.mode == 'wave':
+                        self.mode = 'datasheet'
+                    elif self.mode == 'datasheet':
                         self.mode = 'select'
                     else:
                         self.mode = 'select'
@@ -183,13 +185,19 @@ class PCB(Screen):
             self.selectedVia().calibrationData = []
             self.selectedVia().calibrating = True
             
-        if self.mode == 'select' or self.mode == 'voltmeter' or self.mode == 'wave':
+        if self.mode == 'select' or self.mode == 'voltmeter' or self.mode == 'wave' or self.mode == 'datasheet':
             (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
             if self.mode == 'select':
                 for element in self.elements:
                     a = element.checkUnderMouse(x,y)
                     if a:
                         self.emit('ui_event',json.dumps({'type':'select','partName':element.partName}))
+
+            if self.mode == 'datasheet':
+                for element in self.elements:
+                    a = element.checkUnderMouse(x,y)
+                    if a:
+                        self.emit('ui_event',json.dumps({'type':'datasheet','partName':element.partName}))
 
             if self.mode == 'voltmeter':
                 for element in self.elements:
@@ -221,7 +229,7 @@ class PCB(Screen):
 
     def takeMeasurements(self):
         while(self.triggerPressed):
-            self.originalMeasurement['value'] = self.multimeter.measure()
+            self.originalMeasurement['value'] = self.multimeter.measure2()
             print 'sending measurement'
             self.emit('ui_event',json.dumps(self.originalMeasurement))
             time.sleep(0.2)
@@ -275,6 +283,12 @@ class PCB(Screen):
                 cr.move_to(self.tipProjectionX, self.tipProjectionY-1.5*viaRadius)
                 cr.line_to(self.tipProjectionX, self.tipProjectionY+1.5*viaRadius)
                 cr.stroke()
+
+            if self.mode == 'datasheet':
+                cr.set_source_rgb(0.0,0.0,1.0)
+                cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+                cr.stroke()
+                
                 
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)

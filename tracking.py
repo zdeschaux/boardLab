@@ -1,7 +1,7 @@
 # AUTHOR: Pragun Goyal, 21, June, 2013
 # Modified: September, 3 2013. Removed all telnet crap used to talk to AR marker tracking softwares. This just talks to the polhemus now.
 
-from config import probeTipOffset, fastrakPort
+from config import probeTipOffset, fastrakPort, fastrakSensor
 from polhemus import Fastrak
 import sys
 
@@ -11,7 +11,7 @@ if len(sys.argv) >= 2 and sys.argv[1] == 'rawonly':
 
 class tracking(object):
     def __init__(self,serialPort):
-        self.fastrak = Fastrak(logFile='rawlog.raw',serialPort=fastrakPort,fixedPoints=[probeTipOffset])
+        self.fastrak = Fastrak(logFile='rawlog.raw',serialPort=fastrakPort,fixedPoints=[probeTipOffset], sensor=fastrakSensor)
         self.fastrak.setup(reset=False)
         self.fastrak.setContinuous()
 

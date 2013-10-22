@@ -70,7 +70,7 @@ class Quaternion(object):
 
 
 class Fastrak(object):
-    def __init__(self,logFile='fastrak.log',serialPort='/dev/ttyUSB0',fixedPoints=None):
+    def __init__(self,logFile='fastrak.log',serialPort='/dev/ttyUSB0',fixedPoints=None, sensor=1):
         if serialPort == None:
             self.logFile = open(logFile,'r')
             self.mode = 'playBackLog'
@@ -83,6 +83,8 @@ class Fastrak(object):
             self.mode = 'useRealDevice'
 
         self.fixedPoints = fixedPoints
+        self.sensor = sensor
+        self.sensorTxt = '%d'%(sensor,)
 
     def usingRealDevice(self):
         return self.mode== 'useRealDevice'
@@ -108,28 +110,56 @@ class Fastrak(object):
             self.stopContinuous()
             time.sleep(1.0)
             self.serial.flushInput()
+
+            print 'Finding out which sensors are active...'
+            cmd = 'l'+self.sensorTxt+'\r'
+            self.serial.write(cmd)
+            time.sleep(1.0)
+            print self.serial.readline()
+
+            print 'Turning off all sensors except the ones used...'
+            for i in ['1','2','3','4']:
+                if i != self.sensorTxt:
+                    print 'self sensor',self.sensor
+                    print 'Sensor %s..'%(i,)
+                    cmd = 'l'+i+',0\r'
+                    self.serial.write(cmd)
+                    time.sleep(0.4)
+            
+            cmd = 'l'+self.sensorTxt+',1\r'
+            self.serial.write(cmd)
+            time.sleep(0.4)
+
             
             print 'Finding out which sensors are active...'
-            self.serial.write('l1\r')
+            cmd = 'l'+self.sensorTxt+'\r'
+            self.serial.write(cmd)
             time.sleep(1.0)
             print self.serial.readline()
             
-            print 'Finding out which hemisphere for the sensor 1...'
-            self.serial.write('H1\r')
+            print 'Finding out which hemisphere for the sensor...'
+            cmd = 'H'+self.sensorTxt+'\r'
+            self.serial.write(cmd)
             time.sleep(0.5)
             print self.serial.readline()
             
-            print 'Setting top hemishpere for sensor 1..'
-            self.serial.write('H1,0,0,1\r')
+            print 'Setting top hemishpere for sensor..'
+            cmd = 'H'+self.sensorTxt+',0,0,1\r'
+            self.serial.write(cmd)
             time.sleep(0.5)
-            self.serial.write('H1\r')
+
+            cmd = 'H'+self.sensorTxt+'\r'
+            self.serial.write(cmd)
             time.sleep(0.5)
             print self.serial.readline()
             
+            cmd = 'O'+self.sensorTxt+',0,2,0,0,11,1\r'
             print 'Setting output to cartesian and quaternion..'
-            self.serial.write('O1,0,2,0,0,11,1\r')
+            self.serial.write(cmd)
             time.sleep(0.5)
-            self.serial.write('O1\r')
+
+            cmd = 'O'+self.sensorTxt+'\r'
+            self.serial.write(cmd)
             time.sleep(0.5)
             print self.serial.readline()
 
