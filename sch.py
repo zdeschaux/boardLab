@@ -97,8 +97,8 @@ class SCH(Screen,XMLElement):
             self.moveTo(x,y)
 
     def moveTo(self,x,y):
-        self.x = (width/2)-x*scale
-        self.y = (height/2)-y*scale
+        self.x = (sch_width/2)-x*scale
+        self.y = (sch_height/2)-y*scale
     
     def loadSheets(self):
         '''
@@ -137,8 +137,8 @@ class SCH(Screen,XMLElement):
             i.select(datasheet=datasheets)
         
         #Move x,y so that the first instance of the selected instances is at the center of the screen
-        self.x = (width/2)-(a[0].x*scale)
-        self.y = (height/2)-(a[0].y*scale)
+        self.x = (sch_width/2)-(a[0].x*scale)
+        self.y = (sch_height/2)-(a[0].y*scale)
 
 
 class Sheet(XMLElement):

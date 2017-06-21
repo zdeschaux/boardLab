@@ -27,7 +27,7 @@ pcb_to_display_pixel_scale = 8.537191245945328
 if small_view:
     pcb_to_display_pixel_scale = 4
     pcb_width = 350
-    pcb_height = 240
+    pcb_height = 260
     pcb_x = 10.0
     pcb_y = 220.0
 

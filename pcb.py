@@ -27,7 +27,8 @@ def rotate(x,y,theta):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName,usingMouse = False, multimeter=None, x=10.0, y=120.0):
+    def __init__(self,fileName,usingMouse = False, multimeter=None, x=10.0, y=120.0,modeupdate=None):
+
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
@@ -58,6 +59,7 @@ class PCB(Screen):
         self.lastButtonTimeStamp = None
 
         #We want to begin in calibration, unless the user is using the mouse only
+        self.modeupdate = modeupdate
         self.mode = 'calibration'
         if self.usingMouse:
             self.mode = 'select'
@@ -77,7 +79,7 @@ class PCB(Screen):
         #This is a hack to select conviniently spaced vias in the calibration routine        
         self.viaPairs = [(1,10),(1,15),(1,26)]
         self.selectNextViaForCalibration()
-
+        
 
     def selectedVia(self):
         return self.signals[self.selectedSignalForCalibration].vias[self.selectedViaForCalibration]
@@ -111,6 +113,10 @@ class PCB(Screen):
                 self.calibrationIntervalEvent()
                 self.mode = 'calibration'
 
+            if self.modeupdate is not None:
+                self.modeupdate(self.mode)
+
+
 
     def triggerRelease(self):
         if self.mode == 'calibration':
@@ -136,6 +142,9 @@ class PCB(Screen):
         else:
             self.mode = 'calibration'
         self.lastButtonTimeStamp = None
+        
+        if self.modeupdate is not None:
+            self.modeupdate(self.mode)
     
 
     def selectNextViaForCalibration(self):

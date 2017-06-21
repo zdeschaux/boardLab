@@ -84,10 +84,29 @@ class AutoLoader(object):
 
         fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
-        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj,x=pcb_x,y=pcb_y)
+
+        self.vbox = gtk.VBox(False,1)
+        window.add(self.vbox)
+        self.vbox.show()
+
+        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj,x=pcb_x,y=pcb_y,modeupdate=self.set_status_mode)
+        self.vbox.pack_start(self.pcb,True,True,0)
         self.pcb.show( )
-        window.add(self.pcb)
+
+        self.status_bar = gtk.Statusbar() 
+        self.vbox.pack_end(self.status_bar,False,False,0)
+        self.status_bar.show()
+        self.cid = self.status_bar.get_context_id('')
+        self.status_bar.push(self.cid,'Operation Mode: select')
+
+        #window.add(self.pcb)
+
+    def set_status_mode(self,text):
+        self.status_bar.pop(self.cid)
+        self.cid = self.status_bar.get_context_id('')
+        self.status_bar.push(self.cid,'Operation Mode: %s'%(text,))
         
+
     def processTrackingFrame(self,b,data):
         a = json.loads(data)
         #print 'received trackingFrame',b,a
