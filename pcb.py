@@ -27,7 +27,7 @@ def rotate(x,y,theta):
 
 class PCB(Screen):
     """This class is also a Drawing Area, coming from Screen."""
-    def __init__(self,fileName,usingMouse = False, multimeter=None):
+    def __init__(self,fileName,usingMouse = False, multimeter=None, x=10.0, y=120.0):
         Screen.__init__( self )
         #PCB file loading stuff
         self.tree = ET.parse(fileName)
@@ -48,7 +48,7 @@ class PCB(Screen):
         self.reflectingMatrix = cairo.Matrix(xx=1.0,yx=0.0,xy=0.0,yy=-1.0,x0=0.0,y0=1100.0)
 
         ## x,y is where I'm at
-        self.x, self.y = 20.0,60.0
+        self.x, self.y = (x,y)
         ## rx,ry is point of rotation
         self.rx, self.ry = -10, -25
         ## rot is angle counter

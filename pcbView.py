@@ -84,7 +84,7 @@ class AutoLoader(object):
 
         fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
-        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj)
+        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj,x=pcb_x,y=pcb_y)
         self.pcb.show( )
         window.add(self.pcb)
         
@@ -145,7 +145,7 @@ if __name__=="__main__":
         window.connect('button-press-event',mousePress)
         window.connect('button-release-event',mouseRelease)
 
-    window.set_size_request ( width, height )
+    window.set_size_request ( pcb_width, pcb_height )
 
     # Open a named pipe
     if False:

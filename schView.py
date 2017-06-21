@@ -56,7 +56,7 @@ def displayClientLoop(sender):
 if __name__=="__main__":
     window = gtk.Window( )
     window.connect( "delete-event", gtk.main_quit )
-    window.set_size_request ( width, height )
+    window.set_size_request ( sch_width, sch_height )
     autoLoader = AutoLoader(window)
 
     displaySignaller = DisplaySignaller()
