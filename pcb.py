@@ -262,6 +262,7 @@ class PCB(Screen):
         cr.set_line_width(lineThickness)
         
         if self.mode is not 'calibration':
+
             if self.usingMouse:
                 (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
                 

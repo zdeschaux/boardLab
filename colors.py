@@ -1,15 +1,15 @@
 darkBlue = (0.0,0.0,0.5)
-fontColor = darkBlue
+fontColor = (0.0,0.0,0.5)
 
 
 #PCB colors
 viaColor = (0.5,0.5,0.5)
 selectedViaColor = (0.0,0.0,1.0)
 calibratingViaColor = (1.0,0.0,0.0)
-tipColor = (1.0,0.0,0.0)
-minRectangle = (0.0,0.8,0.0)
+tipColor = (0.7,0.0,0.0)
+minRectangle = (0.5,0.9,0.5)
 minRectangleSelected = (1.0,0.0,0.0)
-pad = (0.0,0.0,0.4)
+pad = (0.7,0.7,0.7)
 padSelected = (1.0,0.0,0.0)
 wire = (0.1,0.1,0.1)
 
