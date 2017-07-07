@@ -271,34 +271,36 @@ class PCB(Screen):
         cr.set_line_width(lineThickness)
         
         if self.mode is not 'calibration':
-
             if self.usingMouse:
                 (self.tipProjectionX,self.tipProjectionY) = cr.device_to_user(self.mouseX,self.mouseY)
                 
             cr.set_source_rgb(*tipColor)
-            if self.mode == 'select':
-                cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
-                cr.stroke()
-                
-            if self.mode == 'voltmeter':
-                cr.arc(self.tipProjectionX, self.tipProjectionY, 3*viaRadius, -2*math.pi, 0)
-                cr.stroke()
-                cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
-                cr.fill()
+            cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+            cr.stroke()
 
-            if self.mode == 'wave':
-                cr.arc(self.tipProjectionX, self.tipProjectionY, 3*viaRadius, -2*math.pi, 0)
-                cr.move_to(self.tipProjectionX-1.5*viaRadius, self.tipProjectionY)
-                cr.line_to(self.tipProjectionX+1.5*viaRadius, self.tipProjectionY)
-                cr.move_to(self.tipProjectionX, self.tipProjectionY-1.5*viaRadius)
-                cr.line_to(self.tipProjectionX, self.tipProjectionY+1.5*viaRadius)
-                cr.stroke()
+            if False: #Different pointers disabled
+                if self.mode == 'select':
+                    cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+                    cr.stroke()
+                    
+                    if self.mode == 'voltmeter':
+                        cr.arc(self.tipProjectionX, self.tipProjectionY, 3*viaRadius, -2*math.pi, 0)
+                        cr.stroke()
+                        cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+                        cr.fill()
 
-            if self.mode == 'datasheet':
-                cr.set_source_rgb(0.0,0.0,1.0)
-                cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
-                cr.stroke()
-                
+                    if self.mode == 'wave':
+                        cr.arc(self.tipProjectionX, self.tipProjectionY, 3*viaRadius, -2*math.pi, 0)
+                        cr.move_to(self.tipProjectionX-1.5*viaRadius, self.tipProjectionY)
+                        cr.line_to(self.tipProjectionX+1.5*viaRadius, self.tipProjectionY)
+                        cr.move_to(self.tipProjectionX, self.tipProjectionY-1.5*viaRadius)
+                        cr.line_to(self.tipProjectionX, self.tipProjectionY+1.5*viaRadius)
+                        cr.stroke()
+
+                    if self.mode == 'datasheet':
+                        cr.set_source_rgb(0.0,0.0,1.0)
+                        cr.arc(self.tipProjectionX, self.tipProjectionY, viaRadius, -2*math.pi, 0)
+                        cr.stroke()
                 
         applyTranslation(cr,self.x,self.y)
         applyRotationAboutPoint(cr,0,0,self.rot)

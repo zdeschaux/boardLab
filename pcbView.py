@@ -7,6 +7,12 @@ import gobject, threading
 import time, json
 import signal, SocketServer
 from collections import deque
+from matplotlib.figure import Figure
+from numpy import arange, sin, pi
+
+#from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
+#from matplotlib.backends.backend_gtk import FigureCanvasGTK as FigureCanvas
+from matplotlib.backends.backend_gtkcairo import FigureCanvasGTKCairo as FigureCanvas
 
 if not noTracking:
     import tracking
@@ -85,27 +91,57 @@ class AutoLoader(object):
         fileName = 'funo.brd' 
         print "Loading PCB %s"%(fileName,)
 
-        self.vbox = gtk.VBox(False,1)
-        window.add(self.vbox)
-        self.vbox.show()
+        #self.vbox = gtk.VBox(False,1)
+        #window.add(self.vbox)
+        self.table = gtk.Table(rows=12, columns=1, homogeneous=True)
 
-        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj,x=pcb_x,y=pcb_y,modeupdate=self.set_status_mode)
-        self.vbox.pack_start(self.pcb,True,True,0)
+        window.add(self.table)
+        self.table.show()
+        #self.vbox.show()
+
+        self.pcb = PCB(fileName,usingMouse=noTracking,multimeter=multimeterObj, x=pcb_x, y=pcb_y, modeupdate=self.set_status_mode)
+        
+        self.table.attach(self.pcb, left_attach = 0, right_attach = 1, top_attach = 0, bottom_attach = 4, xpadding=0, ypadding=0)
+        
+        #self.vbox.pack_start(self.pcb,True,True,0)
         self.pcb.show( )
 
+        f = Figure(figsize=(5,4), dpi=100, facecolor='white')
+        a = f.add_subplot(211)
+        b = f.add_subplot(212)
+        t1 = arange(0.0, 3.0, 0.01)
+        t2 = arange(0.0, 5.0, 0.01)
+        s1 = sin(2*pi*t1)
+        s2 = sin(2*pi*t2)
+        a.plot(t1, s1)
+        a.set_title('Channel 1', fontsize=10)
+        #a.set_xlabel('Time',fontsize=10)
+        a.tick_params(labelsize=8)
+        a.grid(True,which='both')
+        b.plot(t2, s2)
+        b.tick_params(labelsize=8)
+        b.grid(True,which='both')
+        b.set_title('Channel 2', fontsize=10)
+        f.tight_layout()
+        
+        canvas = FigureCanvas(f)
+        self.table.attach(canvas, left_attach = 0, right_attach = 1, top_attach = 4, bottom_attach = 11, xpadding=0, ypadding=0)
+        #self.vbox.pack_start(canvas,True,True,0)
+        canvas.show()
+        
         self.status_bar = gtk.Statusbar() 
-        self.vbox.pack_end(self.status_bar,False,False,0)
+        #self.vbox.pack_start(self.status_bar,False,False,0)
+        self.table.attach(self.status_bar, left_attach = 0, right_attach = 1, top_attach = 11, bottom_attach = 12, xpadding=0, ypadding=0)
+
         self.status_bar.show()
         self.cid = self.status_bar.get_context_id('')
         self.status_bar.push(self.cid,'Operation Mode: select')
-
         #window.add(self.pcb)
 
     def set_status_mode(self,text):
         self.status_bar.pop(self.cid)
         self.cid = self.status_bar.get_context_id('')
         self.status_bar.push(self.cid,'Operation Mode: %s'%(text,))
-        
 
     def processTrackingFrame(self,b,data):
         a = json.loads(data)

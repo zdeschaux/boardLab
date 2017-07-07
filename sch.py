@@ -291,7 +291,7 @@ class DCMeasurement(object):
     def __init__(self,frameDict,schSheet):
         self.type = frameDict['type']
         self.value = frameDict['value']
-        self.valueText = '%f V'%(self.value,)
+        self.valueText = '%0.2f V'%(self.value,)
         positive = frameDict['positive']
         positiveParts = schSheet.instanceHash[positive['partName']]
     
