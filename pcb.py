@@ -42,6 +42,8 @@ class PCB(Screen):
         self.loadElements()
         self.loadSignals()
         self.findMinRectangles()
+        self.oscilloscope_channel1_pad = None
+        self.oscilloscope_channel2_pad = None
 
         self.usingMouse = usingMouse #Very lame
 
@@ -101,8 +103,10 @@ class PCB(Screen):
                     if self.mode == 'select':
                         self.mode = 'voltmeter'
                     elif self.mode == 'voltmeter':
-                        self.mode = 'wave'
-                    elif self.mode == 'wave':
+                        self.mode = 'oscilloscope_channel1'
+                    elif self.mode == 'oscilloscope_channel1':
+                        self.mode = 'oscilloscope_channel2'
+                    elif self.mode == 'oscilloscope_channel2':
                         self.mode = 'datasheet'
                     elif self.mode == 'datasheet':
                         self.mode = 'select'
@@ -122,9 +126,11 @@ class PCB(Screen):
         if self.mode == 'calibration':
             if self.selectedVia().calibrating:
                 self.selectedVia().calibrating = False
-        if self.mode == 'wave':
+        if self.mode == 'oscilloscope_channel1':
             self.triggerPressed = False
             self.measurementId += 1
+        if self.mode == 'oscillopscope_channel2':
+            pass
 
 
     def buttonRelease(self,a,b):
@@ -194,7 +200,7 @@ class PCB(Screen):
             self.selectedVia().calibrationData = []
             self.selectedVia().calibrating = True
             
-        if self.mode == 'select' or self.mode == 'voltmeter' or self.mode == 'wave' or self.mode == 'datasheet':
+        if self.mode == 'select' or self.mode == 'voltmeter' or self.mode == 'oscilloscope_channel1' or self.mode == 'oscilloscope_channel2' or self.mode == 'datasheet':
             (x,y) = self.transformToPCBRef(self.tipProjectionX,self.tipProjectionY)
             if self.mode == 'select':
                 for element in self.elements:
@@ -219,15 +225,21 @@ class PCB(Screen):
                         data['value'] = self.multimeter.measure()
                         self.emit('ui_event',json.dumps(data))
 
-            if self.mode == 'wave':
+            if self.mode == 'oscilloscope_channel1':
                 for element in self.elements:
                     a = element.checkPadsAndSMDsUnderMouse(x,y)
                     if a is not None:
+                        if self.oscilloscope_channel1_pad is not None:
+                            self.oscilloscope_channel1_pad.oscilloscope_channel = None
+                            self.oscilloscope_channel1_pad = None
+                        self.oscilloscope_channel1_pad = a
+                        a.oscilloscope_channel = 1
+                        print a
                         data = {}
                         data['id'] = self.measurementId
-                        data['positive'] = {'partName':element.partName,'pad':a}
+                        data['positive'] = {'partName':element.partName,'pad':a.name}
                         #negative is connected to the ground of the circuit
-                        data['type'] = 'VAC'
+                        data['type'] = 'oscilloscope_channel1'
                         data['value'] = self.multimeter.measure2()
                         self.originalMeasurement = data
                         self.emit('ui_event',json.dumps(data))
@@ -235,6 +247,29 @@ class PCB(Screen):
                         measurementThread = threading.Thread(target=self.takeMeasurements)
                         measurementThread.start()
                 
+
+            if self.mode == 'oscilloscope_channel2':
+                for element in self.elements:
+                    a = element.checkPadsAndSMDsUnderMouse(x,y)
+                    if a is not None:
+                        if self.oscilloscope_channel2_pad is not None:
+                            self.oscilloscope_channel2_pad.oscilloscope_channel = None
+                            self.oscilloscope_channel2_pad = None
+                        self.oscilloscope_channel2_pad = a
+                        a.oscilloscope_channel = 2
+                        print a
+                        data = {}
+                        data['id'] = self.measurementId
+                        data['positive'] = {'partName':element.partName,'pad':a.name}
+                        #negative is connected to the ground of the circuit
+                        data['type'] = 'oscilloscope_channel2'
+                        data['value'] = self.multimeter.measure2()
+                        self.originalMeasurement = data
+                        self.emit('ui_event',json.dumps(data))
+                        self.triggerPressed = True
+                        measurementThread = threading.Thread(target=self.takeMeasurements)
+                        measurementThread.start()
+
 
     def takeMeasurements(self):
         while(self.triggerPressed):
@@ -469,7 +504,7 @@ class Via(object):
         self.selected = False
         self.calibrating = False
         self.calibrationData = []
-
+        
     def __repr__(self):
         return 'Via on Signal:%s at x:%f,y:%f shaped: %s'%(self.signal.name,self.x,self.y,self.shape)
 
@@ -581,11 +616,11 @@ class BasicElement(object):
         for i in self.pads:
             a = i.checkUnderMouse(x,y)
             if a:
-                return i.name
+                return i
         for i in self.smds:
             a = i.checkUnderMouse(x,y)
             if a:
-                return i.name
+                return i
     
     def color(self):
         if self.underMouse:
@@ -657,13 +692,16 @@ class Pad(object):
             self.radius = float(item.attrib['diameter'])/2
         if 'shape' in item.attrib.keys():
             self.shape = item.attrib['shape']
+        
+        self.oscilloscope_channel = None
+
     
     def absoluteCoordinates(self):
         (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
         return (x,y)
     
     def color(self):
-        if self.underMouse:
+        if self.oscilloscope_channel is not None:
             return padSelected
         else:
             return pad
@@ -679,6 +717,17 @@ class Pad(object):
             (x,y) = self.absoluteCoordinates()
             cr.arc(x,y,1.8*self.radius,0,2*math.pi)
             cr.stroke()
+            
+            if self.oscilloscope_channel is not None:
+                cr.save()
+                cr.set_source_rgb(0.80,0.0,0.0)
+                cr.move_to(x,y)
+                cr.line_to(x+10,y+10)
+                cr.move_to(x+10,y+10)
+                cr.arc(x+10,y+10,5,0,2*math.pi)
+                cr.stroke()
+                cr.restore()
+
 
     def checkUnderMouse(self,x,y):
         if hasattr(self,'radius'):
@@ -690,6 +739,7 @@ class Pad(object):
                 self.underMouse = False
             return self.underMouse
 
+
 class SMD(object):
     def __init__(self,item,parent):
         self.item = item
@@ -698,6 +748,8 @@ class SMD(object):
         self.y = float(item.attrib['y'])
         self.name = item.attrib['name']
         self.rot = 0.0
+        self.oscilloscope_channel = None
+
         if 'rot' in item.attrib.keys():
             rot = item.attrib['rot']
             print rot
@@ -719,16 +771,27 @@ class SMD(object):
         (self.x,self.y) = (self.x-self.dx/2,self.y-self.dy/2)
 
     def color(self):
-        if self.underMouse:
+        if self.oscilloscope_channel is not None:
             return padSelected
         else:
             return pad
-
+    
     def draw(self,cr):
         cr.set_source_rgb(*self.color())
         (x,y) = self.parent.absoluteCoordinates(self.x,self.y)
         cr.rectangle(x,y,self.dx,self.dy)
         cr.stroke()
+
+        if self.oscilloscope_channel is not None:
+            cr.save()
+            cr.set_source_rgb(0.80,0.0,0.0)
+            cr.move_to(x,y)
+            cr.line_to(x+10,y+10)
+            cr.move_to(x+10,y+10)
+            cr.arc(x+10,y+10,5,0,2*math.pi)
+            cr.stroke()
+            cr.restore()
+
 
     def checkUnderMouse(self,x,y):
         (x1,y1) = self.parent.absoluteCoordinates(self.x,self.y)

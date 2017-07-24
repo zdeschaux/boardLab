@@ -149,7 +149,8 @@ class Sheet(XMLElement):
         self.instanceHash = {}
         self.nets = []
         self.rootParent = rootParent
-        self.measurement = None
+        self.channel1 = None
+        self.channel2 = None
 
         self.loadInstances()
         print self.instanceHash
@@ -174,8 +175,10 @@ class Sheet(XMLElement):
             i.draw(cr)
         for i in self.nets:
             i.draw(cr)
-        if self.measurement is not None:
-            self.measurement.draw(cr)
+        if self.channel1 is not None:
+            self.channel1.draw(cr)
+        if self.channel2 is not None:
+            self.channel2.draw(cr)
 
 
     def processFrame(self,frame):
@@ -187,25 +190,24 @@ class Sheet(XMLElement):
                 return self.processVDCFrame(frameDict)
             if frameDict['type'] == 'select':
                 return self.processSelectFrame(frameDict)
-            if frameDict['type'] == 'VAC':
-                return self.processVACFrame(frameDict)
+            if frameDict['type'].startswith('oscilloscope_channel'):
+                return self.processOscilloscopeFrame(frameDict)
             if frameDict['type'] == 'datasheet':
                 return self.processDatasheetFrame(frameDict)
 
 
-    def processVACFrame(self,frameDict):
-        print 'and here'
-        if self.measurement is not None and self.measurement.type == 'VAC' and frameDict['id'] == self.measurement.id:
-            print 'here'
-            self.measurement.addValue(frameDict)
-        else:
-            measObj = ACMeasurement(frameDict,self)
-            self.measurement = measObj
+    def processOscilloscopeFrame(self,frameDict):
+        channel = int(frameDict['type'][-1:])        
+        measObj = ACMeasurement(frameDict,channel,self)
+        if channel == 1:
+            self.channel1 = measObj
+        if channel == 2:
+            self.channel2 = measObj
         
-            self.parent.selectInstances([measObj.positivePart],datasheets=False)
-            self.parent.selectPins([measObj.positivePin])
+        self.parent.selectInstances([measObj.positivePart],datasheets=False)
+        self.parent.selectPins([measObj.positivePin])
         
-        return self.measurement.center()
+        return measObj.center()
 
 
     def processVDCFrame(self,frameDict):
@@ -231,10 +233,10 @@ class Sheet(XMLElement):
 
 
 class ACMeasurement(object):
-    def __init__(self,frameDict,schSheet):
+    def __init__(self,frameDict,channel,schSheet):
         self.id = frameDict['id']
+        self.channel = channel
         self.type = frameDict['type']
-        self.values = [frameDict['value']]
         positive = frameDict['positive']
         positiveParts = schSheet.instanceHash[positive['partName']]
     
@@ -251,39 +253,26 @@ class ACMeasurement(object):
         (x1,y1) = self.positivePin.centerAbsolute()
         (self.centerX,self.centerY) = (x1,y1)
 
-        self.createImage()
 
-
-    def addValue(self,frameDict):
-        maxLen = 100
-        if self.positivePin.testData is not None:
-            maxLen = len(self.positivePin.testData['voltage'])
-
-        if len(self.values) >= maxLen:
-            self.values = self.values[1:]
-        self.values.append(frameDict['value'])
-        self.createImage()
-
-    def createImage(self):
-        #create the plot to be displayed
-        plotPng('s.png',self.values,testData=self.positivePin.testData)
-        self.imagesurface = cairo.ImageSurface.create_from_png('s.png')
-        self.imageHeight = self.imagesurface.get_height()
-    
     def center(self):
         return (self.centerX,self.centerY)
+
         
     def draw(self,cr):
+        (x1,y1) = self.positivePin.centerAbsolute()        
         cr.save()
-        cr.set_source_rgb(*colors.measurement)
-
-        (x1,y1) = self.positivePin.centerAbsolute()
         
-        cr.save()    # push a new context onto the stack
-        cr.set_source_surface(self.imagesurface,x1*scale+60,(y1*scale)-self.imageHeight/2)
-        cr.paint()
-        cr.restore() 
-
+        cr.set_font_size(30)
+        cr.select_font_face('Helvetica',cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
+        
+        cr.set_source_rgb(0.0,0.0,0.8)
+        cr.move_to(x1*scale,y1*scale)
+        cr.line_to(x1*scale+100,y1*scale-100)
+        cr.stroke()
+        cr.arc(x1*scale+100,y1*scale-100,30,0,2*math.pi)
+        cr.stroke()
+        cr.move_to(x1*scale+100,y1*scale-100)
+        cr.show_text('%d'%(self.channel,))
         cr.restore()
         
 

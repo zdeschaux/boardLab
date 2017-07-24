@@ -72,7 +72,7 @@ noMultimeter = True
 noTracking = True
 
 #demo Mode!!
-if False:
+if True:
     noProbe = False
     noMultimeter = True
     noTracking = False
